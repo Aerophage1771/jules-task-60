@@ -1,0 +1,45 @@
+name: Materialize Theme Source Hub
+
+on:
+  push:
+    paths:
+      - '.materialize-theme-source-hub'
+
+permissions:
+  contents: write
+
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Reconstruct exact reviewed theme sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          cat source-transfer/parts/part-* > /tmp/theme-sources.b64
+          base64 -d /tmp/theme-sources.b64 > /tmp/GT-jules-theme-sources-2026-08-30.tar.xz
+          echo '327f467c62296705724063ecb89dd7d19f212f522cfc76b47eb0d8e5306a6169  /tmp/GT-jules-theme-sources-2026-08-30.tar.xz' | sha256sum -c -
+          rm -rf source-hub
+          mkdir -p source-hub
+          tar -xJf /tmp/GT-jules-theme-sources-2026-08-30.tar.xz -C source-hub
+          echo 'b5d7e84620b56291fcca7b53c7aa40dffe37bcb1dacba04350457955e210aa12  source-hub/GT-theme-source-sunlit-botanical.html' | sha256sum -c -
+          echo '006cc7a8e3d4304a46cd055322695f152d8667c9c84ea3c79d6f720ea1d1cd33  source-hub/GT-theme-source-emerald-printshop-editorial-premium.html' | sha256sum -c -
+          echo '3ce2947e49b3480d157d5a46dac3b47363554d7037ae546176861b951e396d49  source-hub/GT-theme-source-civic-reasoning.html' | sha256sum -c -
+          echo 'b0a2dc410c80e64acd8d3b2a26bca7d8225070c1f3da4256cd57fe9a40ec0b00  source-hub/GT-theme-source-examiners-ink.html' | sha256sum -c -
+          echo '9a7111996b2394b0fd7d716b6d070082f0d21eb30f178addc5a7334f1a3b4807  source-hub/GT-theme-source-ivy-preparatory.html' | sha256sum -c -
+      - name: Commit source hub
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add source-hub
+          if git diff --cached --quiet; then
+            echo 'Theme source hub already current.'
+            exit 0
+          fi
+          git commit -m 'chore: materialize exact theme source hub'
+          git push
