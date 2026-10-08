@@ -410,15 +410,20 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     if (button) button.disabled = true;
     // One snapshot of the settings for the whole ZIP, so changing a selector mid-export cannot mix formats.
     var opts = { format: state.format, scale: state.scale };
+    var capped = [];
     var zip = new window.JSZip();
     var i = 0;
     function next() {
       if (i >= boards.length) return zip.generateAsync({ type: 'blob' });
       var board = boards[i++];
       status('Rendering ' + i + ' of ' + boards.length + '…');
-      return render(board, opts).then(function (blob) { zip.file(fileName(board, opts.format), blob); return next(); });
+      var boardOpts = { format: opts.format, scale: opts.scale, onCapped: function (fit) { capped.push(board.getAttribute('data-name') + ' at ' + fit.toFixed(2) + '×'); } };
+      return render(board, boardOpts).then(function (blob) { zip.file(fileName(board, opts.format), blob); return next(); });
     }
-    return next().then(function (blob) { save(blob, zipName + '.zip'); status('Saved ' + zipName + '.zip'); })
+    return next().then(function (blob) {
+      save(blob, zipName + '.zip');
+      status('Saved ' + zipName + '.zip' + (capped.length ? '. Too large for ' + opts.scale + '× (browser size limit), so exported smaller: ' + capped.join(', ') : ''));
+    })
       .catch(function (e) { status('Export failed: ' + e.message); })
       .then(function () { if (button) button.disabled = false; });
   }
