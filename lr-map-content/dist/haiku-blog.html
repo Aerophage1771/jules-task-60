@@ -3940,13 +3940,15 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     opts = opts || {};
     var format = opts.format || state.format;
     var scale = opts.scale || state.scale;
-    var size = sizeOf(board);
     var lib = window.htmlToImage;
     if (!lib) return Promise.reject(new Error('html-to-image did not load'));
-    // Keep the chosen scale unless the canvas would exceed browser limits; then use the largest scale that fits.
-    var fit = Math.min(scale, MAX_SIDE / Math.max(size.w, size.h), Math.sqrt(MAX_AREA / (size.w * size.h)));
-    if (fit < scale && opts.onCapped) opts.onCapped(fit);
+    var size, fit;
     return ready().then(function () {
+      // Measure only once fonts have loaded: an auto-height board measured with fallback fonts would clip.
+      size = sizeOf(board);
+      // Keep the chosen scale unless the canvas would exceed browser limits; then use the largest scale that fits.
+      fit = Math.min(scale, MAX_SIDE / Math.max(size.w, size.h), Math.sqrt(MAX_AREA / (size.w * size.h)));
+      if (fit < scale && opts.onCapped) opts.onCapped(fit);
       if (fontCSS.has(board)) return fontCSS.get(board);
       return lib.getFontEmbedCSS(board).then(function (css) { fontCSS.set(board, css); return css; });
     }).then(function (css) {
@@ -4112,17 +4114,23 @@ https://github.com/nodeca/pako/blob/main/LICENSE
       while (block.firstChild) body.appendChild(block.firstChild);
       var btn = button('Copy text', 'gt-copy-btn', function () {
         var text = block.getAttribute('data-copy-text') || body.innerText.trim();
-        var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy text'; }, 1400); };
-        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, function () { fallback(text); done(); });
-        else { fallback(text); done(); }
+        var show = function (ok) {
+          btn.textContent = ok ? 'Copied' : 'Copy failed: select the text and copy it';
+          setTimeout(function () { btn.textContent = 'Copy text'; }, ok ? 1400 : 4000);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { show(true); }, function () { show(fallback(text)); });
+        else show(fallback(text));
       });
       head.appendChild(h); head.appendChild(btn); box.appendChild(head); box.appendChild(body); block.appendChild(box);
     });
   }
+  /* Legacy copy path; returns whether the browser reports that it copied. */
   function fallback(text) {
     var t = document.createElement('textarea'); t.value = text; document.body.appendChild(t); t.select();
-    try { document.execCommand('copy'); } catch (e) {}
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
     t.remove();
+    return ok;
   }
 
   function setupBar() {
