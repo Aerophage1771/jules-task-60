@@ -4,6 +4,8 @@ New takes on the LR Question Type Map guide (`LR-Map-Guide-fixed.html`) for five
 
 ## Open these
 
+**Everything in one page:** `dist/lr-map-all.html` has a tab for each channel and a switch for each version (round 2 opens first). Each piece runs in its own frame with its own export toolbar, exactly as its standalone page does, and `#channel/version` links open a specific piece (for example `lr-map-all.html#reddit/opus2`).
+
 Each file in `dist/` is self-contained (fonts, logo and export code inlined). Open it in a browser, straight from disk.
 
 | Channel | Round 2 (Opus) | Round 1, Opus track | Round 1, Haiku track | Paste-ready text |
@@ -33,6 +35,7 @@ The blog pages render the post with the live site's own blog stylesheets (`kit/s
 
 - `src/` holds the authored pages. They reference the shared kit in `kit/` (`gt-export.js`, `gt-kit.css`, fonts, logo, vendored html-to-image 1.11.13 and JSZip 3.10.1).
 - `python3 -I tools/build.py src/<name>.html` writes the standalone `dist/<name>.html`.
+- `python3 -I tools/combine.py` writes `dist/lr-map-all.html` from all 15 pages in `src/`, storing the shared fonts, styles, scripts and logos once (about 2 MB, against about 17 MB for the separate pages).
 - `NODE_PATH=$(npm root -g) node tools/check.js dist/<name>.html` (needs Playwright with Chromium: `npm install -g playwright && npx playwright install chromium`) exports every image through the page's own export code into `.checks/<name>/` (ignored by git) and fails on console errors, missing fonts, failed exports or horizontal scroll on a phone.
 - `python3 -I tools/blog_to_ts.py src/<name>-blog.html` turns a blog preview into its `BlogPost` module.
 - `source/` holds the text extracted from the original guide and every original graphic rendered to PNG. `briefs/` holds the exact instructions each agent received (Haiku briefs embed all their source text so each agent read one file; `opus2-*` are the round-2 briefs).
