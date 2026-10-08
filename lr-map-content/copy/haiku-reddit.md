@@ -28,7 +28,7 @@ I organize the 20 question types into six families. The first five follow the wo
 5. Form Your Own Argument: determine what the facts support, complete, or rule out.
 6. Argument-Adjacent: check both sides of a relationship between speakers, rules and cases, or facts.
 
-Change the Argument questions often begin from the same gap, but they ask you to do different things with it. Helpful, required, and sufficient are different. A Strengthen answer improves the support for the conclusion. A Necessary Assumption answer is something the argument requires. A Sufficient Assumption answer, combined with the premises, makes the conclusion follow. If “this helps” is your standard for every question in the family, you will miss the ones that ask for something narrower.
+Change the Argument questions often begin from the same gap, but they ask you to do different things with it. Helpful, required, and sufficient are different. A Strengthen answer improves the support for the conclusion. A Necessary Assumption answer is something the argument requires. A Sufficient Assumption answer, combined with the premises, makes the conclusion follow. If “this helps” is your standard for every question in the family, you will miss the ones that ask whether an answer is required or whether it is sufficient.
 
 Form Your Own Argument asks what the statements support, complete, or rule out. Possible, supported, guaranteed, and contradicted are four different relationships to the evidence. On Must Be True, try to make the answer false while the stimulus stays true. If you can do that, the answer is not required by the facts. Must Be False asks for an answer that cannot coexist with the given information.
 
