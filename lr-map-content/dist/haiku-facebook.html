@@ -155,7 +155,10 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   var state = { format: 'png', scale: 2 };
   var TYPES = { png: 'image/png', jpeg: 'image/jpeg', webp: 'image/webp' };
   var EXT = { png: 'png', jpeg: 'jpg', webp: 'webp' };
-  var fontCSS = null;
+  /* html-to-image embeds only the font families a board uses, so the embed CSS is cached per board. */
+  var fontCSS = new WeakMap();
+  /* Browsers refuse canvases past about 32,767px on a side or 268M pixels; stay under both. */
+  var MAX_SIDE = 32000, MAX_AREA = 250e6;
   var statusEl = null;
 
   function status(text) { if (statusEl) statusEl.textContent = text || ''; }
@@ -192,14 +195,17 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     var size = sizeOf(board);
     var lib = window.htmlToImage;
     if (!lib) return Promise.reject(new Error('html-to-image did not load'));
+    // Keep the chosen scale unless the canvas would exceed browser limits; then use the largest scale that fits.
+    var fit = Math.min(scale, MAX_SIDE / Math.max(size.w, size.h), Math.sqrt(MAX_AREA / (size.w * size.h)));
+    if (fit < scale && opts.onCapped) opts.onCapped(fit);
     return ready().then(function () {
-      if (fontCSS !== null) return fontCSS;
-      return lib.getFontEmbedCSS(board).then(function (css) { fontCSS = css; return css; });
+      if (fontCSS.has(board)) return fontCSS.get(board);
+      return lib.getFontEmbedCSS(board).then(function (css) { fontCSS.set(board, css); return css; });
     }).then(function (css) {
       var bg = getComputedStyle(board).backgroundColor;
       if (!bg || bg === 'rgba(0, 0, 0, 0)' || bg === 'transparent') bg = format === 'png' ? null : '#ffffff';
       return lib.toCanvas(board, {
-        width: size.w, height: size.h, pixelRatio: scale, fontEmbedCSS: css, backgroundColor: bg || undefined,
+        width: size.w, height: size.h, pixelRatio: fit, skipAutoScale: true, fontEmbedCSS: css, backgroundColor: bg || undefined,
         style: { transform: 'none', margin: '0', width: size.w + 'px', height: size.h + 'px' }
       });
     }).then(function (canvas) {
@@ -209,22 +215,31 @@ https://github.com/nodeca/pako/blob/main/LICENSE
     });
   }
 
+  function cappedNote(name) {
+    return function (fit) { status(name + ' is too large for ' + state.scale + '×; exporting at ' + fit.toFixed(2) + '×…'); };
+  }
+
   function exportOne(board, format) {
-    status('Rendering ' + board.getAttribute('data-name') + '…');
-    return render(board, { format: format }).then(function (blob) { save(blob, fileName(board, format)); status('Saved ' + fileName(board, format)); })
+    var name = board.getAttribute('data-name');
+    var capped = '';
+    status('Rendering ' + name + '…');
+    return render(board, { format: format, onCapped: function (fit) { capped = ' at ' + fit.toFixed(2) + '× (browser size limit)'; cappedNote(name)(fit); } })
+      .then(function (blob) { save(blob, fileName(board, format)); status('Saved ' + fileName(board, format) + capped); })
       .catch(function (e) { status('Export failed: ' + e.message); throw e; });
   }
 
   function exportZip(boards, zipName, button) {
     if (!window.JSZip) { status('JSZip did not load'); return Promise.resolve(); }
     if (button) button.disabled = true;
+    // One snapshot of the settings for the whole ZIP, so changing a selector mid-export cannot mix formats.
+    var opts = { format: state.format, scale: state.scale };
     var zip = new window.JSZip();
     var i = 0;
     function next() {
       if (i >= boards.length) return zip.generateAsync({ type: 'blob' });
       var board = boards[i++];
       status('Rendering ' + i + ' of ' + boards.length + '…');
-      return render(board).then(function (blob) { zip.file(fileName(board, state.format), blob); return next(); });
+      return render(board, opts).then(function (blob) { zip.file(fileName(board, opts.format), blob); return next(); });
     }
     return next().then(function (blob) { save(blob, zipName + '.zip'); status('Saved ' + zipName + '.zip'); })
       .catch(function (e) { status('Export failed: ' + e.message); })
@@ -241,11 +256,17 @@ https://github.com/nodeca/pako/blob/main/LICENSE
   /* Preview: a fixed-size frame holding the true-size artboard scaled down. Export ignores the frame. */
   var frames = [];
   function layout() {
-    frames.forEach(function (f) {
+    // Collapse every preview first, so each container is measured at its own width rather than
+    // stretched by the preview inside it (a grid or flex cell without min-width: 0 would grow).
+    frames.forEach(function (f) { f.figure.style.width = '0px'; f.frame.style.width = '0px'; });
+    var widths = frames.map(function (f) {
+      var box = f.figure.closest('.gt-set-grid') || f.figure.parentElement;
+      return box ? box.clientWidth : window.innerWidth;
+    });
+    frames.forEach(function (f, n) {
       var size = sizeOf(f.board);
-      var set = f.figure.closest('.gt-set-grid') || f.figure.parentElement;
-      // A figure inside a page block measures that block, minus any siblings sharing its row.
-      var avail = Math.max(200, (set ? set.clientWidth : window.innerWidth) - 2);
+      // The figure's own container: the set's grid for direct children, otherwise the page block holding it.
+      var avail = Math.max(200, widths[n] - 2);
       var cap = parseFloat(f.board.getAttribute('data-preview')) || parseFloat((f.figure.closest('.gt-set') || {}).getAttribute && f.figure.closest('.gt-set').getAttribute('data-preview')) || 0;
       var target = cap ? Math.min(cap, avail) : Math.min(avail, size.w);
       var s = Math.min(1, target / size.w);

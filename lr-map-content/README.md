@@ -31,6 +31,6 @@ The blog pages render the post with the live site's own blog stylesheets (`kit/s
 
 - `src/` holds the authored pages. They reference the shared kit in `kit/` (`gt-export.js`, `gt-kit.css`, fonts, logo, vendored html-to-image 1.11.13 and JSZip 3.10.1).
 - `python3 -I tools/build.py src/<name>.html` writes the standalone `dist/<name>.html`.
-- `NODE_PATH=$(npm root -g) node tools/check.js dist/<name>.html` exports every image through the page's own export code into `.checks/<name>/` (ignored by git) and fails on console errors, missing fonts, failed exports or horizontal scroll on a phone.
+- `NODE_PATH=$(npm root -g) node tools/check.js dist/<name>.html` (needs Playwright with Chromium: `npm install -g playwright && npx playwright install chromium`) exports every image through the page's own export code into `.checks/<name>/` (ignored by git) and fails on console errors, missing fonts, failed exports or horizontal scroll on a phone.
 - `python3 -I tools/blog_to_ts.py src/<model>-blog.html` turns a blog preview into its `BlogPost` module.
 - `source/` holds the text extracted from the original guide and every original graphic rendered to PNG. `briefs/` holds the exact instructions each agent received (Haiku briefs embed all their source text so each agent read one file).

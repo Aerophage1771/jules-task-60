@@ -3,7 +3,11 @@
  * Output: .checks/<name>/<artboard>.png (1x, exactly what the Export buttons produce),
  *         .checks/<name>/page-desktop.png and page-phone.png (top of the page only).
  * Fails loudly on console errors, missing fonts or a failed export. */
-const { chromium } = require('playwright');
+let chromium;
+try { ({ chromium } = require('playwright')); } catch (e) {
+  console.error('This checker needs Playwright and a Chromium build. Install with: npm install -g playwright && npx playwright install chromium\nthen run it as: NODE_PATH=$(npm root -g) node tools/check.js dist/<name>.html');
+  process.exit(2);
+}
 const fs = require('fs'), path = require('path');
 (async () => {
   const file = path.resolve(process.argv[2]);

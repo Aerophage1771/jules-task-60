@@ -37,6 +37,7 @@ def main(src):
     lines.append('};')
     name = os.path.splitext(os.path.basename(src))[0]
     out = os.path.join(ROOT, 'copy', name + '.ts')
+    os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
     print(f'Wrote {os.path.relpath(out, ROOT)}: {words} words, readTime {meta["readTime"]}')
 
