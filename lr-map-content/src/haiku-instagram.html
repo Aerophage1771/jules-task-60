@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instagram Carousel (Haiku)</title>
+<link rel="stylesheet" href="../kit/fonts-social.css">
+<link rel="stylesheet" href="../kit/gt-kit.css">
+<style>
+  body { margin: 0; background: #E7EDF5; color: #28364A; font-family: Inter, sans-serif; }
+  .page-intro { max-width: 860px; margin: 24px auto 0; padding: 0 16px; font-size: 18px; line-height: 1.5; color: #28364A; }
+
+  .slide { box-sizing: border-box; width: 1080px; height: 1350px; overflow: hidden; position: relative; display: flex; flex-direction: column; background: #F3F6FA; color: #28364A; font-family: Inter, sans-serif; }
+  .slide p { margin: 0; }
+  .slide h2 { margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 550; letter-spacing: -0.02em; line-height: 1.08; color: #FFFFFF; text-wrap: balance; }
+  .slide ul, .slide ol { margin: 0; padding: 0; list-style: none; }
+  .slide .eyebrow { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 22px; line-height: 1.2; letter-spacing: 0.06em; text-transform: uppercase; color: #E3C06B; }
+
+  /* Dark band: eyebrow at top, headline at bottom */
+  .slide .band { flex: none; box-sizing: border-box; height: 280px; padding: 64px 64px 56px; background: #344E73; display: flex; flex-direction: column; justify-content: space-between; }
+  .slide .band h2 { font-size: 72px; }
+
+  /* Footer: same position on every slide */
+  .slide .foot { flex: none; box-sizing: border-box; height: 64px; margin: 0 64px 56px; border-top: 1px solid #C3CEDD; display: flex; align-items: center; justify-content: space-between; }
+  .slide .logo { display: block; height: 40px; width: auto; }
+  .slide .pg { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 22px; letter-spacing: 0.06em; color: #5A6B82; }
+
+  /* Gold-wash check box, enclosed on all sides */
+  .slide .check { flex: none; box-sizing: border-box; margin: 0 64px 40px; padding: 24px 32px; background: #FBF4DF; border: 1px solid #E3C06B; font-size: 28px; line-height: 1.35; font-weight: 500; color: #14243B; }
+  .slide .check .lbl { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 22px; letter-spacing: 0.06em; text-transform: uppercase; color: #7A5818; margin-right: 8px; }
+
+  /* Family rows: one enclosed card per question type */
+  .slide .rows { flex: 1 1 0; min-height: 0; box-sizing: border-box; padding: 44px 64px 32px; display: flex; flex-direction: column; gap: 14px; }
+  .slide .row { flex: 1 1 0; min-height: 0; box-sizing: border-box; padding: 14px 32px; background: #FFFFFF; border: 1px solid #C3CEDD; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+  .slide .type { font-weight: 600; color: #14243B; }
+  .slide .task { font-weight: 400; color: #28364A; }
+  .slide .n2 .row { padding: 40px 48px; gap: 14px; }
+  .slide .n2 .type { font-size: 48px; line-height: 1.15; }
+  .slide .n2 .task { font-size: 36px; line-height: 1.3; }
+  .slide .n4 .row { padding: 28px 40px; gap: 10px; }
+  .slide .n4 .type { font-size: 36px; line-height: 1.2; }
+  .slide .n4 .task { font-size: 30px; line-height: 1.3; }
+  .slide .n6 .row { padding: 12px 32px; }
+  .slide .n6 .type { font-size: 30px; line-height: 1.2; }
+  .slide .n6 .task { font-size: 28px; line-height: 1.3; }
+  .slide .n3 .row { padding: 32px 48px; font-size: 34px; line-height: 1.3; font-weight: 400; color: #28364A; }
+
+  /* Closing line on slide 2 */
+  .slide .closing { flex: none; margin: 0 64px 40px; font-family: Fraunces, Georgia, serif; font-weight: 550; font-size: 56px; line-height: 1.15; letter-spacing: -0.02em; color: #14243B; }
+
+  /* Cover */
+  .slide.s-cover .band { height: 560px; }
+  .slide.s-cover .band h2 { font-size: 96px; }
+  .slide .body { flex: 1 1 0; min-height: 0; box-sizing: border-box; padding: 56px 64px 0; display: flex; flex-direction: column; }
+  .slide .subline { font-size: 40px; line-height: 1.3; font-weight: 500; color: #28364A; }
+  .slide .fam-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 40px; }
+  .slide .fam { box-sizing: border-box; padding: 24px 28px; background: #FFFFFF; border: 1px solid #C3CEDD; display: flex; flex-direction: column; gap: 8px; }
+  .slide .fam .num { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 22px; letter-spacing: 0.06em; color: #7A5818; }
+  .slide .fam .nm { font-size: 28px; font-weight: 600; line-height: 1.25; color: #14243B; }
+  .slide .swipe { margin: auto 0 40px; font-size: 28px; font-weight: 600; line-height: 1.3; color: #3E5F8F; }
+
+  /* Problem slide */
+  .slide.s-problem .band { height: 400px; }
+  .slide.s-problem .band h2 { font-size: 84px; }
+
+  /* Practice slide */
+  .slide.s-practice .band { height: 400px; }
+  .slide.s-practice .band h2 { font-size: 72px; }
+  .slide .steps { flex: 1 1 0; min-height: 0; box-sizing: border-box; padding: 44px 64px 32px; display: flex; flex-direction: column; gap: 16px; }
+  .slide .step { flex: 1 1 0; min-height: 0; box-sizing: border-box; padding: 36px 44px; background: #FFFFFF; border: 1px solid #C3CEDD; display: flex; align-items: center; gap: 32px; }
+  .slide .step .num { flex: none; width: 56px; font-family: Fraunces, Georgia, serif; font-weight: 550; font-size: 96px; line-height: 1; color: #7A5818; }
+  .slide .step .txt { display: flex; flex-direction: column; gap: 14px; font-size: 40px; line-height: 1.3; font-weight: 500; color: #14243B; }
+  .slide .step .q { font-family: Fraunces, Georgia, serif; font-weight: 550; font-size: 46px; line-height: 1.2; letter-spacing: -0.01em; color: #14243B; }
+  .slide .contrast { flex: none; margin: 0 64px 40px; font-size: 36px; line-height: 1.4; color: #28364A; }
+
+  /* Save slide: dark closing card with centered logo */
+  .slide.s-save { background: #344E73; color: #E7EDF5; }
+  .slide.s-save .foot { border-top-color: #3E5F8F; justify-content: flex-end; }
+  .slide.s-save .pg { color: #C3CEDD; }
+  .slide .save-main { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 44px; text-align: center; padding: 0 64px; }
+  .slide.s-save .logo { height: 96px; }
+  .slide.s-save h2 { font-size: 88px; color: #FFFFFF; }
+  .slide .save-line { max-width: 800px; font-size: 36px; line-height: 1.4; color: #E7EDF5; }
+</style>
+</head>
+<body data-export-name="haiku-instagram" data-kit-title="Instagram carousel">
+<header class="page-intro">Ten-slide Instagram carousel (4:5, 1080×1350) built from the LR Question Type Map. Export the set from the toolbar as PNG, JPEG or WebP, post the slides in order, and paste the caption, first comment and alt text from copy/haiku-instagram.md.</header>
+
+<section class="gt-set" data-set="Instagram carousel (10 slides, 1080×1350)" data-zip="haiku-instagram">
+
+  <div class="gt-artboard slide s-cover" data-name="slide-01" data-w="1080" data-h="1350">
+    <div class="band">
+      <p class="eyebrow">LSAT LOGICAL REASONING</p>
+      <h2>20 types. Six families.</h2>
+    </div>
+    <div class="body">
+      <p class="subline">Know the task before you judge the answer.</p>
+      <ol class="fam-grid">
+        <li class="fam"><span class="num">01</span><span class="nm">Identify the Parts</span></li>
+        <li class="fam"><span class="num">02</span><span class="nm">Describe the Argument</span></li>
+        <li class="fam"><span class="num">03</span><span class="nm">Critique the Argument</span></li>
+        <li class="fam"><span class="num">04</span><span class="nm">Change the Argument</span></li>
+        <li class="fam"><span class="num">05</span><span class="nm">Form Your Own Argument</span></li>
+        <li class="fam"><span class="num">06</span><span class="nm">Argument-Adjacent</span></li>
+      </ol>
+      <p class="swipe">Swipe for the task each type asks you to do →</p>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="pg">01 / 10</span></div>
+  </div>
+
+  <div class="gt-artboard slide s-problem" data-name="slide-02" data-w="1080" data-h="1350">
+    <div class="band">
+      <p class="eyebrow">THE PROBLEM</p>
+      <h2>A true answer can still be wrong.</h2>
+    </div>
+    <ul class="rows n3">
+      <li class="row">A statement that strengthens an argument might not be necessary to it.</li>
+      <li class="row">A necessary assumption might leave the conclusion unproven.</li>
+      <li class="row">An accurate description of a sentence might name its topic without identifying its role.</li>
+    </ul>
+    <p class="closing">These are differences in the task.</p>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="pg">02 / 10</span></div>
+  </div>
+
+  <div class="gt-artboard slide" data-name="slide-03" data-w="1080" data-h="1350">
+    <div class="band">
+      <p class="eyebrow">FAMILY 01 · IDENTIFY THE PARTS</p>
+      <h2>What is each statement doing?</h2>
+    </div>
+    <ul class="rows n2">
+      <li class="row"><span class="type">Role in Argument</span><span class="task">Identify the job of the quoted statement.</span></li>
+      <li class="row"><span class="type">Main Conclusion</span><span class="task">Identify the claim the author is ultimately defending.</span></li>
+    </ul>
+    <p class="check"><span class="lbl">Check:</span> Don’t choose a statement because it is important or true.</p>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="pg">03 / 10</span></div>
+  </div>
+
+  <div class="gt-artboard slide" data-name="slide-04" data-w="1080" data-h="1350">
+    <div class="band">
+      <p class="eyebrow">FAMILY 02 · DESCRIBE THE ARGUMENT</p>
+      <h2>How does the reasoning work?</h2>
+    </div>
+    <ul class="rows n2">
+      <li class="row"><span class="type">Method of Reasoning</span><span class="task">Describe how the argument proceeds.</span></li>
+      <li class="row"><span class="type">Parallel Reasoning</span><span class="task">Match the reasoning structure.</span></li>
+    </ul>
+    <p class="check"><span class="lbl">Check:</span> Don’t match topics or familiar words.</p>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="pg">04 / 10</span></div>
+  </div>
+
+  <div class="gt-artboard slide" data-name="slide-05" data-w="1080" data-h="1350">
+    <div class="band">
+      <p class="eyebrow">FAMILY 03 · CRITIQUE THE ARGUMENT</p>
+      <h2>Where does the reasoning fail?</h2>
+    </div>
+    <ul class="rows n2">
+      <li class="row"><span class="type">Flaw</span><span class="task">Identify the error in the reasoning.</span></li>
+      <li class="row"><span class="type">Parallel Flaw</span><span class="task">Match the relevant flawed reasoning.</span></li>
+    </ul>
+    <p class="check"><span class="lbl">Check:</span> Don’t pick a familiar flaw because it is a real flaw.</p>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="pg">05 / 10</span></div>
+  </div>
+
+  <div class="gt-artboard slide" data-name="slide-06" data-w="1080" data-h="1350">
+    <div class="band">
+      <p class="eyebrow">FAMILY 04 · CHANGE THE ARGUMENT</p>
+      <h2>What happens to the support?</h2>
+    </div>
+    <ul class="rows n6">
+      <li class="row"><span class="type">Evaluate</span><span class="task">Find information useful in assessing the argument.</span></li>
+      <li class="row"><span class="type">Weaken</span><span class="task">Reduce the support for the conclusion.</span></li>
+      <li class="row"><span class="type">Strengthen</span><span class="task">Improve the support for the conclusion.</span></li>
+      <li class="row"><span class="type">Sufficient Assumption</span><span class="task">Make the conclusion follow when the answer is added.</span></li>
+      <li class="row"><span class="type">Necessary Assumption</span><span class="task">Identify what the argument requires.</span></li>
+      <li class="row"><span class="type">Principle Strengthen</span><span class="task">Supply a general rule that helps justify the conclusion.</span></li>
+    </ul>
+    <p class="check"><span class="lbl">Check:</span> Helpful ≠ required ≠ sufficient.</p>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="pg">06 / 10</span></div>
+  </div>
+
+  <div class="gt-artboard slide" data-name="slide-07" data-w="1080" data-h="1350">
+    <div class="band">
+      <p class="eyebrow">FAMILY 05 · FORM YOUR OWN ARGUMENT</p>
+      <h2>What do the facts establish?</h2>
+    </div>
+    <ul class="rows n4">
+      <li class="row"><span class="type">Fill in the Blank</span><span class="task">Complete the passage in the role the blank requires.</span></li>
+      <li class="row"><span class="type">Most Strongly Supported</span><span class="task">Identify the claim with the strongest support from the stimulus.</span></li>
+      <li class="row"><span class="type">Must Be True</span><span class="task">Identify a claim guaranteed by the statements.</span></li>
+      <li class="row"><span class="type">Must Be False</span><span class="task">Identify a claim incompatible with the statements.</span></li>
+    </ul>
+    <p class="check"><span class="lbl">Check:</span> Don’t treat possible, supported, guaranteed, and contradicted as one judgment.</p>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="pg">07 / 10</span></div>
+  </div>
+
+  <div class="gt-artboard slide" data-name="slide-08" data-w="1080" data-h="1350">
+    <div class="band">
+      <p class="eyebrow">FAMILY 06 · ARGUMENT-ADJACENT</p>
+      <h2>Check both sides.</h2>
+    </div>
+    <ul class="rows n4">
+      <li class="row"><span class="type">Agree / Disagree</span><span class="task">Identify a shared or opposed position.</span></li>
+      <li class="row"><span class="type">Principle: Apply</span><span class="task">Identify the case or judgment licensed by a rule.</span></li>
+      <li class="row"><span class="type">Principle: Generalize</span><span class="task">Identify the principle the case illustrates.</span></li>
+      <li class="row"><span class="type">Paradox: Resolve, Reconcile, Explain</span><span class="task">Explain how the surprising facts can coexist.</span></li>
+    </ul>
+    <p class="check"><span class="lbl">Check:</span> Don’t ignore one side of the relationship.</p>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="pg">08 / 10</span></div>
+  </div>
+
+  <div class="gt-artboard slide s-practice" data-name="slide-09" data-w="1080" data-h="1350">
+    <div class="band">
+      <p class="eyebrow">PRACTICE</p>
+      <h2>Name the task. Then test the choice.</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="num">1</span><div class="txt"><p>State the task in one sentence before reading the choices.</p></div></div>
+      <div class="step"><span class="num">2</span><div class="txt"><p>After a miss, ask:</p><p class="q">“What standard did my chosen answer fail?”</p></div></div>
+    </div>
+    <p class="contrast">“Wrong answer” is not much of a diagnosis. “I picked something that strengthened the argument when I needed something the argument required” tells you what to change.</p>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="pg">09 / 10</span></div>
+  </div>
+
+  <div class="gt-artboard slide s-save" data-name="slide-10" data-w="1080" data-h="1350">
+    <div class="save-main">
+      <img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring">
+      <h2>Save the map for review.</h2>
+      <p class="save-line">The full article and the free printable guide are linked in the first comment.</p>
+    </div>
+    <div class="foot"><span class="pg">10 / 10</span></div>
+  </div>
+
+</section>
+
+<section class="gt-copy" data-label="Caption"><pre>A statement can strengthen an argument without being necessary to it. It can be necessary without being enough to prove the conclusion.
+
+If those standards blur together, the same answer can seem right for three different questions.
+
+I organized the 20 Logical Reasoning question types into six families. The first five follow the work you do on an argument: identify its parts, describe it, critique it, change it, and draw a conclusion yourself. The sixth covers two speakers, rules and cases, and apparent conflicts.
+
+The Weaken examples gave you several ways to attack reasoning. This map shows where that skill fits and what changes when the task changes. Swipe through all six families to see what each type asks you to do.
+
+For your next missed question, state the task in one sentence. Then explain which part of that task your selected answer failed.
+
+Save the map for review. The full article and free guide are linked in the first comment.
+
+#LSAT #LSATprep #LogicalReasoning #LawSchool #LSATstudy #LSATtips</pre></section>
+
+<section class="gt-copy" data-label="First comment"><pre>Full article: https://germainetutoring.com/blog/lr-question-type-map
+
+Read or download the guide: https://germainetutoring.com/resources/lr-question-type-map
+
+If you know the type but keep missing what the answer needs to do, bring a recent example and your reasoning to a free consultation: https://germainetutoring.com/#consultation</pre></section>
+
+<section class="gt-copy" data-label="Alt text per slide"><pre>Slide 01: Cover with the headline 20 types. Six families. above a numbered list of the six families and the line Know the task before you judge the answer.
+Slide 02: Three enclosed statements explain that a true answer can still be wrong, ending with the line These are differences in the task.
+Slide 03: Family 01, Identify the Parts, asks What is each statement doing? and lists the tasks for Role in Argument and Main Conclusion, with a check against choosing a statement for being important or true.
+Slide 04: Family 02, Describe the Argument, asks How does the reasoning work? and lists the tasks for Method of Reasoning and Parallel Reasoning, with a check against matching topics or familiar words.
+Slide 05: Family 03, Critique the Argument, asks Where does the reasoning fail? and lists the tasks for Flaw and Parallel Flaw, with a check against picking a familiar flaw because it is a real flaw.
+Slide 06: Family 04, Change the Argument, asks What happens to the support? and lists six tasks from Evaluate through Principle Strengthen, with a check that helpful, required and sufficient are different.
+Slide 07: Family 05, Form Your Own Argument, asks What do the facts establish? and lists the tasks for Fill in the Blank, Most Strongly Supported, Must Be True and Must Be False, with a check against treating possible, supported, guaranteed and contradicted as one judgment.
+Slide 08: Family 06, Argument-Adjacent, asks Check both sides. and lists the tasks for Agree / Disagree, Principle: Apply, Principle: Generalize and Paradox, with a check against ignoring one side of the relationship.
+Slide 09: Practice, with two numbered steps: state the task before reading the choices, and ask what standard the chosen answer failed, followed by a contrast between a vague wrong answer and a specific diagnosis.
+Slide 10: Closing card with the Germaine Tutoring logo, the line Save the map for review., and a note that the full article and free printable guide are linked in the first comment.</pre></section>
+
+<script src="../kit/vendor/html-to-image.js"></script>
+<script src="../kit/vendor/jszip.min.js"></script>
+<script src="../kit/gt-export.js"></script>
+</body>
+</html>
