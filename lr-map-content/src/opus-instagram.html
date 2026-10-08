@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LR Map Carousel</title>
+<link rel="stylesheet" href="../kit/fonts-social.css">
+<link rel="stylesheet" href="../kit/gt-kit.css">
+<style>
+  body { margin: 0; background: #E7EDF5; color: #28364A; font-family: Inter, sans-serif; }
+  .page-intro { max-width: 860px; margin: 24px auto 0; padding: 0 16px; font: 400 16px/1.6 Inter, sans-serif; color: #28364A; }
+  .page-intro h1 { margin: 0 0 8px; font: 550 30px/1.15 Fraunces, serif; letter-spacing: -0.02em; color: #14243B; }
+  .page-intro p { margin: 0 0 10px; }
+  .notes { max-width: 860px; margin: 28px auto; padding: 0 16px; font: 400 15px/1.6 Inter, sans-serif; color: #28364A; }
+  .notes h2 { margin: 0 0 8px; font: 600 20px/1.3 Inter, sans-serif; color: #14243B; }
+  .notes ul { margin: 0; padding-left: 20px; }
+  .notes li { margin: 0 0 6px; }
+  .alt-head { max-width: 860px; margin: 40px auto -12px; padding: 0 16px; }
+  .alt-head h2 { margin: 0 0 4px; font: 600 20px/1.3 Inter, sans-serif; color: #14243B; }
+  .alt-head p { margin: 0; font: 400 15px/1.6 Inter, sans-serif; }
+
+  /* ---------- Slide system (1080 x 1350). Every rule is scoped under .slide. ---------- */
+  .slide { background: #F3F6FA; color: #28364A; font-family: Inter, sans-serif; padding: 64px 64px 60px; display: flex; flex-direction: column; }
+  .slide.dark { background: #344E73; color: #E7EDF5; }
+  .slide p { margin: 0; }
+  .slide .top { display: flex; justify-content: space-between; align-items: center; gap: 24px; min-height: 30px; }
+  .slide .eyebrow { font: 500 22px/1.3 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #7A5818; }
+  .slide.dark .eyebrow { color: #E3C06B; }
+  .slide .dots { display: flex; gap: 8px; flex: none; }
+  .slide .dots i { display: block; width: 30px; height: 10px; border-radius: 5px; background: #C3CEDD; }
+  .slide .dots i.on { background: #3E5F8F; }
+  .slide h1 { margin: 26px 0 0; font-family: Fraunces, serif; font-weight: 550; font-size: 64px; line-height: 1.08; letter-spacing: -0.02em; color: #14243B; }
+  .slide.dark h1 { color: #FFFFFF; }
+  .slide .types { margin: 20px 0 0; font: 600 24px/1.35 Inter, sans-serif; color: #3E5F8F; }
+  .slide .types b { font-weight: 600; color: #C3CEDD; padding: 0 10px; }
+  .slide .main { flex: 1; display: flex; flex-direction: column; gap: 20px; margin-top: 34px; min-height: 0; }
+  .slide .main.center { justify-content: center; }
+  .slide .foot { margin-top: 26px; padding-top: 22px; border-top: 2px solid #C3CEDD; display: flex; justify-content: space-between; align-items: center; }
+  .slide.dark .foot { border-top-color: #5A7398; }
+  .slide .logo { height: 38px; width: auto; display: block; }
+  .slide .num { font: 500 22px/1 'IBM Plex Mono', monospace; letter-spacing: 0.06em; color: #5A6B82; }
+  .slide.dark .num { color: #C3CEDD; }
+
+  .slide .card { background: #FFFFFF; border: 2px solid #C3CEDD; border-radius: 20px; padding: 28px 34px 30px; }
+  .slide .card.watch { background: #FBF4DF; border-color: #E3C06B; }
+  .slide .card.ink { background: #344E73; border-color: #344E73; color: #FFFFFF; }
+  .slide .lab { display: block; margin: 0 0 12px; font: 500 22px/1.3 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #3E5F8F; }
+  .slide .watch .lab { color: #7A5818; }
+  .slide .ink .lab { color: #E3C06B; }
+  .slide .txt { font: 400 29px/1.4 Inter, sans-serif; color: #28364A; }
+  .slide .ink .txt { color: #FFFFFF; }
+  .slide .txt + .txt { margin-top: 12px; }
+  .slide .txt strong { font-weight: 600; color: #14243B; }
+  .slide .quote { font: 500 29px/1.4 Inter, sans-serif; color: #14243B; }
+  .slide .quote + .txt { margin-top: 12px; }
+  .slide .ctx { font: 500 22px/1.4 'IBM Plex Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase; color: #3E5F8F; padding-bottom: 16px; border-bottom: 2px solid #C3CEDD; }
+
+  /* Cover */
+  .s-cover h1 { font-size: 120px; line-height: 1.0; margin-top: 0; }
+  .s-cover .main { justify-content: center; gap: 0; margin-top: 0; }
+  .s-cover .lede { font: 400 34px/1.45 Inter, sans-serif; color: #E7EDF5; margin-top: 40px; max-width: 900px; }
+  .s-cover .stds { margin-top: 56px; display: flex; align-items: stretch; gap: 10px; }
+  .s-cover .sd { flex: 1 1 0; min-width: 0; background: #FFFFFF; border-radius: 18px; padding: 22px 24px 24px; }
+  .s-cover .sd .lab { color: #7A5818; margin-bottom: 8px; }
+  .s-cover .sd .txt { font-size: 28px; line-height: 1.3; color: #14243B; font-weight: 500; }
+  .s-cover .neq { flex: none; display: flex; align-items: center; }
+  .s-cover .promise { margin-top: 48px; font: 400 30px/1.45 Inter, sans-serif; color: #FFFFFF; }
+  .slide .swipe { display: flex; align-items: center; gap: 12px; font: 500 22px/1 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #E3C06B; }
+
+  /* Map */
+  .s-map .route { display: flex; flex-direction: column; gap: 0; }
+  .s-map .fam { display: grid; grid-template-columns: 64px 1fr; column-gap: 24px; }
+  .s-map .node { display: flex; flex-direction: column; align-items: center; }
+  .s-map .badge { width: 56px; height: 56px; border-radius: 28px; background: #344E73; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font: 600 26px/1 'IBM Plex Mono', monospace; flex: none; }
+  .s-map .link { width: 4px; flex: 1; min-height: 18px; background: #C3CEDD; border-radius: 2px; margin: 6px 0; }
+  .s-map .fam-body { padding: 6px 0 18px; }
+  .s-map .fam-name { font: 550 36px/1.1 Fraunces, serif; letter-spacing: -0.02em; color: #14243B; }
+  .s-map .fam-types { margin-top: 8px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; row-gap: 2px; font: 400 28px/1.36 Inter, sans-serif; color: #28364A; }
+  .s-map .fam-types .t { white-space: nowrap; display: flex; align-items: center; gap: 12px; }
+  .s-map .fam-types .t::before { content: ''; flex: none; width: 8px; height: 8px; border-radius: 4px; background: #8A99AE; }
+  .s-map .sep { margin-top: 4px; background: #FFFFFF; border: 2px dashed #8A99AE; border-radius: 20px; padding: 22px 28px 24px; display: grid; grid-template-columns: 56px 1fr; column-gap: 24px; align-items: start; }
+  .s-map .sep .badge { background: #FFFFFF; color: #344E73; border: 3px solid #344E73; }
+  .s-map .sep .lab { margin: 4px 0 6px; color: #7A5818; }
+  .s-map .note { font: 400 28px/1.4 Inter, sans-serif; color: #28364A; margin-top: 4px; }
+
+  /* Chains (support chain, principle chain) */
+  .slide .chain { display: flex; align-items: stretch; gap: 0; }
+  .slide .chain .nd { flex: 1 1 0; min-width: 0; border-radius: 18px; border: 2px solid #C3CEDD; background: #FFFFFF; padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 8px; }
+  .slide .chain .nd.mid { background: #FBF4DF; border-color: #E3C06B; }
+  .slide .chain .nd.end { background: #344E73; border-color: #344E73; }
+  .slide .chain .nd-t { font: 600 27px/1.2 Inter, sans-serif; color: #14243B; }
+  .slide .chain .nd-d { font: 400 23px/1.35 Inter, sans-serif; color: #5A6B82; }
+  .slide .chain .end .nd-t { color: #FFFFFF; }
+  .slide .chain .end .nd-d { color: #E7EDF5; }
+  .slide .chain .mid .nd-d { color: #6B4E15; }
+  .slide .chain .ar { flex: none; width: 46px; display: flex; align-items: center; justify-content: center; }
+
+  /* Translate-back pair (family 3) */
+  .slide .xlate { display: grid; grid-template-columns: 1fr 46px 1fr; align-items: stretch; }
+  .slide .xa, .slide .xb { border-radius: 16px; padding: 18px 22px 20px; }
+  .slide .xa { background: #E7EDF5; display: flex; flex-direction: column; justify-content: center; }
+  .slide .xb { background: #FFFFFF; border: 2px solid #3E5F8F; }
+  .slide .xl { display: block; margin-bottom: 8px; font: 500 22px/1.3 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #5A6B82; }
+  .slide .xlate .quote, .slide .xlate .txt { font-size: 28px; line-height: 1.36; }
+  .slide .xlate .txt + .txt { margin-top: 8px; }
+  .slide .xlate .ar { display: flex; align-items: center; justify-content: center; }
+
+  /* Claim checklist */
+  .slide .claims { display: flex; flex-direction: column; gap: 14px; margin-top: 18px; }
+  .slide .claim { display: flex; align-items: center; gap: 18px; font: 500 28px/1.3 Inter, sans-serif; color: #14243B; }
+  .slide .claim svg { flex: none; }
+  .slide .claim.no span { color: #984236; }
+
+  /* Table of standards */
+  .slide .std { background: #FFFFFF; border: 2px solid #C3CEDD; border-radius: 20px; padding: 6px 34px; }
+  .slide .std .row { display: grid; grid-template-columns: 330px 1fr; column-gap: 28px; padding: 19px 0 20px; border-top: 2px solid #E7EDF5; align-items: baseline; }
+  .slide .std .row:first-child { border-top: 0; }
+  .slide .std .k { font: 600 28px/1.3 Inter, sans-serif; color: #14243B; }
+  .slide .std .v { font: 400 28px/1.35 Inter, sans-serif; color: #28364A; }
+  .slide .std .head .k, .slide .std .head .v { font: 500 22px/1.3 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #3E5F8F; }
+
+  /* Scale diagrams: 892px track = $0 to $6,000, so $1,000 = 148.67px */
+  .slide .scale { position: relative; width: 892px; }
+  .slide .bar { display: flex; height: 26px; border-radius: 13px; overflow: hidden; }
+  .slide .bar .ok { background: #376346; }
+  .slide .bar .no { background: #984236; }
+  .slide .scale .mark { position: absolute; top: -14px; width: 4px; height: 54px; margin-left: -2px; background: #14243B; border-radius: 2px; }
+  .slide .ticks { position: relative; height: 34px; margin-top: 12px; }
+  .slide .ticks span { position: absolute; top: 0; font: 500 22px/1.3 'IBM Plex Mono', monospace; color: #5A6B82; white-space: nowrap; }
+  .slide .ticks .c { transform: translateX(-50%); color: #14243B; }
+  .slide .ticks .r { right: 0; }
+  .slide .regions { display: flex; margin-top: 10px; }
+  .slide .regions div { font: 600 24px/1.3 Inter, sans-serif; }
+  .slide .regions .ok { color: #376346; padding-right: 18px; }
+  .slide .regions .no { color: #984236; padding-left: 18px; }
+  .slide .ranges { display: flex; flex-direction: column; gap: 12px; }
+  .slide .rng { display: flex; align-items: center; height: 48px; }
+  .slide .rng .fill { height: 48px; border-radius: 10px; display: flex; align-items: center; padding: 0 16px; font: 500 22px/1 'IBM Plex Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase; white-space: nowrap; }
+  .slide .rng .need { background: #3E5F8F; color: #FFFFFF; }
+  .slide .rng .cap { background: #E3C06B; }
+  .slide .rng .out { margin-left: 18px; font: 500 22px/1 'IBM Plex Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase; color: #7A5818; white-space: nowrap; }
+  .slide .scale .probe { position: absolute; top: -10px; height: 128px; width: 0; border-left: 3px dashed #14243B; }
+  .slide .axis { height: 3px; background: #8A99AE; margin-top: 14px; border-radius: 2px; }
+
+  /* Relationship rows (family 6) */
+  .slide .rel { background: #FFFFFF; border: 2px solid #C3CEDD; border-radius: 20px; padding: 22px 32px 26px; }
+  .slide .rel-head { display: flex; align-items: center; gap: 22px; margin-bottom: 14px; }
+  .slide .rel-head .lab { margin: 0; }
+  .slide .pair { display: flex; align-items: center; gap: 6px; flex: none; }
+  .slide .pair span { display: inline-flex; align-items: center; justify-content: center; height: 44px; padding: 0 12px; border-radius: 10px; border: 2px solid #344E73; font: 500 22px/1 'IBM Plex Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase; color: #344E73; background: #FFFFFF; }
+  .slide .pair span.f { background: #344E73; color: #FFFFFF; }
+  .slide .rel .txt { font-size: 28px; line-height: 1.38; }
+
+  /* Close: review template */
+  .s-close h1 { font-size: 72px; }
+  .s-close .main { gap: 22px; }
+  .s-close .lede { font: 400 31px/1.4 Inter, sans-serif; color: #E7EDF5; }
+  .s-close .tpl { padding: 26px 34px 30px; display: flex; flex-direction: column; gap: 26px; }
+  .s-close .fld .lab { margin-bottom: 0; }
+  .s-close .fld .rule { display: block; height: 70px; border-bottom: 2px solid #C3CEDD; }
+  .s-close .cta-line { margin-top: auto; font: 500 30px/1.45 Inter, sans-serif; color: #FFFFFF; }
+
+  /* Relationship ladder (family 5) */
+  .slide .ladder { display: flex; flex-direction: column; gap: 14px; }
+  .slide .lvl { display: grid; grid-template-columns: 250px 1fr; column-gap: 28px; align-items: center; background: #FFFFFF; border: 2px solid #C3CEDD; border-radius: 20px; padding: 22px 30px 24px; }
+  .slide .lvl.soft { background: #E7EDF5; border-color: #E7EDF5; }
+  .slide .lvl .word { font: 550 36px/1.05 Fraunces, serif; letter-spacing: -0.02em; color: #14243B; }
+  .slide .lvl .tag { display: block; margin-top: 8px; font: 500 22px/1.3 'IBM Plex Mono', monospace; letter-spacing: 0.04em; text-transform: uppercase; color: #3E5F8F; }
+  .slide .lvl.soft .tag { color: #5A6B82; }
+  .slide .lvl .txt { font-size: 28px; line-height: 1.38; }
+</style>
+</head>
+<body data-export-name="opus-instagram" data-kit-title="LR Map · Instagram carousel">
+<header class="page-intro">
+  <h1>The LR Question Type Map: Instagram carousel</h1>
+  <p>Thirteen 1080 × 1350 slides that teach one rule per slide: the six families, the check and the trap for each, and a worked example (one library cost argument, six tasks) inside Family 4. Export the set as PNG at 1× or 2× with “Download set”, upload the slides in order, and paste each slide’s alt text under Advanced settings.</p>
+  <p>The caption and first comment are at the bottom of the page. Read the posting notes first: both links point to pages that are currently unpublished.</p>
+</header>
+
+<section class="gt-set" data-set="Instagram carousel (1080 × 1350, 13 slides)" data-zip="opus-instagram" data-preview="380">
+
+  <!-- 01 COVER -->
+  <div class="gt-artboard slide dark s-cover" data-name="slide-01-cover" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Logical Reasoning · The LR Question Type Map</span></div>
+    <div class="main">
+      <h1>True, helpful, and still&nbsp;wrong.</h1>
+      <p class="lede">A statement can strengthen an argument without being necessary to it. It can be necessary without being enough to prove the conclusion.</p>
+      <div class="stds">
+        <div class="sd"><span class="lab">Helpful</span><p class="txt">Improves the support.</p></div>
+        <span class="neq"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path d="M8 15h24M8 25h24M26 7L14 33" fill="none" stroke="#E3C06B" stroke-width="3.5" stroke-linecap="round"/></svg></span>
+        <div class="sd"><span class="lab">Required</span><p class="txt">The argument needs it.</p></div>
+        <span class="neq"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path d="M8 15h24M8 25h24M26 7L14 33" fill="none" stroke="#E3C06B" stroke-width="3.5" stroke-linecap="round"/></svg></span>
+        <div class="sd"><span class="lab">Sufficient</span><p class="txt">Proves the conclusion.</p></div>
+      </div>
+      <p class="promise">The question type tells you which standard an answer has to meet. Swipe for all 20 types, a check for each family, and one argument tested six ways.</p>
+    </div>
+    <div class="foot">
+      <img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring">
+      <span class="swipe">Swipe <svg width="40" height="24" viewBox="0 0 40 24" aria-hidden="true"><path d="M2 12h32M25 4l9 8-9 8" fill="none" stroke="#E3C06B" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> <span class="num" style="color:#C3CEDD">01 / 13</span></span>
+    </div>
+  </div>
+
+  <!-- 02 MAP -->
+  <div class="gt-artboard slide s-map" data-name="slide-02-map" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">The map · 20 types in six families</span></div>
+    <h1>Name the family before you judge the answer.</h1>
+    <div class="main">
+      <div class="route">
+        <div class="fam"><div class="node"><span class="badge">1</span><span class="link"></span></div>
+          <div class="fam-body"><div class="fam-name">Identify the Parts</div><div class="fam-types"><span class="t">Role in Argument</span><span class="t">Main Conclusion</span></div></div></div>
+        <div class="fam"><div class="node"><span class="badge">2</span><span class="link"></span></div>
+          <div class="fam-body"><div class="fam-name">Describe the Argument</div><div class="fam-types"><span class="t">Method of Reasoning</span><span class="t">Parallel Reasoning</span></div></div></div>
+        <div class="fam"><div class="node"><span class="badge">3</span><span class="link"></span></div>
+          <div class="fam-body"><div class="fam-name">Critique the Argument</div><div class="fam-types"><span class="t">Flaw</span><span class="t">Parallel Flaw</span></div></div></div>
+        <div class="fam"><div class="node"><span class="badge">4</span><span class="link"></span></div>
+          <div class="fam-body"><div class="fam-name">Change the Argument</div><div class="fam-types"><span class="t">Evaluate</span><span class="t">Weaken</span><span class="t">Strengthen</span><span class="t">Sufficient Assumption</span><span class="t">Necessary Assumption</span><span class="t">Principle Strengthen</span></div></div></div>
+        <div class="fam"><div class="node"><span class="badge">5</span></div>
+          <div class="fam-body" style="padding-bottom:18px"><div class="fam-name">Form Your Own Argument</div><div class="fam-types"><span class="t">Fill in the Blank</span><span class="t">Most Strongly Supported</span><span class="t">Must Be True</span><span class="t">Must Be False</span></div></div></div>
+      </div>
+      <div class="sep">
+        <span class="badge">6</span>
+        <div><span class="lab">Separate checks</span><div class="fam-name">Argument-Adjacent</div><div class="fam-types"><span class="t">Agree / Disagree</span><span class="t">Principle: Apply</span><span class="t">Principle: Generalize</span><span class="t">Paradox</span></div></div>
+      </div>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="num">02 / 13</span></div>
+  </div>
+
+  <!-- 03 FAMILY 1 -->
+  <div class="gt-artboard slide" data-name="slide-03-identify-the-parts" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Family 1 · Identify the Parts</span><span class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></span></div>
+    <h1>Find the claim the author is ultimately defending.</h1>
+    <p class="types">Role in Argument<b>·</b>Main Conclusion</p>
+    <div class="main">
+      <div class="chain">
+        <div class="nd"><span class="nd-t">Premise</span><span class="nd-d">Gives support.</span></div>
+        <div class="ar"><svg width="36" height="28" viewBox="0 0 36 28" aria-hidden="true"><path d="M2 14h28M22 6l8 8-8 8" fill="none" stroke="#3E5F8F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="nd mid"><span class="nd-t">Intermediate conclusion</span><span class="nd-d">Receives support, then supports another claim.</span></div>
+        <div class="ar"><svg width="36" height="28" viewBox="0 0 36 28" aria-hidden="true"><path d="M2 14h28M22 6l8 8-8 8" fill="none" stroke="#3E5F8F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="nd end"><span class="nd-t">Main conclusion</span><span class="nd-d">Where the support ends.</span></div>
+      </div>
+      <div class="card">
+        <span class="lab">The check</span>
+        <p class="txt">Take two candidate conclusions and ask which one the author uses as a reason for the other. On Role in Argument, find the main conclusion first, then locate the quoted statement relative to it.</p>
+      </div>
+      <div class="card watch">
+        <span class="lab">Watch for</span>
+        <p class="txt">A sentence does not become the main conclusion because it comes last or follows “therefore.” On Role questions, an answer can name the right role and still misstate what that statement supports.</p>
+      </div>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="num">03 / 13</span></div>
+  </div>
+
+  <!-- 04 FAMILY 2 -->
+  <div class="gt-artboard slide" data-name="slide-04-describe-the-argument" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Family 2 · Describe the Argument</span><span class="dots"><i></i><i class="on"></i><i></i><i></i><i></i><i></i></span></div>
+    <h1>Remove the topic. Describe the move.</h1>
+    <p class="types">Method of Reasoning<b>·</b>Parallel Reasoning</p>
+    <div class="main">
+      <p class="txt">State the move in plain language. The author might eliminate alternatives, compare two cases, apply a rule, or show that a proposed explanation conflicts with a fact.</p>
+      <div class="card">
+        <span class="lab">The check: read an answer as a set of claims</span>
+        <p class="quote">“The author cites an expert and questions that expert’s motives.”</p>
+        <div class="claims">
+          <div class="claim"><svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="#376346"/><path d="M9.5 17.5l5 5 10-10.5" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Cites an expert</span></div>
+          <div class="claim no"><svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="#984236"/><path d="M11.5 11.5l11 11M22.5 11.5l-11 11" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/></svg><span>Questions that expert’s motives</span></div>
+        </div>
+        <p class="txt" style="margin-top:16px">If the author never questions motives, the answer fails. It started accurately and finished with a move the author never makes.</p>
+      </div>
+      <div class="card watch">
+        <span class="lab">Watch for</span>
+        <p class="txt">Matching the topic or familiar words. Two arguments about doctors can reason differently. For Parallel Reasoning, compare the conditions, the direction of support, and the force of the conclusion.</p>
+      </div>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="num">04 / 13</span></div>
+  </div>
+
+  <!-- 05 FAMILY 3 -->
+  <div class="gt-artboard slide" data-name="slide-05-critique-the-argument" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Family 3 · Critique the Argument</span><span class="dots"><i></i><i></i><i class="on"></i><i></i><i></i><i></i></span></div>
+    <h1>Name the gap before you read the flaw answers.</h1>
+    <p class="types">Flaw<b>·</b>Parallel Flaw</p>
+    <div class="main">
+      <p class="txt">Ask what the author needed to establish but left open. What could be true about the situation that would expose the weakness in the inference?</p>
+      <div class="card">
+        <span class="lab">The check: translate the answer back</span>
+        <div class="xlate">
+          <div class="xa"><span class="xl">The answer says</span><p class="quote">“The argument confuses a requirement with a guarantee.”</p></div>
+          <div class="ar"><svg width="36" height="28" viewBox="0 0 36 28" aria-hidden="true"><path d="M2 14h28M22 6l8 8-8 8" fill="none" stroke="#3E5F8F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <div class="xb"><span class="xl">You point to</span><p class="txt">1. The requirement in the stimulus.</p><p class="txt">2. The claim that treats it as a guarantee.</p></div>
+        </div>
+        <p class="txt" style="margin-top:18px">If you cannot locate that error in the reasoning, knowing the name of the fallacy is not enough.</p>
+      </div>
+      <div class="card watch">
+        <span class="lab">Watch for</span>
+        <p class="txt">A real flaw that this argument does not commit. In Parallel Flaw, the correct answer must fail in the corresponding way. Another bad argument is not necessarily a parallel bad argument.</p>
+      </div>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="num">05 / 13</span></div>
+  </div>
+
+  <!-- 06 FAMILY 4 -->
+  <div class="gt-artboard slide" data-name="slide-06-change-the-argument" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Family 4 · Change the Argument</span><span class="dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i></span></div>
+    <h1>Helpful, required, and sufficient are different standards.</h1>
+    <div class="main">
+      <div class="std">
+        <div class="row head"><span class="k">Question type</span><span class="v">The answer must</span></div>
+        <div class="row"><span class="k">Evaluate</span><span class="v">help you judge the reasoning.</span></div>
+        <div class="row"><span class="k">Weaken</span><span class="v">reduce the support for the conclusion.</span></div>
+        <div class="row"><span class="k">Strengthen</span><span class="v">improve the support for the conclusion.</span></div>
+        <div class="row"><span class="k">Sufficient Assumption</span><span class="v">make the conclusion follow.</span></div>
+        <div class="row"><span class="k">Necessary Assumption</span><span class="v">be something the argument requires.</span></div>
+        <div class="row"><span class="k">Principle Strengthen</span><span class="v">be a general rule that helps justify the conclusion.</span></div>
+      </div>
+      <div class="card watch">
+        <span class="lab">Watch for</span>
+        <p class="txt">Using “this helps” as the standard for every question in the family. These six often begin from the same gap. The next four slides hold one argument fixed and change the task.</p>
+      </div>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="num">06 / 13</span></div>
+  </div>
+
+  <!-- 07 EXAMPLE: ARGUMENT + GAP + EVALUATE -->
+  <div class="gt-artboard slide" data-name="slide-07-example-the-gap" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Family 4 · Worked example</span><span class="dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i></span></div>
+    <h1>Hold the argument still. Change the task.</h1>
+    <div class="main">
+      <div class="card">
+        <span class="lab">The argument (invented for teaching)</span>
+        <p class="txt">Switching a library’s conventional lights to Model&nbsp;L fixtures will cut its annual electricity bill by exactly $4,000. All other annual operating costs stay unchanged, except that Model&nbsp;L may add maintenance costs.</p>
+        <p class="txt"><strong>So the switch will reduce total annual operating costs.</strong></p>
+      </div>
+      <div class="card">
+        <span class="lab">The gap: how much maintenance rises</span>
+        <div class="scale">
+          <div class="bar"><span class="ok" style="width:595px"></span><span class="no" style="width:297px"></span></div>
+          <span class="mark" style="left:595px"></span>
+          <div class="ticks"><span style="left:0">$0 added</span><span class="c" style="left:595px">$4,000</span><span class="r">$6,000</span></div>
+        </div>
+        <div class="regions"><div class="ok" style="width:595px">Under $4,000: total costs fall. The conclusion holds.</div><div class="no" style="width:297px">$4,000 or more: no reduction.</div></div>
+      </div>
+      <div class="card watch">
+        <span class="lab">Task 1 · Evaluate</span>
+        <p class="txt">Ask how much Model L will add to annual maintenance. An answer of $1,000 supports the conclusion. An answer of $5,000 defeats it. Contrasting responses change the assessment.</p>
+      </div>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="num">07 / 13</span></div>
+  </div>
+
+  <!-- 08 EXAMPLE: WEAKEN + STRENGTHEN -->
+  <div class="gt-artboard slide" data-name="slide-08-example-weaken-strengthen" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Family 4 · Worked example</span><span class="dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i></span></div>
+    <h1>A weakener need not disprove. A&nbsp;strengthener need not prove.</h1>
+    <div class="main">
+      <p class="ctx">$4,000 saved · net change = added maintenance minus $4,000</p>
+      <div class="card">
+        <span class="lab">Task 2 · Weaken</span>
+        <p class="quote">“Model L will add $5,000 a year in maintenance.”</p>
+        <p class="txt">That more than cancels the $4,000 saving. This weakener happens to disprove the conclusion in this specified case. Weakening does not always require disproof.</p>
+      </div>
+      <div class="card">
+        <span class="lab">Task 3 · Strengthen</span>
+        <p class="quote">“Three libraries with comparable operating hours and the same fixtures incurred maintenance increases under $1,000.”</p>
+        <p class="txt">That supports a low estimate here. It does not guarantee the estimate, because this library’s conditions could differ.</p>
+      </div>
+      <div class="card watch">
+        <span class="lab">The check</span>
+        <p class="txt">Accept the answer as true. Then say what it does to the inference, not just to the topic.</p>
+      </div>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="num">08 / 13</span></div>
+  </div>
+
+  <!-- 09 EXAMPLE: NECESSARY VS SUFFICIENT -->
+  <div class="gt-artboard slide" data-name="slide-09-example-necessary-sufficient" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Family 4 · Worked example</span><span class="dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i></span></div>
+    <h1>Required is not the same as enough.</h1>
+    <div class="main">
+      <div class="card">
+        <span class="lab">Added annual maintenance</span>
+        <div class="scale">
+          <div class="ranges">
+            <div class="rng"><span class="fill need" style="width:595px">Required: under $4,000</span></div>
+            <div class="rng"><span class="fill cap" style="width:149px"></span><span class="out">Enough: $1,000 cap</span></div>
+          </div>
+          <span class="probe" style="left:446px"></span>
+          <div class="axis"></div>
+          <div class="ticks"><span style="left:0">$0</span><span class="c" style="left:149px">$1,000</span><span class="c" style="left:446px">$3,000</span><span class="c" style="left:595px">$4,000</span><span class="r">$6,000</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="lab">Task 4 · Necessary Assumption</span>
+        <p class="quote">“Model L will add less than $4,000 to annual maintenance costs.”</p>
+        <p class="txt">Negate it: $4,000 or more. Then total costs do not fall, so the argument requires this.</p>
+      </div>
+      <div class="card">
+        <span class="lab">Task 5 · Sufficient Assumption</span>
+        <p class="quote">“Model L will add no more than $1,000 to annual maintenance costs.”</p>
+        <p class="txt">Add it to the premises: at least $3,000 is saved, so the conclusion follows. It is not necessary. A $3,000 increase (the dashed line) would still allow savings.</p>
+      </div>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="num">09 / 13</span></div>
+  </div>
+
+  <!-- 10 EXAMPLE: PRINCIPLE + THE STEM DECIDES -->
+  <div class="gt-artboard slide" data-name="slide-10-example-principle" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Family 4 · Worked example</span><span class="dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i></span></div>
+    <h1>Connect the facts, the rule, and the conclusion.</h1>
+    <div class="main">
+      <div class="card">
+        <span class="lab">Task 6 · Principle Strengthen</span>
+        <p class="quote">“Libraries that replace conventional lights with Model L add no more than $1,000 in annual maintenance.”</p>
+      </div>
+      <div class="chain">
+        <div class="nd"><span class="nd-t">The facts</span><span class="nd-d">This library is switching from conventional lights to Model&nbsp;L.</span></div>
+        <div class="ar"><svg width="36" height="28" viewBox="0 0 36 28" aria-hidden="true"><path d="M2 14h28M22 6l8 8-8 8" fill="none" stroke="#3E5F8F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="nd mid"><span class="nd-t">The rule applies</span><span class="nd-d">So added maintenance is capped at $1,000.</span></div>
+        <div class="ar"><svg width="36" height="28" viewBox="0 0 36 28" aria-hidden="true"><path d="M2 14h28M22 6l8 8-8 8" fill="none" stroke="#3E5F8F" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="nd end"><span class="nd-t">The conclusion</span><span class="nd-d">Total annual costs fall by at least $3,000.</span></div>
+      </div>
+      <div class="card">
+        <span class="lab">The check</span>
+        <p class="txt">A rule about a different fixture model would not apply merely because its result looks useful. Increased support is enough unless the question asks you to make the conclusion follow.</p>
+      </div>
+      <div class="card watch">
+        <span class="lab">Across all six tasks</span>
+        <p class="txt">A statement may meet more than one standard. Here, “less than $4,000” is both necessary and sufficient. The stem determines which property you need to establish.</p>
+      </div>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="num">10 / 13</span></div>
+  </div>
+
+  <!-- 11 FAMILY 5 -->
+  <div class="gt-artboard slide" data-name="slide-11-form-your-own-argument" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Family 5 · Form Your Own Argument</span><span class="dots"><i></i><i></i><i></i><i></i><i class="on"></i><i></i></span></div>
+    <h1>Supported is not guaranteed. Unknown is not false.</h1>
+    <div class="main">
+      <div class="ladder">
+        <div class="lvl soft"><div><span class="word">Possible</span><span class="tag">Not a standard</span></div><p class="txt">The facts leave it open. A claim can be plausible without being supported here.</p></div>
+        <div class="lvl"><div><span class="word">Supported</span><span class="tag">Most Strongly Supported</span></div><p class="txt">You can point to its support in the information provided.</p></div>
+        <div class="lvl"><div><span class="word">Guaranteed</span><span class="tag">Must Be True</span></div><p class="txt">Try to make it false while the stimulus stays true. If you can, it is not guaranteed.</p></div>
+        <div class="lvl"><div><span class="word">Contradicted</span><span class="tag">Must Be False</span></div><p class="txt">It cannot coexist with the facts. Something never discussed may simply be unknown.</p></div>
+      </div>
+      <div class="card watch">
+        <span class="lab">Fill in the Blank</span>
+        <p class="txt">Name the blank’s job first. A conclusion needs support from what came before. A missing premise needs to do the work the surrounding argument requires.</p>
+      </div>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="num">11 / 13</span></div>
+  </div>
+
+  <!-- 12 FAMILY 6 -->
+  <div class="gt-artboard slide" data-name="slide-12-argument-adjacent" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Family 6 · Argument-Adjacent</span><span class="dots"><i></i><i></i><i></i><i></i><i></i><i class="on"></i></span></div>
+    <h1>Check both sides of the relationship.</h1>
+    <div class="main">
+      <div class="rel">
+        <div class="rel-head"><div class="pair"><span>Speaker A</span><svg width="34" height="24" viewBox="0 0 34 24" aria-hidden="true"><path d="M3 12h28M9 5l-6 7 6 7M25 5l6 7-6 7" fill="none" stroke="#344E73" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Speaker B</span></div><span class="lab">Agree / Disagree</span></div>
+        <p class="txt">Establish each speaker’s position on the exact statement in the answer. Silence is not disagreement.</p>
+      </div>
+      <div class="rel">
+        <div class="rel-head"><div class="pair"><span class="f">Rule</span><svg width="34" height="24" viewBox="0 0 34 24" aria-hidden="true"><path d="M3 12h26M23 5l7 7-7 7" fill="none" stroke="#344E73" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Case</span></div><span class="lab">Principle: Apply</span></div>
+        <p class="txt">Check the case against each condition in the rule. Meeting most of a rule’s requirements is not meeting all of them.</p>
+      </div>
+      <div class="rel">
+        <div class="rel-head"><div class="pair"><span>Case</span><svg width="34" height="24" viewBox="0 0 34 24" aria-hidden="true"><path d="M3 12h26M23 5l7 7-7 7" fill="none" stroke="#344E73" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="f">Rule</span></div><span class="lab">Principle: Generalize</span></div>
+        <p class="txt">Start with the case and find the rule it illustrates. A principle about the same subject can still misdescribe the case.</p>
+      </div>
+      <div class="rel">
+        <div class="rel-head"><div class="pair"><span>Fact</span><svg width="28" height="24" viewBox="0 0 28 24" aria-hidden="true"><path d="M14 4v16M6 12h16" fill="none" stroke="#344E73" stroke-width="3" stroke-linecap="round"/></svg><span>Fact</span></div><span class="lab">Paradox</span></div>
+        <p class="txt">State what is surprising: we would expect this, but that happened. A correct explanation lets both facts remain true and makes their coexistence less surprising.</p>
+      </div>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="num">12 / 13</span></div>
+  </div>
+
+  <!-- 13 CLOSE -->
+  <div class="gt-artboard slide dark s-close" data-name="slide-13-review" data-w="1080" data-h="1350">
+    <div class="top"><span class="eyebrow">Use the map in review</span></div>
+    <h1>“Wrong answer” is not a diagnosis.</h1>
+    <div class="main">
+      <p class="lede">Next time you review a miss, write three lines:</p>
+      <div class="card tpl">
+        <div class="fld"><span class="lab">1 · Question type</span><span class="rule"></span></div>
+        <div class="fld"><span class="lab">2 · The task, in one sentence</span><span class="rule"></span></div>
+        <div class="fld"><span class="lab">3 · The standard my answer failed</span><span class="rule"></span></div>
+      </div>
+      <div class="card watch">
+        <span class="lab">A diagnosis you can use</span>
+        <p class="quote">“I picked something that strengthened the argument when I needed something the argument required.”</p>
+        <p class="txt">That tells you what to change.</p>
+      </div>
+      <p class="cta-line">Save this for your next review session. The full article and free guide are linked in the first comment.</p>
+    </div>
+    <div class="foot"><img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring"><span class="num">13 / 13</span></div>
+  </div>
+
+</section>
+
+<section class="gt-copy" data-label="Caption"><pre>A statement can strengthen an argument without being necessary to it. It can be necessary without being enough to prove the conclusion.
+
+If those standards blur together, the same answer can seem right for three different questions.
+
+I organized the 20 Logical Reasoning question types into six families. The first five follow the work you do on an argument: identify its parts, describe it, critique it, change it, and draw a conclusion yourself. The sixth covers two speakers, rules and cases, and apparent conflicts.
+
+Slides 7 to 10 hold one library’s cost argument fixed and change the task. The most useful check is on slide 9: a $1,000 cap on added maintenance guarantees savings, but savings do not require that tight a cap.
+
+For your next missed question, state the task in one sentence. Then explain which part of that task your selected answer failed.
+
+Save the map for review. The full article and free guide are linked in the first comment.</pre></section>
+
+<section class="gt-copy" data-label="First comment"><pre>Full article: https://germainetutoring.com/blog/lr-question-type-map
+
+Read or download the guide: https://germainetutoring.com/resources/lr-question-type-map
+
+The library scenario on slides 7 to 10 is invented for teaching. Each slide tests its proposed answer separately.
+
+If you know the type but keep missing what the answer needs to do, bring a recent example and your reasoning to a free consultation: https://germainetutoring.com/#consultation</pre></section>
+
+<div class="alt-head"><h2>Alt text, one block per slide</h2><p>Instagram: Advanced settings, then Accessibility, then Write alt text. Each block is the full text of its slide.</p></div>
+
+<section class="gt-copy" data-label="Alt text · slide 01"><pre>Dark blue cover for The LR Question Type Map. Headline: True, helpful, and still wrong. Text: A statement can strengthen an argument without being necessary to it. It can be necessary without being enough to prove the conclusion. Three white cards separated by not-equal signs: Helpful, improves the support. Required, the argument needs it. Sufficient, proves the conclusion. Below: The question type tells you which standard an answer has to meet. Swipe for all 20 types, a check for each family, and one argument tested six ways. Germaine Tutoring logo. Slide 1 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 02"><pre>The map of 20 Logical Reasoning question types in six families. Headline: Name the family before you judge the answer. Families 1 to 5 are joined in a vertical route. 1, Identify the Parts: Role in Argument, Main Conclusion. 2, Describe the Argument: Method of Reasoning, Parallel Reasoning. 3, Critique the Argument: Flaw, Parallel Flaw. 4, Change the Argument: Evaluate, Weaken, Strengthen, Sufficient Assumption, Necessary Assumption, Principle Strengthen. 5, Form Your Own Argument: Fill in the Blank, Most Strongly Supported, Must Be True, Must Be False. A separate dashed box marked Separate checks holds family 6, Argument-Adjacent: Agree / Disagree, Principle: Apply, Principle: Generalize, Paradox. Slide 2 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 03"><pre>Family 1, Identify the Parts: Role in Argument and Main Conclusion. Headline: Find the claim the author is ultimately defending. A three-step chain: Premise, gives support. Intermediate conclusion, receives support, then supports another claim. Main conclusion, where the support ends. The check: Take two candidate conclusions and ask which one the author uses as a reason for the other. On Role in Argument, find the main conclusion first, then locate the quoted statement relative to it. Watch for: A sentence does not become the main conclusion because it comes last or follows “therefore.” On Role questions, an answer can name the right role and still misstate what that statement supports. Slide 3 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 04"><pre>Family 2, Describe the Argument: Method of Reasoning and Parallel Reasoning. Headline: Remove the topic. Describe the move. Text: State the move in plain language. The author might eliminate alternatives, compare two cases, apply a rule, or show that a proposed explanation conflicts with a fact. The check, read an answer as a set of claims. Sample answer: “The author cites an expert and questions that expert’s motives.” A green check marks Cites an expert. A red cross marks Questions that expert’s motives. If the author never questions motives, the answer fails. It started accurately and finished with a move the author never makes. Watch for: Matching the topic or familiar words. Two arguments about doctors can reason differently. For Parallel Reasoning, compare the conditions, the direction of support, and the force of the conclusion. Slide 4 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 05"><pre>Family 3, Critique the Argument: Flaw and Parallel Flaw. Headline: Name the gap before you read the flaw answers. Text: Ask what the author needed to establish but left open. What could be true about the situation that would expose the weakness in the inference? The check, translate the answer back. On the left, the answer says: “The argument confuses a requirement with a guarantee.” An arrow points right to: You point to 1, the requirement in the stimulus, and 2, the claim that treats it as a guarantee. If you cannot locate that error in the reasoning, knowing the name of the fallacy is not enough. Watch for: A real flaw that this argument does not commit. In Parallel Flaw, the correct answer must fail in the corresponding way. Another bad argument is not necessarily a parallel bad argument. Slide 5 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 06"><pre>Family 4, Change the Argument. Headline: Helpful, required, and sufficient are different standards. A table of what the answer must do. Evaluate: help you judge the reasoning. Weaken: reduce the support for the conclusion. Strengthen: improve the support for the conclusion. Sufficient Assumption: make the conclusion follow. Necessary Assumption: be something the argument requires. Principle Strengthen: be a general rule that helps justify the conclusion. Watch for: Using “this helps” as the standard for every question in the family. These six often begin from the same gap. The next four slides hold one argument fixed and change the task. Slide 6 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 07"><pre>Family 4 worked example. Headline: Hold the argument still. Change the task. The argument, invented for teaching: Switching a library’s conventional lights to Model L fixtures will cut its annual electricity bill by exactly $4,000. All other annual operating costs stay unchanged, except that Model L may add maintenance costs. So the switch will reduce total annual operating costs. The gap, how much maintenance rises: a bar of added maintenance from $0 to $6,000, green below $4,000 and red from $4,000 up. Under $4,000: total costs fall and the conclusion holds. $4,000 or more: no reduction. Task 1, Evaluate: Ask how much Model L will add to annual maintenance. An answer of $1,000 supports the conclusion. An answer of $5,000 defeats it. Contrasting responses change the assessment. Slide 7 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 08"><pre>Family 4 worked example. Headline: A weakener need not disprove. A strengthener need not prove. Context line: $4,000 saved; net change equals added maintenance minus $4,000. Task 2, Weaken: “Model L will add $5,000 a year in maintenance.” That more than cancels the $4,000 saving. This weakener happens to disprove the conclusion in this specified case. Weakening does not always require disproof. Task 3, Strengthen: “Three libraries with comparable operating hours and the same fixtures incurred maintenance increases under $1,000.” That supports a low estimate here. It does not guarantee the estimate, because this library’s conditions could differ. The check: Accept the answer as true. Then say what it does to the inference, not just to the topic. Slide 8 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 09"><pre>Family 4 worked example. Headline: Required is not the same as enough. A chart of added annual maintenance from $0 to $6,000. A long blue bar from $0 to $4,000 is labeled Required: under $4,000. A short gold bar from $0 to $1,000 is labeled Enough: $1,000 cap. A dashed line at $3,000 falls inside the blue bar but outside the gold one. Task 4, Necessary Assumption: “Model L will add less than $4,000 to annual maintenance costs.” Negate it: $4,000 or more. Then total costs do not fall, so the argument requires this. Task 5, Sufficient Assumption: “Model L will add no more than $1,000 to annual maintenance costs.” Add it to the premises: at least $3,000 is saved, so the conclusion follows. It is not necessary. A $3,000 increase, the dashed line, would still allow savings. Slide 9 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 10"><pre>Family 4 worked example. Headline: Connect the facts, the rule, and the conclusion. Task 6, Principle Strengthen: “Libraries that replace conventional lights with Model L add no more than $1,000 in annual maintenance.” A three-step chain: The facts, this library is switching from conventional lights to Model L. The rule applies, so added maintenance is capped at $1,000. The conclusion, total annual costs fall by at least $3,000. The check: A rule about a different fixture model would not apply merely because its result looks useful. Increased support is enough unless the question asks you to make the conclusion follow. Across all six tasks: A statement may meet more than one standard. Here, “less than $4,000” is both necessary and sufficient. The stem determines which property you need to establish. Slide 10 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 11"><pre>Family 5, Form Your Own Argument. Headline: Supported is not guaranteed. Unknown is not false. Four relationships to the evidence. Possible, not a standard: The facts leave it open. A claim can be plausible without being supported here. Supported, Most Strongly Supported: You can point to its support in the information provided. Guaranteed, Must Be True: Try to make it false while the stimulus stays true. If you can, it is not guaranteed. Contradicted, Must Be False: It cannot coexist with the facts. Something never discussed may simply be unknown. Fill in the Blank: Name the blank’s job first. A conclusion needs support from what came before. A missing premise needs to do the work the surrounding argument requires. Slide 11 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 12"><pre>Family 6, Argument-Adjacent. Headline: Check both sides of the relationship. Agree / Disagree, shown as Speaker A and Speaker B: Establish each speaker’s position on the exact statement in the answer. Silence is not disagreement. Principle: Apply, shown as rule to case: Check the case against each condition in the rule. Meeting most of a rule’s requirements is not meeting all of them. Principle: Generalize, shown as case to rule: Start with the case and find the rule it illustrates. A principle about the same subject can still misdescribe the case. Paradox, shown as fact plus fact: State what is surprising: we would expect this, but that happened. A correct explanation lets both facts remain true and makes their coexistence less surprising. Slide 12 of 13.</pre></section>
+
+<section class="gt-copy" data-label="Alt text · slide 13"><pre>Dark blue closing slide, Use the map in review. Headline: “Wrong answer” is not a diagnosis. Text: Next time you review a miss, write three lines. A white worksheet with three blank lines: 1, Question type. 2, The task, in one sentence. 3, The standard my answer failed. A gold panel, A diagnosis you can use: “I picked something that strengthened the argument when I needed something the argument required.” That tells you what to change. Footer text: Save this for your next review session. The full article and free guide are linked in the first comment. Germaine Tutoring logo. Slide 13 of 13.</pre></section>
+
+<section class="notes">
+  <h2>Posting notes</h2>
+  <ul>
+    <li>Both links in the first comment are offline right now. The post and the resource page were unpublished on 2026-10-03 at Germaine’s request (website CHANGELOG, “LR Question Type Map unpublished”). Post this carousel only after <code>/blog/lr-question-type-map</code> and <code>/resources/lr-question-type-map</code> are live again, or remove the link promise from slide 13, the caption and the first comment.</li>
+    <li>Upload order matters: slides 7 to 10 build one example, and slide 9 depends on the gap shown on slide 7.</li>
+    <li>The caption and the first comment contain no em dashes, hashtags or invented figures. The dollar amounts all come from the source worked example.</li>
+  </ul>
+</section>
+
+<script src="../kit/vendor/html-to-image.js"></script>
+<script src="../kit/vendor/jszip.min.js"></script>
+<script src="../kit/gt-export.js"></script>
+</body>
+</html>
