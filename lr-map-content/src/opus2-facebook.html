@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LR Map Facebook Post</title>
+<link rel="stylesheet" href="../kit/fonts-social.css">
+<link rel="stylesheet" href="../kit/gt-kit.css">
+<style>
+  body { margin: 0; background: #E7EDF5; color: #28364A; font-family: Inter, sans-serif; }
+  .page-intro { max-width: 860px; margin: 24px auto 0; padding: 0 16px; }
+  .page-intro p { margin: 0 0 10px; font: 400 15px/1.6 Inter, sans-serif; color: #28364A; }
+
+  /* ---------- Shared artboard base (1080 x 1350) ---------- */
+  .fb { background: #F3F6FA; color: #28364A; font-family: Inter, sans-serif; display: flex; flex-direction: column; padding: 54px 64px 52px; }
+  .fb p, .fb h1, .fb h2, .fb ol, .fb ul, .fb li { margin: 0; padding: 0; }
+  .fb ul, .fb ol { list-style: none; }
+  .fb .eyebrow { font: 500 22px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #3E5F8F; }
+  .fb h1 { margin-top: 14px; font-family: Fraunces, serif; font-weight: 550; font-size: 64px; line-height: 1.08; letter-spacing: -0.02em; color: #14243B; text-wrap: balance; }
+  .fb .foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-top: 1px solid #C3CEDD; padding-top: 20px; }
+  .fb .foot .logo { height: 40px; width: auto; display: block; }
+  .fb .foot span { font: 500 22px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #5A6B82; text-align: right; }
+
+  /* ---------- Images 1 and 3: the range chart ---------- */
+  .fb-chart { padding-top: 0; }
+  .fb-chart .foot { margin-top: auto; }
+  .fb-chart .rule { margin-bottom: 24px; }
+  .fb-chart .top { margin: 0 -64px; background: #344E73; padding: 46px 64px 38px; }
+  .fb-chart .top .eyebrow { color: #E3C06B; }
+  .fb-chart .top h1 { color: #FFFFFF; }
+  .fb-chart .arg { margin-top: 24px; background: #E7EDF5; border: 1.5px solid #C3CEDD; border-radius: 16px; padding: 18px 32px 18px; }
+  .fb-chart .arg-text { font: 400 28px/1.38 Inter, sans-serif; color: #28364A; text-wrap: pretty; }
+  .fb-chart .arg-concl { margin-top: 12px; padding-top: 12px; border-top: 1px solid #C3CEDD; display: flex; align-items: baseline; gap: 18px; }
+  .fb-chart .arg-concl span { flex: none; font: 500 22px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #3E5F8F; }
+  .fb-chart .arg-concl strong { font: 600 30px/1.3 Inter, sans-serif; color: #14243B; }
+
+  .fb-chart .chart { margin-top: 18px; background: #FFFFFF; border: 1.5px solid #C3CEDD; border-radius: 16px; padding: 22px 32px 26px; }
+  .fb-chart .chart-title { font: 500 28px/1.3 Inter, sans-serif; color: #28364A; }
+  .fb-chart .plot { margin-top: 12px; width: 888px; }
+  /* Scale: $0 to $6,000 across 888px, so $1,000 = 148px and the $4,000 limit sits at 592px. */
+  .fb-chart .band { display: flex; height: 42px; border-radius: 8px; overflow: hidden; }
+  .fb-chart .band span { display: flex; align-items: center; justify-content: center; font: 500 24px/1 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+  .fb-chart .band .fall { width: 592px; background: #DCE9DF; color: #376346; }
+  .fb-chart .band .none { width: 296px; background: #F3DEDA; color: #984236; border-left: 3px solid #14243B; }
+  .fb-chart .axis { position: relative; height: 38px; }
+  .fb-chart .axis span { position: absolute; top: 9px; font: 500 24px/1 'IBM Plex Mono', monospace; color: #5A6B82; transform: translateX(-50%); white-space: nowrap; }
+  .fb-chart .axis span.first { transform: none; }
+  .fb-chart .axis span.key { color: #14243B; font-weight: 600; }
+  .fb-chart .axis .t0 { left: 0; } .fb-chart .axis .t1 { left: 148px; } .fb-chart .axis .t2 { left: 296px; }
+  .fb-chart .axis .t3 { left: 444px; } .fb-chart .axis .t4 { left: 592px; } .fb-chart .axis .t5 { left: 740px; }
+
+  .fb-chart .rows { display: flex; flex-direction: column; gap: 14px; margin-top: 4px; }
+  .fb-chart .row-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .fb-chart .row-label { font: 600 32px/1.2 Inter, sans-serif; color: #14243B; white-space: nowrap; }
+  .fb-chart .tags { display: flex; gap: 10px; }
+  .fb-chart .tag { font: 500 24px/1 'IBM Plex Mono', monospace; letter-spacing: 0.05em; text-transform: uppercase; padding: 8px 15px 9px; border-radius: 999px; border: 2px solid; white-space: nowrap; }
+  .fb-chart .tag.yes { background: #344E73; border-color: #344E73; color: #FFFFFF; }
+  .fb-chart .tag.no { background: #FFFFFF; border-color: #C3CEDD; color: #5A6B82; }
+  .fb-chart .tag.ask { background: #FBF4DF; border-color: #E3C06B; color: #7A5818; }
+  .fb-chart .track { position: relative; margin-top: 10px; height: 36px; display: flex; border-radius: 8px; overflow: hidden; }
+  .fb-chart .track .fall { width: 592px; background: #DCE9DF; }
+  .fb-chart .track .none { width: 296px; background: #F3DEDA; border-left: 3px solid #14243B; }
+  .fb-chart .bar { position: absolute; left: 0; top: 8px; height: 20px; border-radius: 0 10px 10px 0; background: #3E5F8F; }
+  .fb-chart .bar.ask { background: #E3C06B; box-shadow: inset 0 0 0 2px #7A5818; }
+  .fb-chart .w1000 { width: 148px; } .fb-chart .w4000 { width: 592px; } .fb-chart .w5000 { width: 740px; }
+  .fb-chart .bar.split { border-radius: 0; }
+  .fb-chart .bar.over { left: 592px; width: 148px; background: #984236; }
+
+  .fb-chart .rule { margin-top: 18px; background: #FBF4DF; border: 1.5px solid #E3C06B; border-radius: 16px; padding: 20px 30px 22px; display: grid; grid-template-columns: 1fr 1fr; column-gap: 30px; }
+  .fb-chart .rule span { display: block; font: 600 24px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #7A5818; }
+  .fb-chart .rule p { margin-top: 6px; font: 400 28px/1.32 Inter, sans-serif; color: #28364A; text-wrap: pretty; }
+
+  /* ---------- Image 2: the six families ---------- */
+  .fb-map .list { margin-top: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .fb-map .fam { background: #FFFFFF; border: 1.5px solid #C3CEDD; border-radius: 14px; padding: 12px 28px 14px; display: grid; grid-template-columns: 54px 1fr; column-gap: 8px; }
+  .fb-map .fam.on { background: #FBF4DF; border: 2px solid #E3C06B; }
+  .fb-map .fam.sep { margin-top: 8px; }
+  .fb-map .foot { margin-top: auto; }
+  .fb-map .list { margin-bottom: 24px; }
+  .fb-map .num { padding-top: 8px; font: 500 22px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.06em; color: #3E5F8F; }
+  .fb-map .on .num { color: #7A5818; }
+  .fb-map .head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+  .fb-map h2 { font-family: Fraunces, serif; font-weight: 550; font-size: 31px; line-height: 1.1; letter-spacing: -0.02em; color: #14243B; }
+  .fb-map .head em { font: 500 22px/1 'IBM Plex Mono', monospace; font-style: normal; letter-spacing: 0.06em; text-transform: uppercase; color: #7A5818; white-space: nowrap; }
+  .fb-map .head em.box { background: #FFFFFF; border: 1.5px solid #E3C06B; border-radius: 999px; padding: 6px 12px 7px; }
+  .fb-map .q { margin-top: 2px; font: 400 28px/1.22 Inter, sans-serif; color: #5A6B82; }
+  .fb-map .on .q { color: #7A5818; }
+  .fb-map .types { margin-top: 5px; font: 500 28px/1.3 Inter, sans-serif; color: #14243B; }
+  .fb-map .types b { font-weight: 600; color: #FFFFFF; background: #344E73; border-radius: 6px; padding: 0 8px 2px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+</style>
+</head>
+<body data-export-name="opus2-facebook" data-kit-title="Facebook post: sufficient vs required">
+<header class="page-intro">
+  <p>Facebook post for the LR Question Type Map, built on one chart: three answers to the same argument, each drawn as the range of added maintenance it allows, so you can see which answers are sufficient and which are required. Post image 1 on its own with the caption (a single 4:5 image shows at full feed width with nothing cropped), add the first comment with image 2 attached, and once a few people have answered the question at the end of the caption, reply with image 3 and the answer text.</p>
+  <p>Before posting, open both links in the first comment. The older version of this post was taken down on 2026-10-03, so they will not resolve until the new article and guide are live.</p>
+</header>
+
+<section class="gt-set" data-set="Post image (1080×1350)" data-zip="opus2-facebook-post" data-preview="560">
+
+  <div class="gt-artboard fb fb-chart" data-name="fb-01-sufficient-vs-required" data-w="1080" data-h="1350">
+    <header class="top">
+      <p class="eyebrow">LSAT Logical Reasoning · Original teaching example</p>
+      <h1>Sufficient and required are different standards.</h1>
+    </header>
+    <section class="arg">
+      <p class="arg-text">Switching a library to Model L lights will cut its annual electricity bill by exactly $4,000. All other annual operating costs stay the same, except that Model L may add maintenance costs.</p>
+      <p class="arg-concl"><span>Conclusion</span><strong>Total annual operating costs will fall.</strong></p>
+    </section>
+    <section class="chart">
+      <p class="chart-title">Each bar shows the added annual maintenance an answer allows.</p>
+      <div class="plot">
+        <div class="band"><span class="fall">Total costs fall</span><span class="none">No reduction</span></div>
+        <div class="axis"><span class="t0 first">$0</span><span class="t1">$1,000</span><span class="t2">$2,000</span><span class="t3">$3,000</span><span class="t4 key">$4,000</span><span class="t5">$5,000</span></div>
+        <ol class="rows">
+          <li>
+            <div class="row-head"><p class="row-label">“No more than $1,000”</p><p class="tags"><span class="tag yes">Sufficient</span><span class="tag no">Not required</span></p></div>
+            <div class="track"><span class="fall"></span><span class="none"></span><span class="bar w1000"></span></div>
+          </li>
+          <li>
+            <div class="row-head"><p class="row-label">“Less than $4,000”</p><p class="tags"><span class="tag yes">Sufficient</span><span class="tag yes">Required</span></p></div>
+            <div class="track"><span class="fall"></span><span class="none"></span><span class="bar w4000"></span></div>
+          </li>
+          <li>
+            <div class="row-head"><p class="row-label">“Less than $5,000”</p><p class="tags"><span class="tag ask">Sufficient?</span><span class="tag ask">Required?</span></p></div>
+            <div class="track"><span class="fall"></span><span class="none"></span><span class="bar ask w5000"></span></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+    <section class="rule">
+      <div class="rule-row"><span>Sufficient</span><p>Every amount the answer allows cuts costs. Add it, and the conclusion follows.</p></div>
+      <div class="rule-row"><span>Required</span><p>The answer allows every amount that cuts costs. Negate it, and no reduction is possible.</p></div>
+    </section>
+    <footer class="foot">
+      <img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring">
+      <span>Your turn: answer in the comments</span>
+    </footer>
+  </div>
+
+</section>
+
+<section class="gt-set" data-set="Comment images (1080×1350)" data-zip="opus2-facebook-comments" data-preview="560">
+
+  <div class="gt-artboard fb fb-map" data-name="fb-02-six-families" data-w="1080" data-h="1350">
+    <p class="eyebrow">The LR Question Type Map</p>
+    <h1>20 types. Six families.</h1>
+    <ol class="list">
+      <li class="fam"><p class="num">01</p><div><div class="head"><h2>Identify the Parts</h2></div><p class="q">What is each statement doing?</p><p class="types">Role in Argument · Main Conclusion</p></div></li>
+      <li class="fam"><p class="num">02</p><div><div class="head"><h2>Describe the Argument</h2></div><p class="q">How do the parts work together?</p><p class="types">Method of Reasoning · Parallel Reasoning</p></div></li>
+      <li class="fam"><p class="num">03</p><div><div class="head"><h2>Critique the Argument</h2></div><p class="q">Where does the reasoning fail?</p><p class="types">Flaw · Parallel Flaw</p></div></li>
+      <li class="fam on"><p class="num">04</p><div><div class="head"><h2>Change the Argument</h2><em class="box">In this post</em></div><p class="q">Helpful, required, and sufficient are different standards.</p><p class="types">Evaluate · Weaken · <b>Strengthen</b> · <b>Sufficient Assumption</b> · <b>Necessary Assumption</b> · Principle Strengthen</p></div></li>
+      <li class="fam"><p class="num">05</p><div><div class="head"><h2>Form Your Own Argument</h2></div><p class="q">What do the facts support or rule out?</p><p class="types">Fill in the Blank · Most Strongly Supported · Must Be True · Must Be False</p></div></li>
+      <li class="fam sep"><p class="num">06</p><div><div class="head"><h2>Argument-Adjacent</h2><em>Relationship tasks</em></div><p class="q">Check both sides of the relationship.</p><p class="types">Agree / Disagree · Principle: Apply · Principle: Generalize · Paradox</p></div></li>
+    </ol>
+    <footer class="foot">
+      <img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring">
+      <span>All 20 LR question types</span>
+    </footer>
+  </div>
+
+  <div class="gt-artboard fb fb-chart" data-name="fb-03-answer" data-w="1080" data-h="1350">
+    <header class="top">
+      <p class="eyebrow">Your turn · The answer</p>
+      <h1>“Less than $5,000” is required, not sufficient.</h1>
+    </header>
+    <section class="arg">
+      <p class="arg-text">Switching a library to Model L lights will cut its annual electricity bill by exactly $4,000. All other annual operating costs stay the same, except that Model L may add maintenance costs.</p>
+      <p class="arg-concl"><span>Conclusion</span><strong>Total annual operating costs will fall.</strong></p>
+    </section>
+    <section class="chart">
+      <p class="chart-title">Each bar shows the added annual maintenance an answer allows.</p>
+      <div class="plot">
+        <div class="band"><span class="fall">Total costs fall</span><span class="none">No reduction</span></div>
+        <div class="axis"><span class="t0 first">$0</span><span class="t1">$1,000</span><span class="t2">$2,000</span><span class="t3">$3,000</span><span class="t4 key">$4,000</span><span class="t5">$5,000</span></div>
+        <ol class="rows">
+          <li>
+            <div class="row-head"><p class="row-label">“No more than $1,000”</p><p class="tags"><span class="tag yes">Sufficient</span><span class="tag no">Not required</span></p></div>
+            <div class="track"><span class="fall"></span><span class="none"></span><span class="bar w1000"></span></div>
+          </li>
+          <li>
+            <div class="row-head"><p class="row-label">“Less than $4,000”</p><p class="tags"><span class="tag yes">Sufficient</span><span class="tag yes">Required</span></p></div>
+            <div class="track"><span class="fall"></span><span class="none"></span><span class="bar w4000"></span></div>
+          </li>
+          <li>
+            <div class="row-head"><p class="row-label">“Less than $5,000”</p><p class="tags"><span class="tag no">Not sufficient</span><span class="tag yes">Required</span></p></div>
+            <div class="track"><span class="fall"></span><span class="none"></span><span class="bar split w4000"></span><span class="bar over"></span></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+    <section class="rule">
+      <div class="rule-row"><span>Required</span><p>Negate it: $5,000 or more raises total costs by at least $1,000.</p></div>
+      <div class="rule-row"><span>Not sufficient</span><p>Add it: $4,500 is still allowed, and total costs rise $500.</p></div>
+    </section>
+    <footer class="foot">
+      <img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring">
+      <span>LR Question Type Map · Family 4</span>
+    </footer>
+  </div>
+
+</section>
+
+<section class="gt-copy" data-label="Caption (post with image 1)"><pre>Before you decide whether an LSAT answer is good, decide what it needs to do.
+
+Helpful, necessary, and sufficient are different standards. So are possible, supported, guaranteed, and contradicted. If those standards blur together, the same answer can seem right for three different questions.
+
+The image holds one argument fixed: Model L lights will cut a library’s annual electricity bill by exactly $4,000, and nothing else changes except possible added maintenance. The conclusion, that total annual operating costs will fall, holds only if that added maintenance stays under $4,000.
+
+Sufficient Assumption needs a statement that makes the conclusion follow, so add the answer to the premises and check. A $1,000 cap on added maintenance passes: it guarantees at least $3,000 in savings. The argument doesn’t need a cap that tight, though. A $3,000 increase would still save money.
+
+Necessary Assumption needs something the argument requires, so negate the answer and check. “Less than $4,000” passes: $4,000 or more means no reduction. In this example it is sufficient too. A statement can meet more than one standard, and the question stem tells you which one you need. On real questions, the negation doesn’t have to make the conclusion false. Ask whether the reasoning still has the support it requires.
+
+Helpful is a third standard. If three comparable libraries with the same fixtures saw maintenance rise less than $1,000, that strengthens the argument without guaranteeing this library’s cost, and the argument doesn’t need it.
+
+I organized all 20 LR question types into six families, with a method and a wrong-answer check for each. Use the map to identify the task before choosing, then return to it during review to name the standard your answer missed. The map and the free guide are linked in the first comment.
+
+Your turn, from the last row of the image: “Added maintenance will be less than $5,000.” Required, sufficient, both, or neither? Tell me which test you used.</pre></section>
+
+<section class="gt-copy" data-label="First comment (attach image 2)"><pre>Full article, with the complete map: https://germainetutoring.com/blog/lr-question-type-map
+
+Read or download the free guide: https://germainetutoring.com/resources/lr-question-type-map
+
+The library argument is an original teaching example, not an LSAT question. Each answer in the image is tested on its own.
+
+If you know the type but keep missing what the answer needs to do, bring a recent example and your reasoning to a free consultation: https://germainetutoring.com/#consultation</pre></section>
+
+<section class="gt-copy" data-label="Reply with the answer (attach image 3, after a few people have answered)"><pre>Required, not sufficient.
+
+Negate it first: added maintenance is $5,000 or more. Total costs then rise by at least $1,000, so the argument can’t work without the statement. Now add it to the premises instead. An increase of $4,500 is still less than $5,000, and it raises total costs by $500, so the statement doesn’t make the conclusion follow. On the chart, its bar covers the whole zone where costs fall, then runs past it.
+
+That completes the set. The $1,000 cap is sufficient but not required. “Less than $4,000” is both. “Less than $5,000” is required but not sufficient. Same argument, three statements, two tests: the question stem tells you which test the right answer has to pass.</pre></section>
+
+<section class="gt-copy" data-label="Alt text: image 1 (fb-01-sufficient-vs-required)"><pre>Chart titled “Sufficient and required are different standards,” an original teaching example. The argument: switching a library to Model L lights will cut its annual electricity bill by exactly $4,000, and all other annual operating costs stay the same, except that Model L may add maintenance costs. Conclusion: total annual operating costs will fall. A scale of added annual maintenance runs from $0 to $6,000. Below $4,000, total costs fall; at $4,000 or more, there is no reduction. Each answer is drawn as a bar showing the amounts it allows. “No more than $1,000” stops well inside the zone where costs fall, marked sufficient, not required. “Less than $4,000” fills that zone exactly, marked sufficient and required. “Less than $5,000” covers the zone and runs past $4,000, marked with question marks for the reader to decide. The key: sufficient means every amount the answer allows cuts costs, so adding it makes the conclusion follow; required means the answer allows every amount that cuts costs, so negating it leaves no reduction possible. Footer: your turn, answer in the comments.</pre></section>
+
+<section class="gt-copy" data-label="Alt text: image 2 (fb-02-six-families)"><pre>Chart titled “20 types. Six families.” from the LR Question Type Map. 01 Identify the Parts asks what each statement is doing: Role in Argument, Main Conclusion. 02 Describe the Argument asks how the parts work together: Method of Reasoning, Parallel Reasoning. 03 Critique the Argument asks where the reasoning fails: Flaw, Parallel Flaw. 04 Change the Argument is highlighted as the family in this post, with the note that helpful, required, and sufficient are different standards: Evaluate, Weaken, Strengthen, Sufficient Assumption, Necessary Assumption, Principle Strengthen, with Strengthen and the two assumption types marked. 05 Form Your Own Argument asks what the facts support or rule out: Fill in the Blank, Most Strongly Supported, Must Be True, Must Be False. 06 Argument-Adjacent, labeled relationship tasks, says to check both sides of the relationship: Agree / Disagree, Principle: Apply, Principle: Generalize, Paradox.</pre></section>
+
+<section class="gt-copy" data-label="Alt text: image 3 (fb-03-answer)"><pre>Answer chart titled “‘Less than $5,000’ is required, not sufficient.” It repeats the library argument and the scale of added annual maintenance from the post image, where total costs fall only below $4,000. The first two bars are unchanged: “No more than $1,000” is sufficient, not required, and “Less than $4,000” is sufficient and required. The third bar, “Less than $5,000,” now shows its stretch from $4,000 to $5,000 in red, and it is marked not sufficient and required. The key explains why. Required: negate it, and $5,000 or more raises total costs by at least $1,000. Not sufficient: add it, and $4,500 is still allowed, so total costs rise $500.</pre></section>
+
+<script src="../kit/vendor/html-to-image.js"></script>
+<script src="../kit/vendor/jszip.min.js"></script>
+<script src="../kit/gt-export.js"></script>
+</body>
+</html>
