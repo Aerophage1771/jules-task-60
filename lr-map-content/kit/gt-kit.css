@@ -1,0 +1,31 @@
+/* GT export kit: page chrome for artboard previews, export controls and copy blocks.
+   Everything here is prefixed gt- so it never collides with a page's own artboard styles. */
+.gt-artboard,.gt-artboard *,.gt-artboard *::before,.gt-artboard *::after{box-sizing:border-box}
+.gt-kit-bar{position:sticky;top:0;z-index:50;display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;padding:10px 16px;background:#14243B;color:#fff;font:500 14px/1.3 Inter,system-ui,sans-serif}
+.gt-kit-bar strong{font-weight:600;margin-right:auto}
+.gt-kit-bar label{display:flex;align-items:center;gap:6px;color:#C3CEDD}
+.gt-kit-bar select,.gt-kit-bar button,.gt-ab-actions button,.gt-copy-btn,.gt-set-btn{font:600 13px/1 Inter,system-ui,sans-serif;border:1px solid #14243B;border-radius:6px;background:#fff;color:#14243B;padding:8px 11px 10px;cursor:pointer;box-shadow:inset 0 -2px 0 #7A5818}
+.gt-kit-bar select{padding:7px 8px;box-shadow:none}
+.gt-kit-bar button.gt-primary,.gt-set-btn{background:#3E5F8F;color:#fff;box-shadow:inset 0 -2px 0 #1F3553}
+.gt-kit-bar button:hover,.gt-ab-actions button:hover,.gt-copy-btn:hover{background:#F7F3EA}
+.gt-kit-bar button.gt-primary:hover,.gt-set-btn:hover{background:#344E73}
+.gt-kit-bar button:disabled,.gt-ab-actions button:disabled,.gt-set-btn:disabled{opacity:.55;cursor:progress}
+.gt-kit-status{min-width:0;color:#E3C06B;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:12px}
+.gt-set{margin:28px auto;max-width:1240px;padding:0 16px}
+.gt-set-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}
+.gt-set-head h2{margin:0;font:600 20px/1.3 Inter,system-ui,sans-serif;color:#14243B;letter-spacing:0}
+.gt-set-grid{display:flex;flex-wrap:wrap;gap:22px;align-items:flex-start}
+.gt-ab{margin:0;display:flex;flex-direction:column;gap:8px;max-width:100%}
+.gt-ab-frame{position:relative;overflow:hidden;border:1px solid #C3CEDD;border-radius:4px;background:#fff;box-shadow:0 1px 2px rgba(20,36,59,.08)}
+.gt-ab-scale{position:absolute;left:0;top:0;transform-origin:0 0}
+.gt-ab-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px;font:500 12px/1.3 'IBM Plex Mono',ui-monospace,monospace;color:#5A6B82}
+.gt-ab-actions{display:flex;gap:6px}
+.gt-ab-actions button{padding:6px 9px 8px;font-size:12px}
+.gt-copy{margin:28px auto;max-width:860px;padding:0 16px}
+.gt-copy-box{position:relative;border:1px solid #C3CEDD;border-radius:8px;background:#fff;padding:18px 20px}
+.gt-copy-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px}
+.gt-copy-head h2{margin:0;font:600 17px/1.3 Inter,system-ui,sans-serif;color:#14243B;letter-spacing:0}
+.gt-copy pre{margin:0;white-space:pre-wrap;word-break:break-word;font:400 15px/1.6 Inter,system-ui,sans-serif;color:#28364A}
+@media (max-width:640px){.gt-kit-bar{padding:8px 12px}.gt-kit-bar strong{flex-basis:100%}.gt-set,.gt-copy{padding:0 12px}}
+@media print{.gt-kit-bar,.gt-ab-actions,.gt-set-btn,.gt-copy-btn{display:none!important}}
+.gt-inline-meta{max-width:1280px;margin:18px auto 8px;padding:0 16px}

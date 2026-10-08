@@ -1,0 +1,15 @@
+## Your deliverable: an Instagram carousel
+
+Ten portrait slides (4:5, 1080×1350) plus the caption and first comment. This is a new, stronger version of the original 8-slide carousel (see reference images): each family slide now teaches the task of every type in it, not just a summary.
+
+Slides (put all ten in `<section class="gt-set" data-set="Instagram carousel (10 slides, 1080×1350)" data-zip="haiku-instagram">`, `data-name` slide-01 to slide-10):
+1. Cover. Eyebrow `LSAT LOGICAL REASONING`. Headline `20 types. Six families.` Subline `Know the task before you judge the answer.` A compact visual of the six family names (numbered 01 to 06). Swipe cue: `Swipe for the task each type asks you to do →`.
+2. The problem. Headline `A true answer can still be wrong.` Three enclosed rows from the source: A statement that strengthens an argument might not be necessary to it. A necessary assumption might leave the conclusion unproven. An accurate description of a sentence might name its topic without identifying its role. Closing line: `These are differences in the task.`
+3 to 8. One slide per family. Dark band at the top (#344E73) with eyebrow `FAMILY 0N · NAME` in gold mono and the family question as the headline (white Fraunces): 1 What is each statement doing? 2 How does the reasoning work? 3 Where does the reasoning fail? 4 What happens to the support? 5 What do the facts establish? 6 Check both sides. Below the band, one row per question type: the type name (Inter 600) and its task (Inter 400), taken verbatim from the Task column of the reference table. End each slide with one enclosed gold-wash `Check:` box holding that family's "What not to do" idea in one line (for family 4 use `Helpful ≠ required ≠ sufficient.`). Family 4 has six types: size the rows so all six fit with room to breathe.
+9. Practice. Headline `Name the task. Then test the choice.` Two numbered steps: 1. State the task in one sentence before reading the choices. 2. After a miss, ask: `What standard did my chosen answer fail?` Then the source's contrast, verbatim: “Wrong answer” is not much of a diagnosis. “I picked something that strengthened the argument when I needed something the argument required” tells you what to change.
+10. Save. Headline `Save the map for review.` Line: `The full article and the free printable guide are linked in the first comment.` Logo larger, centered.
+- Every slide: slide number `0N / 10` bottom right (mono, muted), logo bottom left (except slide 10, where it is the centerpiece). Keep a consistent footer line position across slides.
+
+Caption (`.gt-copy` labelled `Caption`, and in `copy/haiku-instagram.md`): the source Instagram caption, kept nearly verbatim; update only what the new slides change (for example "Swipe through all six families" if it helps). Add 5 to 8 relevant hashtags on the last line (#LSAT #LSATprep #LogicalReasoning #LawSchool ...).
+First comment (`.gt-copy` labelled `First comment`): the source first comment.
+Alt text: a `.gt-copy` block labelled `Alt text per slide` with one sentence per slide.

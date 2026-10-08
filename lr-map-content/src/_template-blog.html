@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TEMPLATE: Blog preview</title>
+<link rel="stylesheet" href="../kit/fonts-site.css">
+<link rel="stylesheet" href="../kit/fonts-social.css">
+<link rel="stylesheet" href="../kit/site-blog.css">
+<link rel="stylesheet" href="../kit/gt-kit.css">
+<style>
+  body { margin: 0; background: #F3F6FA; }
+  /* Page-level notes for Germaine, outside the site preview. */
+  .preview-note { max-width: 1180px; margin: 20px auto 0; padding: 0 16px; font: 400 14px/1.6 Inter, sans-serif; color: #3F4E64; }
+  /* Social share image (1200x630). Scope every rule to .share so nothing leaks into the site preview. */
+  .share { background: #344E73; color: #fff; padding: 64px 72px; }
+  .share .logo { position: absolute; left: 72px; bottom: 52px; height: 40px; width: auto; }
+</style>
+</head>
+<body data-export-name="TEMPLATE-blog" data-kit-title="Blog preview: TEMPLATE">
+
+<p class="preview-note">Rendered with the live site's blog stylesheets (Design 09 article reader). The body between the POST-CONTENT markers is the post's <code>content</code> field, unchanged.</p>
+
+<!-- The site preview. Keep this markup: it mirrors ArticlePage.tsx. -->
+<div class="gt-artboard" data-inline data-name="full-article" data-w="1280">
+<div class="sunlit" data-sb-doc="marketing"><div class="sunlit-body">
+<div class="page blog-experience article-experience article-v1 blog-look-default" data-page="article">
+  <section class="a-top">
+    <div class="b-wrap">
+      <div class="a-crumb"><a href="https://germainetutoring.com/blog">← Back to The Fix</a><span>Logical Reasoning</span></div>
+      <div class="a-head">
+        <h1>POST TITLE</h1>
+        <p class="a-deck">POST SNIPPET (the same text as post-meta snippet).</p>
+      </div>
+    </div>
+  </section>
+  <div class="b-wrap a-byline-wrap">
+    <div class="a-byline">
+      <div class="a-author-row">
+        <div class="a-by"><span class="b-byline">By Germaine Washington</span><div class="b-meta"><time></time><span class="read"></span></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="b-wrap a-layout">
+    <details class="a-toc" open>
+      <summary><span>On this page</span><span class="a-toc-sign" aria-hidden="true"></span></summary>
+      <nav aria-label="Article table of contents"></nav>
+    </details>
+    <article class="a-article" data-reading-size="standard">
+      <div class="a-prose">
+<!-- POST-CONTENT:START -->
+<p>First paragraph.</p>
+<h2>A section heading</h2>
+<p>Body text with <strong>strong text</strong> and <a href="https://germainetutoring.com/resources/lr-question-type-map">a link</a>.</p>
+<ul><li>A list item.</li><li>Another item.</li></ul>
+<table><thead><tr><th>Type</th><th>Task</th></tr></thead><tbody><tr><td>Flaw</td><td>Identify the error.</td></tr></tbody></table>
+<aside class="cl-resource-card">
+  <p class="cl-resource-kicker">Free download</p>
+  <p class="cl-resource-title">Resource card title</p>
+  <p class="cl-resource-note">One sentence on what it holds. <a href="/resources/lr-question-type-map">Read or download it here.</a></p>
+</aside>
+<!-- POST-CONTENT:END -->
+      </div>
+      <div class="a-after"><a class="b-link" href="https://germainetutoring.com/blog">← Back to The Fix</a></div>
+    </article>
+  </div>
+  <section class="b-cta">
+    <div class="b-wrap">
+      <div><h2>Take the Next Step Toward <em>Your Target Score</em></h2><p>One conversation can change your LSAT trajectory. Let's talk.</p></div>
+      <a class="b-button" href="https://germainetutoring.com/#consultation">Schedule a Free Consultation</a>
+    </div>
+  </section>
+</div>
+</div>
+</div>
+</div>
+
+<section class="gt-set" data-set="Post images" data-zip="TEMPLATE-blog-images">
+  <div class="gt-artboard share" data-name="social-image" data-w="1200" data-h="630">
+    <h2>Share image</h2>
+    <img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring">
+  </div>
+</section>
+
+<script type="application/json" id="post-meta">
+{
+  "slug": "lr-question-type-map",
+  "title": "POST TITLE",
+  "metaTitle": "SEO TITLE (optional)",
+  "date": "2026-10-15",
+  "snippet": "POST SNIPPET",
+  "metaDescription": "SEO description under 155 characters (optional)",
+  "tags": ["Logical Reasoning", "Strategy", "Study Guide"],
+  "author": "Germaine Washington",
+  "social_image": "/images/resources/lr-question-type-map/lr-question-type-map-social.png",
+  "social_image_alt": "Describe the share image."
+}
+</script>
+<script src="../kit/site-reader.js"></script>
+<script src="../kit/vendor/html-to-image.js"></script>
+<script src="../kit/vendor/jszip.min.js"></script>
+<script src="../kit/gt-export.js"></script>
+</body>
+</html>

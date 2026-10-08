@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LR Map Facebook Post</title>
+<link rel="stylesheet" href="../kit/fonts-social.css">
+<link rel="stylesheet" href="../kit/gt-kit.css">
+<style>
+  body { margin: 0; background: #E7EDF5; color: #28364A; font-family: Inter, sans-serif; }
+  .page-intro { max-width: 860px; margin: 24px auto 0; padding: 0 16px; }
+  .page-intro p { margin: 0 0 10px; font: 400 15px/1.6 Inter, sans-serif; color: #28364A; }
+
+  /* ---------- Shared artboard base (1080 x 1350) ---------- */
+  .fb { background: #F3F6FA; color: #28364A; font-family: Inter, sans-serif; display: flex; flex-direction: column; padding: 60px 64px 56px; }
+  .fb p, .fb h1, .fb h2, .fb h3, .fb ol, .fb ul { margin: 0; padding: 0; }
+  .fb .fb-eyebrow { font: 500 22px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #3E5F8F; }
+  .fb h1 { margin-top: 14px; font-family: Fraunces, serif; font-weight: 550; font-size: 64px; line-height: 1.07; letter-spacing: -0.02em; color: #14243B; text-wrap: balance; }
+  .fb .fb-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; border-top: 1px solid #C3CEDD; padding-top: 20px; }
+  .fb .fb-foot .logo { height: 40px; width: auto; display: block; }
+  .fb .fb-foot span { font: 500 22px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #5A6B82; text-align: right; }
+
+  /* ---------- Image 1: one argument, three standards ---------- */
+  .fb-lesson .fb-arg { margin-top: 30px; background: #344E73; color: #FFFFFF; border-radius: 18px; padding: 28px 36px 28px; }
+  .fb-lesson .fb-arg-label { font: 500 22px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #E3C06B; }
+  .fb-lesson .fb-arg-text { margin-top: 14px; font: 400 28px/1.42 Inter, sans-serif; color: #FFFFFF; text-wrap: pretty; }
+  .fb-lesson .fb-arg-concl { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255, 255, 255, 0.28); display: flex; align-items: baseline; gap: 18px; }
+  .fb-lesson .fb-arg-concl span { flex: none; font: 500 22px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #E3C06B; }
+  .fb-lesson .fb-arg-concl strong { font: 600 28px/1.35 Inter, sans-serif; color: #FFFFFF; }
+
+  .fb-lesson .fb-answers { list-style: none; margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+  .fb-lesson .fb-card { background: #FFFFFF; border: 1.5px solid #C3CEDD; border-radius: 16px; padding: 20px 30px 22px; }
+  .fb-lesson .fb-card-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+  .fb-lesson .fb-card h2 { font-family: Fraunces, serif; font-weight: 550; font-size: 40px; line-height: 1.05; letter-spacing: -0.02em; color: #3E5F8F; }
+  .fb-lesson .fb-tag { flex: none; font: 500 22px/1 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #14243B; background: #E7EDF5; border: 1px solid #C3CEDD; border-radius: 999px; padding: 7px 16px 8px; }
+  .fb-lesson .fb-choice { margin-top: 10px; font: 600 28px/1.36 Inter, sans-serif; color: #14243B; text-wrap: balance; }
+  .fb-lesson .fb-verdict { margin-top: 6px; font: 400 28px/1.36 Inter, sans-serif; color: #28364A; text-wrap: balance; }
+
+  /* ---------- Image 2: the six families ---------- */
+  .fb-map .fb-sub { margin-top: 16px; font: 400 28px/1.4 Inter, sans-serif; color: #28364A; }
+  .fb-map .fb-grid { margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .fb-map .fam { background: #FFFFFF; border: 1.5px solid #C3CEDD; border-radius: 16px; padding: 20px 26px 22px; display: flex; flex-direction: column; }
+  .fb-map .fam-sep { background: #FBF4DF; border-color: #E3C06B; }
+  .fb-map .fam-num { font: 500 22px/1.2 'IBM Plex Mono', monospace; letter-spacing: 0.06em; text-transform: uppercase; color: #3E5F8F; }
+  .fb-map .fam-sep .fam-num { color: #7A5818; }
+  .fb-map .fam h2 { margin-top: 6px; font-family: Fraunces, serif; font-weight: 550; font-size: 34px; line-height: 1.08; letter-spacing: -0.02em; color: #14243B; }
+  .fb-map .fam-q { margin-top: 6px; font: 400 26px/1.32 Inter, sans-serif; color: #5A6B82; text-wrap: balance; }
+  .fb-map .fam-sep .fam-q { color: #7A5818; }
+  .fb-map .fam ul { list-style: none; margin-top: 12px; padding-top: 10px; border-top: 1px solid #C3CEDD; }
+  .fb-map .fam-sep ul { border-top-color: #E3C06B; }
+  .fb-map .fam li { font: 500 28px/1.32 Inter, sans-serif; color: #14243B; }
+</style>
+</head>
+<body data-export-name="opus-facebook" data-kit-title="Facebook post: LR Question Type Map">
+<header class="page-intro">
+  <p>Facebook post for the LR Question Type Map: two 1080×1350 feed images, the caption, the first comment, alt text for each image, and a reply to post once people have answered the question in the caption. Post image 1 with the caption (it reads on its own at full feed width, with nothing cropped), then add the first comment with image 2 attached so the full map sits next to the links. Before posting, open both links in the first comment: the older version of this post was taken down on 2026-10-03, so they will not resolve until the new article and guide are live.</p>
+</header>
+
+<section class="gt-set" data-set="Facebook feed images (1080×1350)" data-zip="opus-facebook" data-preview="560">
+
+  <div class="gt-artboard fb fb-lesson" data-name="fb-01-three-standards" data-w="1080" data-h="1350">
+    <p class="fb-eyebrow">LSAT Logical Reasoning</p>
+    <h1>Know the task before you judge the answer.</h1>
+    <section class="fb-arg">
+      <p class="fb-arg-label">The argument · original teaching example</p>
+      <p class="fb-arg-text">Replacing a library’s lights with Model L fixtures will cut its annual electricity bill by exactly $4,000. Every other operating cost stays the same, except that Model L may add maintenance costs.</p>
+      <p class="fb-arg-concl"><span>Conclusion</span><strong>Total annual operating costs will fall.</strong></p>
+    </section>
+    <ol class="fb-answers">
+      <li class="fb-card">
+        <div class="fb-card-head"><h2>Helpful</h2><span class="fb-tag">Strengthen</span></div>
+        <p class="fb-choice">“Three libraries with comparable hours and the same fixtures saw maintenance rise less than $1,000.”</p>
+        <p class="fb-verdict">That supports a low estimate here. It doesn’t guarantee one.</p>
+      </li>
+      <li class="fb-card">
+        <div class="fb-card-head"><h2>Required</h2><span class="fb-tag">Necessary Assumption</span></div>
+        <p class="fb-choice">“Added maintenance will cost less than $4,000 a year.”</p>
+        <p class="fb-verdict">Negate it: $4,000 or more would mean no reduction.</p>
+      </li>
+      <li class="fb-card">
+        <div class="fb-card-head"><h2>Sufficient</h2><span class="fb-tag">Sufficient Assumption</span></div>
+        <p class="fb-choice">“Added maintenance will cost $1,000 a year or less.”</p>
+        <p class="fb-verdict">That guarantees at least $3,000 in savings.<br>It isn’t required: a $3,000 increase still allows savings.</p>
+      </li>
+    </ol>
+    <footer class="fb-foot">
+      <img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring">
+      <span>LR Question Type Map · Family 4</span>
+    </footer>
+  </div>
+
+  <div class="gt-artboard fb fb-map" data-name="fb-02-six-families" data-w="1080" data-h="1350">
+    <p class="fb-eyebrow">The LR Question Type Map</p>
+    <h1>20 types. Six families.</h1>
+    <div class="fb-grid">
+      <section class="fam">
+        <p class="fam-num">01</p>
+        <h2>Identify the Parts</h2>
+        <p class="fam-q">What is each statement doing?</p>
+        <ul><li>Role in Argument</li><li>Main Conclusion</li></ul>
+      </section>
+      <section class="fam">
+        <p class="fam-num">02</p>
+        <h2>Describe the Argument</h2>
+        <p class="fam-q">How do the parts work together?</p>
+        <ul><li>Method of Reasoning</li><li>Parallel Reasoning</li></ul>
+      </section>
+      <section class="fam">
+        <p class="fam-num">03</p>
+        <h2>Critique the Argument</h2>
+        <p class="fam-q">Where does the reasoning fail?</p>
+        <ul><li>Flaw</li><li>Parallel Flaw</li></ul>
+      </section>
+      <section class="fam">
+        <p class="fam-num">04</p>
+        <h2>Change the Argument</h2>
+        <p class="fam-q">What happens to the support?</p>
+        <ul><li>Evaluate · Weaken</li><li>Strengthen</li><li>Sufficient Assumption</li><li>Necessary Assumption</li><li>Principle Strengthen</li></ul>
+      </section>
+      <section class="fam">
+        <p class="fam-num">05</p>
+        <h2>Form Your Own Argument</h2>
+        <p class="fam-q">What do the facts support or rule out?</p>
+        <ul><li>Fill in the Blank</li><li>Most Strongly Supported</li><li>Must Be True</li><li>Must Be False</li></ul>
+      </section>
+      <section class="fam fam-sep">
+        <p class="fam-num">06 · Relationship tasks</p>
+        <h2>Argument-Adjacent</h2>
+        <p class="fam-q">Check both sides of the relationship.</p>
+        <ul><li>Agree / Disagree</li><li>Principle: Apply</li><li>Principle: Generalize</li><li>Paradox</li></ul>
+      </section>
+    </div>
+    <footer class="fb-foot">
+      <img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring">
+      <span>All 20 LR types</span>
+    </footer>
+  </div>
+
+</section>
+
+<section class="gt-copy" data-label="Caption (post with image 1)"><pre>Before you decide whether an LSAT answer is good, decide what it needs to do.
+
+An answer can be true, helpful, or logically interesting and still miss the question. A statement that strengthens an argument might not be necessary to it. A necessary assumption might leave the conclusion unproven.
+
+The image holds one argument fixed so you can see the difference. Replacing a library’s lights with Model L fixtures will cut its annual electricity bill by exactly $4,000, and maintenance is the only other cost that may change. The author concludes that total annual operating costs will fall.
+
+Strengthen needs a fact that improves the support. If three comparable libraries with the same fixtures saw maintenance rise less than $1,000, that supports a low estimate here. It doesn’t guarantee one.
+
+Necessary Assumption needs something the argument requires. Added maintenance has to cost less than $4,000 a year. Negate that, and $4,000 or more would mean no reduction.
+
+Sufficient Assumption needs a statement that makes the conclusion follow. A $1,000 cap on added maintenance guarantees at least $3,000 in savings. The argument doesn’t need a cap that tight, though: a $3,000 increase would still allow savings.
+
+Helpful, required, and sufficient are different standards. So are possible, supported, guaranteed, and contradicted. The LR Question Type Map organizes all 20 types into six families, with a method and a wrong-answer check for each. Use it to identify the task before choosing, then return to it during review to name the standard your answer missed. The full map and the free guide are linked in the first comment.
+
+Try one in the comments. Suppose Model L adds no maintenance cost at all. Is that required for the conclusion, sufficient for it, or both? Tell me which test you used to decide.</pre></section>
+
+<section class="gt-copy" data-label="First comment (attach image 2)"><pre>Full article, with the complete map: https://germainetutoring.com/blog/lr-question-type-map
+
+Read or download the free guide: https://germainetutoring.com/resources/lr-question-type-map
+
+The library argument is an original teaching example, not an LSAT question. Each answer in the image is tested on its own.
+
+If you know the type but keep missing what the answer needs to do, bring a recent example and your reasoning to a free consultation: https://germainetutoring.com/#consultation</pre></section>
+
+<section class="gt-copy" data-label="Alt text: image 1 (fb-01-three-standards)"><pre>Graphic titled “Know the task before you judge the answer.” An original teaching example: replacing a library’s lights with Model L fixtures will cut its annual electricity bill by exactly $4,000, and every other operating cost stays the same, except that Model L may add maintenance costs. Conclusion: total annual operating costs will fall. Three answers meet three different standards. Helpful (Strengthen): three libraries with comparable hours and the same fixtures saw maintenance rise less than $1,000, which supports a low estimate but doesn’t guarantee one. Required (Necessary Assumption): added maintenance will cost less than $4,000 a year; negate it, and $4,000 or more would mean no reduction. Sufficient (Sufficient Assumption): added maintenance will cost $1,000 a year or less, which guarantees at least $3,000 in savings but isn’t required, since a $3,000 increase still allows savings.</pre></section>
+
+<section class="gt-copy" data-label="Alt text: image 2 (fb-02-six-families)"><pre>Chart titled “20 types. Six families.” from the LR Question Type Map. 01 Identify the Parts asks what each statement is doing: Role in Argument, Main Conclusion. 02 Describe the Argument asks how the parts work together: Method of Reasoning, Parallel Reasoning. 03 Critique the Argument asks where the reasoning fails: Flaw, Parallel Flaw. 04 Change the Argument asks what happens to the support: Evaluate, Weaken, Strengthen, Sufficient Assumption, Necessary Assumption, Principle Strengthen. 05 Form Your Own Argument asks what the facts support or rule out: Fill in the Blank, Most Strongly Supported, Must Be True, Must Be False. 06 Argument-Adjacent, highlighted as a separate set of relationship tasks, says to check both sides of the relationship: Agree / Disagree, Principle: Apply, Principle: Generalize, Paradox.</pre></section>
+
+<section class="gt-copy" data-label="Reply with the answer (post after a few people have answered)"><pre>Sufficient, not required. Add it to the premises first: the bill falls by $4,000 and nothing else rises, so total costs fall. Then negate it: Model L adds some maintenance cost. If that cost is $3,000, total costs still fall by $1,000, so the argument never needed the stronger claim.
+
+One more check: “Added maintenance will cost less than $4,000 a year” is the required answer in the image, and in this example it is also sufficient. A statement can meet more than one standard. The question stem tells you which one you need.</pre></section>
+
+<script src="../kit/vendor/html-to-image.js"></script>
+<script src="../kit/vendor/jszip.min.js"></script>
+<script src="../kit/gt-export.js"></script>
+</body>
+</html>

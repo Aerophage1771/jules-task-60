@@ -1,0 +1,24 @@
+## Your deliverable: the blog post, as the live site would show it
+
+GermaineTutoring.com stores each blog post as a TypeScript module whose `content` field is an HTML string. The site's article reader adds heading ids, the "On this page" panel and table wrappers itself. Your page previews the post with the live site's own stylesheets, and a tool turns your page into the post module.
+
+Steps:
+1. Copy the template: `cp src/_template-blog.html src/haiku-blog.html`. Do not read `kit/site-blog.css` (it is large); the template already uses it.
+2. In `src/haiku-blog.html`, replace every TEMPLATE / POST TITLE / POST SNIPPET placeholder:
+   - `<title>`: `Blog preview (Haiku): The LR Question Type Map`. `data-export-name="haiku-blog"`, `data-kit-title="Blog preview (Haiku)"`, set `data-zip="haiku-blog-images"`.
+   - `<h1>` and `.a-deck` must match `title` and `snippet` in `post-meta`.
+3. Fill `post-meta` with exactly these keys: `slug` = `lr-question-type-map` (it replaces an older unpublished version), `title` = `The LR Question Type Map`, `metaTitle` = `LSAT LR Question Type Map: All 20 Types in Six Families`, `date` = `2026-10-15`, `snippet` (one or two sentences, under 170 characters, built from the deck: "Know the task before you judge the answer..."), `metaDescription` (under 155 characters), `tags` = `["Logical Reasoning", "Strategy", "Study Guide"]`, `author` = `Germaine Washington`, `social_image` = `/images/resources/lr-question-type-map/lr-question-type-map-social.png`, `social_image_alt` (one sentence describing your share image).
+4. Replace everything between `<!-- POST-CONTENT:START -->` and `<!-- POST-CONTENT:END -->` with the post body, built from the source below:
+   - Opening: the source's first four paragraphs, verbatim.
+   - Then a resource card (keep the template's `aside.cl-resource-card` markup): kicker `Free download`, title `The LR Question Type Map`, note `All 20 types in six families, with the task, the method, and the wrong answer to check for each.` plus the link `<a href="/resources/lr-question-type-map">Read or download it here.</a>`
+   - Then the fifth source paragraph ("I organize the 20 question types into six families...") followed by a new `<h2>The six families at a glance</h2>` and a 3-column table: Family | Question types | The question to ask. Use these questions: Identify the Parts: What is each statement doing? Describe the Argument: How do the parts work together? Critique the Argument: Where does the reasoning fail? Change the Argument: Is the answer helpful, required, or sufficient? Form Your Own Argument: What do the facts support, guarantee, or rule out? Argument-Adjacent: Did you check both sides of the relationship?
+   - Then one `<h2>` per family, using the source headings verbatim ("1. Identify the Parts" and so on) and the source text verbatim. Write each "Question types:" line as `<p><strong>Question types:</strong> Role in Argument and Main Conclusion.</p>` and each "What not to do:" line as `<p><strong>What not to do:</strong> ...</p>`. Family 4's six definitions stay a `<ul>` with each type name in `<strong>`.
+   - Then `<h2>How to Use the Map in Practice</h2>` verbatim, with the quoted question as `<blockquote><p>What standard did my chosen answer fail?</p></blockquote>`.
+   - Then `<h2>All 20 types: task, method, and the wrong answer to check</h2>`: the intro sentence and the full 4-column table from the reference source (Type | Task | Method | Wrong-answer pattern to check), every row verbatim, then its closing paragraph about "Too strong".
+   - Close with the source's last two paragraphs (resource link and free consultation link), verbatim. Links: `https://germainetutoring.com/resources/lr-question-type-map` and `https://germainetutoring.com/#consultation`.
+   - Allowed elements only: p, h2, h3, ul, ol, li, strong, em, a, table, thead, tbody, tr, th, td, blockquote, aside.cl-resource-card with its three p classes. No inline styles, no scripts, no images in the body.
+5. Design the share image (the `.share` artboard, 1200×630) in the site's look: dark field #344E73, a small gold label chip `LOGICAL REASONING`, the title in "Sunlit Marketing Merriweather" (the site's display face, weight 400 to 700) and supporting text in "Sunlit Marketing Open Sans". Show the six family names in two columns of three, numbered 01 to 06, in white on the dark field, with gold numbers. White logo bottom left. Keep 64px margins. Put its styles in the page `<style>` under `.share`.
+6. Build, check (see below), then run `python3 -I tools/blog_to_ts.py src/haiku-blog.html`. It writes `copy/haiku-blog.ts` and refuses em dashes.
+7. Read `.checks/haiku-blog/02-social-image.png` and `.checks/haiku-blog/page-desktop.png` only (the full-article PNG is very tall; do not read it).
+
+Files you write: `src/haiku-blog.html` (and the tools write `dist/haiku-blog.html`, `copy/haiku-blog.ts`, `.checks/haiku-blog/`). No separate .md file is needed for the blog.

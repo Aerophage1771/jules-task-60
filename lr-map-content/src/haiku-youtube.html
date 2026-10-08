@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LR map YouTube storyboard</title>
+<link rel="stylesheet" href="../kit/fonts-social.css">
+<link rel="stylesheet" href="../kit/gt-kit.css">
+<style>
+  body { margin: 0; background: #E7EDF5; color: #28364A; font-family: Inter, sans-serif; }
+  .page-intro { max-width: 860px; margin: 24px auto 32px; padding: 0 16px; font-size: 17px; line-height: 1.6; }
+
+  .scene { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 32px; align-items: start; margin: 0 16px 56px; }
+  .scene-frame { min-width: 0; }
+  .scene-notes { font-size: 16px; line-height: 1.55; color: #28364A; }
+  .scene-notes .sn-head { margin: 0 0 8px; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: #344E73; }
+  .scene-notes dt { margin: 14px 0 2px; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: #5A6B82; }
+  .scene-notes dd { margin: 0; }
+  @media (max-width: 800px) { .scene { grid-template-columns: minmax(0, 1fr); } }
+
+  /* Frames: 1920 x 1080 */
+  .frame { box-sizing: border-box; display: flex; flex-direction: column; gap: 28px; padding: 60px 96px; background: #14243B; color: #F3F6FA; font-family: Inter, sans-serif; overflow: hidden; }
+  .frame.paper { background: #F3F6FA; color: #14243B; }
+  .frame .top { display: flex; align-items: center; gap: 32px; height: 44px; flex: none; }
+  .frame .logo { display: block; height: 44px; width: auto; }
+  .frame .eyebrow { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 30px; line-height: 1; letter-spacing: .06em; text-transform: uppercase; color: #E3C06B; }
+  .frame.paper .eyebrow { color: #3E5F8F; }
+  .frame h1, .frame .h-sm, .frame .cn { margin: 0; font-family: Fraunces, serif; font-weight: 550; letter-spacing: -.02em; }
+  .frame h1 { font-size: 96px; line-height: 1.05; }
+  .frame .h-sm { font-size: 72px; line-height: 1.1; }
+  .frame .cn { font-size: 60px; line-height: 1.05; }
+  .frame p { margin: 0; font-size: 40px; line-height: 1.25; }
+  .frame .lbl { display: block; margin: 0 0 12px; font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 30px; line-height: 1; letter-spacing: .06em; text-transform: uppercase; color: #E3C06B; }
+  .frame.paper .lbl { color: #3E5F8F; }
+  .frame .box { box-sizing: border-box; background: #344E73; border: 2px solid #3E5F8F; padding: 28px 36px; }
+  .frame.paper .box { background: #FFFFFF; border-color: #C3CEDD; color: #14243B; }
+  .frame .avoid { box-sizing: border-box; background: #FBF4DF; border: 2px solid #E3C06B; color: #14243B; padding: 24px 36px; }
+
+  /* Scene 1 */
+  .frame .stmts { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 28px; }
+  .frame .stmt { box-sizing: border-box; background: #344E73; border: 2px solid #3E5F8F; padding: 40px 56px; font-family: Fraunces, serif; font-weight: 550; font-size: 56px; line-height: 1.15; letter-spacing: -.01em; color: #F3F6FA; }
+
+  /* Scene 2 */
+  .frame .promise { font-size: 72px; line-height: 1.1; }
+  .frame .sub { margin-top: -10px; color: #28364A; }
+  .frame .tiles { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; gap: 32px; align-content: center; }
+  .frame .tile { box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; padding: 28px 32px; background: #FFFFFF; border: 2px solid #C3CEDD; }
+  .frame .tile .num { font-family: 'IBM Plex Mono', monospace; font-weight: 500; font-size: 30px; letter-spacing: .06em; color: #3E5F8F; }
+  .frame .tile .tname { font-family: Fraunces, serif; font-weight: 550; font-size: 52px; line-height: 1.08; letter-spacing: -.01em; color: #14243B; }
+
+  /* Family frames */
+  .frame .fam-head .q { margin-top: 10px; color: #C3CEDD; }
+  .frame.paper .fam-head .q { color: #28364A; }
+  .frame .types { flex: 1; display: grid; grid-template-columns: 1fr 1fr; align-content: center; gap: 28px 56px; }
+  .frame .ty { display: flex; flex-direction: column; gap: 4px; }
+  .frame .ty .tn { font-weight: 600; font-size: 40px; line-height: 1.2; color: #F3F6FA; }
+  .frame .ty .tt { font-size: 40px; line-height: 1.2; color: #C3CEDD; }
+  .frame.paper .ty .tn { color: #14243B; }
+  .frame.paper .ty .tt { color: #28364A; }
+
+  /* Scene 9 */
+  .frame.s9 { gap: 20px; }
+  .frame .prem p + p { margin-top: 12px; }
+  .frame .eq { font-family: Fraunces, serif; font-weight: 550; font-size: 64px; line-height: 1.1; letter-spacing: -.01em; color: #14243B; margin-bottom: 8px; }
+
+  /* Scenes 10 to 12 */
+  .frame .cols { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; align-items: stretch; }
+  .frame .cols.two { grid-template-columns: 2fr 3fr; }
+  .frame .col { display: flex; flex-direction: column; gap: 16px; }
+  .frame .callout p { font-family: Fraunces, serif; font-weight: 550; font-size: 48px; line-height: 1.2; letter-spacing: -.01em; }
+  .frame .foot { margin: 0; }
+
+  /* Scene 13 */
+  .frame .end { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; gap: 44px; max-width: 1000px; }
+  .frame .muted { color: #C3CEDD; }
+  .frame .linkbox p { font-weight: 600; }
+
+  /* Overrides that must come last */
+  .frame .avoid .lbl { display: inline; margin: 0 16px 0 0; color: #7A5818; }
+  .frame.paper .weak .lbl { color: #984236; }
+  .frame.paper .strong .lbl { color: #376346; }
+
+  /* Thumbnail 1280 x 720 */
+  .thumb { box-sizing: border-box; position: relative; overflow: hidden; background: #14243B; color: #F3F6FA; font-family: Inter, sans-serif; }
+  .thumb .logo { position: absolute; left: 56px; top: 56px; height: 44px; width: auto; }
+  .thumb .thumb-body { position: absolute; left: 56px; right: 56px; top: 120px; bottom: 56px; display: flex; align-items: center; justify-content: space-between; }
+  .thumb h1 { margin: 0; font-family: Fraunces, serif; font-weight: 550; font-size: 168px; line-height: 1.02; letter-spacing: -.02em; }
+  .thumb .grid { display: grid; grid-template-columns: repeat(3, 140px); gap: 16px; }
+  .thumb .grid span { box-sizing: border-box; height: 140px; display: flex; align-items: center; justify-content: center; background: #344E73; border: 2px solid #3E5F8F; font-family: Fraunces, serif; font-weight: 550; font-size: 96px; color: #E3C06B; }
+</style>
+</head>
+<body data-export-name="haiku-youtube" data-kit-title="LR map YouTube">
+<header class="page-intro">A 9 minute 40 second YouTube teaching video on the LR Question Type Map, with a thumbnail and upload copy. Each frame is 1920×1080, and each scene’s notes give its timing, voiceover, on-screen text and edits. Export the frames from the toolbar, then paste the title, description and pinned comment from the copy blocks at the bottom.</header>
+
+<section class="gt-set" data-set="Storyboard frames (1920×1080)" data-zip="haiku-youtube-frames">
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame" data-name="scene-01" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring"><span class="eyebrow">LR Question Type Map</span></div>
+        <div class="stmts">
+          <p class="stmt">A statement that strengthens an argument might not be necessary to it.</p>
+          <p class="stmt">A necessary assumption might leave the conclusion unproven.</p>
+          <p class="stmt">An accurate description of a sentence might name its topic without identifying its role.</p>
+        </div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 1 · 00:00 to 00:20</p>
+      <dl>
+        <dt>Purpose</dt><dd>Open with three distinctions that make a plausible answer miss the question.</dd>
+        <dt>Voiceover</dt><dd>A statement that strengthens an argument might not be necessary to it. A necessary assumption might leave the conclusion unproven. An accurate description of a sentence might name its topic without identifying its role. These are differences in the task. They should change how you approach the question.</dd>
+        <dt>On screen</dt><dd>Three enclosed rows, one sentence each, as in the frame. Eyebrow: LR Question Type Map.</dd>
+        <dt>Edit and motion</dt><dd>Row 1 fades in and rises, then row 2, then row 3, about 1.2 seconds apart. Nothing else moves.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame paper" data-name="scene-02" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="eyebrow">The LR Question Type Map</span></div>
+        <h1 class="promise">Different Logical Reasoning questions ask you to do different work on an argument.</h1>
+        <p class="sub">Six families organize all 20 types.</p>
+        <div class="tiles">
+          <div class="tile"><span class="num">01</span><span class="tname">Identify the Parts</span></div>
+          <div class="tile"><span class="num">02</span><span class="tname">Describe the Argument</span></div>
+          <div class="tile"><span class="num">03</span><span class="tname">Critique the Argument</span></div>
+          <div class="tile"><span class="num">04</span><span class="tname">Change the Argument</span></div>
+          <div class="tile"><span class="num">05</span><span class="tname">Form Your Own Argument</span></div>
+          <div class="tile"><span class="num">06</span><span class="tname">Argument-Adjacent</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 2 · 00:20 to 00:55</p>
+      <dl>
+        <dt>Purpose</dt><dd>Make the promise and show the six families. Keep the first five apart from the sixth.</dd>
+        <dt>Voiceover</dt><dd>Different Logical Reasoning questions ask you to do different work on an argument. If you do not identify that work before evaluating the choices, you can pick an answer that is true, helpful, or logically interesting and still get the question wrong. I organize the 20 question types into six families. The first five follow the work of analyzing an argument and then drawing a conclusion yourself. The sixth covers questions involving two speakers, a rule and a case, or facts that seem difficult to reconcile.</dd>
+        <dt>On screen</dt><dd>Headline: Different Logical Reasoning questions ask you to do different work on an argument. Sub: Six families organize all 20 types. Six tiles, numbered 01 to 06: Identify the Parts; Describe the Argument; Critique the Argument; Change the Argument; Form Your Own Argument; Argument-Adjacent.</dd>
+        <dt>Edit and motion</dt><dd>Headline fades in. Tiles appear in order, 01 first, left to right and top row before bottom row.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame" data-name="scene-03" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring"><span class="eyebrow">Family 1 of 6</span></div>
+        <div class="fam-head">
+          <h1>Identify the Parts</h1>
+          <p class="q">What is each statement doing in the argument?</p>
+        </div>
+        <div class="types">
+          <div class="ty"><span class="tn">Role in Argument</span><span class="tt">Identify the job of the quoted statement.</span></div>
+          <div class="ty"><span class="tn">Main Conclusion</span><span class="tt">Identify the claim the author is ultimately defending.</span></div>
+        </div>
+        <div class="avoid"><p><span class="lbl">What not to do</span> Choose a statement because it is important or true. You are identifying its job.</p></div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 3 · 00:55 to 01:55</p>
+      <dl>
+        <dt>Purpose</dt><dd>Teach the first family: find the job of each statement before judging any choice.</dd>
+        <dt>Voiceover</dt><dd>Start by figuring out what each statement is doing. On a Main Conclusion question, you need the claim the author is ultimately trying to establish. A sentence does not become the main conclusion because it comes last or follows “therefore.” An intermediate conclusion receives support and then helps support another claim. On a Role in Argument question, identify the main conclusion first. Then locate the quoted statement relative to it. Is that statement evidence, an intermediate conclusion, a concession, an opposing view, or background? Check both parts of the answer: the role it names and the claim it says the statement relates to. “A premise” might be the right role while the rest of the description misstates what that premise supports. Do not choose a statement because it is important or true. You are identifying its job.</dd>
+        <dt>On screen</dt><dd>Family 1 of 6. Identify the Parts. Question: What is each statement doing in the argument? Role in Argument: Identify the job of the quoted statement. Main Conclusion: Identify the claim the author is ultimately defending. Avoid box: What not to do. Choose a statement because it is important or true. You are identifying its job.</dd>
+        <dt>Edit and motion</dt><dd>Family number and name, then the question. Task rows reveal left to right. The What not to do box lands last and holds for the final 5 seconds.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame paper" data-name="scene-04" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="eyebrow">Family 2 of 6</span></div>
+        <div class="fam-head">
+          <h1>Describe the Argument</h1>
+          <p class="q">How does the reasoning move? Does each answer describe that move?</p>
+        </div>
+        <div class="types">
+          <div class="ty"><span class="tn">Method of Reasoning</span><span class="tt">Describe how the argument proceeds.</span></div>
+          <div class="ty"><span class="tn">Parallel Reasoning</span><span class="tt">Match the reasoning structure.</span></div>
+        </div>
+        <div class="avoid"><p><span class="lbl">What not to do</span> Match topics or familiar words. Two arguments about doctors can reason differently.</p></div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 4 · 01:55 to 02:55</p>
+      <dl>
+        <dt>Purpose</dt><dd>Teach the second family: state the move in plain language, then test each answer as a set of claims.</dd>
+        <dt>Voiceover</dt><dd>Once you know the parts, describe how they work together. For Method of Reasoning, remove the topic and state the move in plain language. The author might eliminate alternatives, compare two cases, apply a rule, or show that a proposed explanation conflicts with a fact. Then read each answer as a set of claims about the stimulus. If it says the author cites an expert and questions that expert’s motives, both things need to happen. An answer can start accurately and finish with a move the author never makes. Parallel Reasoning asks you to find the same structure in a different argument. If several choices fit, compare the relationships more closely: the conditions, the direction of support, and the force of the conclusion. Do not match topics or familiar words. Two arguments about doctors can reason differently. An argument about a museum can use the same reasoning as one about a forest.</dd>
+        <dt>On screen</dt><dd>Family 2 of 6. Describe the Argument. Question: How does the reasoning move? Does each answer describe that move? Method of Reasoning: Describe how the argument proceeds. Parallel Reasoning: Match the reasoning structure. Avoid box: What not to do. Match topics or familiar words. Two arguments about doctors can reason differently.</dd>
+        <dt>Edit and motion</dt><dd>Same build as scene 3. The two task rows reveal in order, then the avoid box.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame" data-name="scene-05" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring"><span class="eyebrow">Family 3 of 6</span></div>
+        <div class="fam-head">
+          <h1>Critique the Argument</h1>
+          <p class="q">Does the reasoning work, and what specific error would expose it?</p>
+        </div>
+        <div class="types">
+          <div class="ty"><span class="tn">Flaw</span><span class="tt">Identify the error in the reasoning.</span></div>
+          <div class="ty"><span class="tn">Parallel Flaw</span><span class="tt">Match the relevant flawed reasoning.</span></div>
+        </div>
+        <div class="avoid"><p><span class="lbl">What not to do</span> Pick a familiar flaw because it is a real flaw. It must be the flaw this argument commits.</p></div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 5 · 02:55 to 03:55</p>
+      <dl>
+        <dt>Purpose</dt><dd>Teach the third family: name the specific gap, then check that the choice describes this argument's error.</dd>
+        <dt>Voiceover</dt><dd>Now ask whether the reasoning works. For Flaw, identify the specific problem before trying to recognize it in abstract answer wording. What did the author need to establish but leave open? Then translate each answer back into the stimulus. If an answer says the argument confuses a requirement with a guarantee, identify the requirement and the claimed guarantee. If you cannot locate that error in the reasoning, knowing the name of the fallacy is not enough. Parallel Flaw adds a matching task. The correct answer must fail in the corresponding way. Another bad argument is not necessarily a parallel bad argument. Do not pick a familiar flaw because it is a real flaw. It must be the flaw this argument commits.</dd>
+        <dt>On screen</dt><dd>Family 3 of 6. Critique the Argument. Question: Does the reasoning work, and what specific error would expose it? Flaw: Identify the error in the reasoning. Parallel Flaw: Match the relevant flawed reasoning. Avoid box: What not to do. Pick a familiar flaw because it is a real flaw. It must be the flaw this argument commits.</dd>
+        <dt>Edit and motion</dt><dd>Same build as scene 3. Task rows reveal in order, then the avoid box.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame paper" data-name="scene-06" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="eyebrow">Family 4 of 6</span></div>
+        <div class="fam-head">
+          <h1>Change the Argument</h1>
+          <p class="q">What would change the support for the conclusion?</p>
+        </div>
+        <div class="types">
+          <div class="ty"><span class="tn">Evaluate</span><span class="tt">Find information useful in assessing the argument.</span></div>
+          <div class="ty"><span class="tn">Weaken</span><span class="tt">Reduce the support for the conclusion.</span></div>
+          <div class="ty"><span class="tn">Strengthen</span><span class="tt">Improve the support for the conclusion.</span></div>
+          <div class="ty"><span class="tn">Sufficient Assumption</span><span class="tt">Make the conclusion follow when the answer is added.</span></div>
+          <div class="ty"><span class="tn">Necessary Assumption</span><span class="tt">Identify what the argument requires.</span></div>
+          <div class="ty"><span class="tn">Principle Strengthen</span><span class="tt">Supply a general rule that helps justify the conclusion.</span></div>
+        </div>
+        <div class="avoid"><p><span class="lbl">What not to do</span> Use “this helps” as the standard for every question in the family. Helpful, required, and sufficient are different.</p></div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 6 · 03:55 to 04:55</p>
+      <dl>
+        <dt>Purpose</dt><dd>Teach the fourth family: six tasks that start from the same gap but ask for different things.</dd>
+        <dt>Voiceover</dt><dd>These types often begin from the same gap. They ask you to do different things with it. Evaluate asks for information that helps you judge the reasoning. Weaken asks for a fact that reduces the support for the conclusion. Strengthen asks for a fact that improves that support. Sufficient Assumption asks for a statement that makes the conclusion follow. Necessary Assumption asks for something the argument requires. Principle Strengthen asks for a general rule that helps justify the conclusion in this case. Suppose the author offers evidence about how well a plan worked in one city and concludes that it will work in another. A difference between the cities may weaken the inference. A relevant similarity may strengthen it. That shared starting point does not make the tasks interchangeable. Do not use “this helps” as the standard for every question in the family. Helpful, required, and sufficient are different.</dd>
+        <dt>On screen</dt><dd>Family 4 of 6. Change the Argument. Question: What would change the support for the conclusion? Six task rows: Evaluate; Weaken; Strengthen; Sufficient Assumption; Necessary Assumption; Principle Strengthen, each with its task line as in the frame. Avoid box: What not to do. Use “this helps” as the standard for every question in the family. Helpful, required, and sufficient are different.</dd>
+        <dt>Edit and motion</dt><dd>Six rows reveal in two columns, top row first, one row every 3 seconds, in the order listed. Avoid box lands last. The city example is voiced over the Evaluate and Weaken rows, so keep the frame still.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame" data-name="scene-07" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring"><span class="eyebrow">Family 5 of 6</span></div>
+        <div class="fam-head">
+          <h1>Form Your Own Argument</h1>
+          <p class="q">What do the statements support, complete, or rule out?</p>
+        </div>
+        <div class="types">
+          <div class="ty"><span class="tn">Fill in the Blank</span><span class="tt">Complete the passage in the role the blank requires.</span></div>
+          <div class="ty"><span class="tn">Most Strongly Supported</span><span class="tt">Identify the claim with the strongest support from the stimulus.</span></div>
+          <div class="ty"><span class="tn">Must Be True</span><span class="tt">Identify a claim guaranteed by the statements.</span></div>
+          <div class="ty"><span class="tn">Must Be False</span><span class="tt">Identify a claim incompatible with the statements.</span></div>
+        </div>
+        <div class="avoid"><p><span class="lbl">What not to do</span> Treat possible, supported, guaranteed, and contradicted as the same judgment.</p></div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 7 · 04:55 to 05:55</p>
+      <dl>
+        <dt>Purpose</dt><dd>Teach the fifth family: keep possible, supported, guaranteed and contradicted apart.</dd>
+        <dt>Voiceover</dt><dd>Here the task concerns what the statements support, complete, or rule out. On Most Strongly Supported, look for the claim with the best support in the information provided. A claim can be plausible in the real world without being supported by this stimulus. Must Be True asks for a guarantee. Try to make the answer false while leaving the stimulus true. If you can do that, it is not required by the facts. Must Be False asks for an answer that cannot coexist with the given information. Something the stimulus never discusses is not automatically false. It may simply be unknown. Fill in the Blank asks what the missing statement is doing. Use the sentence and the question wording to identify that job before choosing a completion. Do not treat possible, supported, guaranteed, and contradicted as the same judgment. They are four different relationships to the evidence.</dd>
+        <dt>On screen</dt><dd>Family 5 of 6. Form Your Own Argument. Question: What do the statements support, complete, or rule out? Fill in the Blank: Complete the passage in the role the blank requires. Most Strongly Supported: Identify the claim with the strongest support from the stimulus. Must Be True: Identify a claim guaranteed by the statements. Must Be False: Identify a claim incompatible with the statements. Avoid box: What not to do. Treat possible, supported, guaranteed, and contradicted as the same judgment.</dd>
+        <dt>Edit and motion</dt><dd>Same build as scene 3. The four task rows reveal in order, then the avoid box.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame paper" data-name="scene-08" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="eyebrow">Family 6 of 6</span></div>
+        <div class="fam-head">
+          <h1>Argument-Adjacent</h1>
+          <p class="q">How do two speakers, a rule and a case, or two facts relate?</p>
+        </div>
+        <div class="types">
+          <div class="ty"><span class="tn">Agree / Disagree</span><span class="tt">Identify a shared or opposed position.</span></div>
+          <div class="ty"><span class="tn">Principle: Apply</span><span class="tt">Identify the case or judgment licensed by a rule.</span></div>
+          <div class="ty"><span class="tn">Principle: Generalize</span><span class="tt">Identify the principle the case illustrates.</span></div>
+          <div class="ty"><span class="tn">Paradox: Resolve, Reconcile, Explain</span><span class="tt">Explain how the surprising facts can coexist.</span></div>
+        </div>
+        <div class="avoid"><p><span class="lbl">What not to do</span> Ignore one side of the relationship. Check both speakers, the rule and the case, or both facts in the apparent conflict.</p></div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 8 · 05:55 to 06:55</p>
+      <dl>
+        <dt>Purpose</dt><dd>Teach the sixth family: check both sides of every relationship before you judge it.</dd>
+        <dt>Voiceover</dt><dd>These questions involve relationships that need their own checks. For Agree / Disagree, establish each speaker’s position on the exact statement in the answer. Silence is not disagreement. If one speaker’s view is unknown, you do not yet have the required relationship. For Principle: Apply, break the rule into its conditions and result. Then check the case against each condition. Meeting most of a rule’s requirements is not meeting all of them. Principle: Generalize reverses the direction. Start with the case and identify the broader rule or relationship it illustrates. For Paradox, state what is surprising: “We would expect this, but instead that happened.” A correct explanation lets both given facts remain true and makes their coexistence less surprising. Do not ignore one side of the relationship. Check both speakers, the rule and the case, or both facts in the apparent conflict.</dd>
+        <dt>On screen</dt><dd>Family 6 of 6. Argument-Adjacent. Question: How do two speakers, a rule and a case, or two facts relate? Agree / Disagree: Identify a shared or opposed position. Principle: Apply: Identify the case or judgment licensed by a rule. Principle: Generalize: Identify the principle the case illustrates. Paradox: Resolve, Reconcile, Explain: Explain how the surprising facts can coexist. Avoid box: What not to do. Ignore one side of the relationship. Check both speakers, the rule and the case, or both facts in the apparent conflict.</dd>
+        <dt>Edit and motion</dt><dd>Same build as scene 2 for the header, then the four task rows reveal in order, then the avoid box.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame s9" data-name="scene-09" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring"><span class="eyebrow">Worked example · setup</span></div>
+        <h1 class="h-sm">The argument we will test.</h1>
+        <div class="box prem">
+          <span class="lbl">Premises</span>
+          <p>Replacing a library’s conventional lights with Model L fixtures will reduce its annual electricity bill by exactly $4,000.</p>
+          <p>All other annual operating costs stay unchanged, except that Model L may add maintenance costs.</p>
+        </div>
+        <div class="avoid gapbox">
+          <span class="lbl">The gap</span>
+          <div class="eq">Net annual cost change = M − $4,000</div>
+          <p>M is the annual maintenance increase. The conclusion holds exactly when M is below $4,000.</p>
+        </div>
+        <div class="box concl">
+          <span class="lbl">Conclusion</span>
+          <p>The switch will reduce total annual operating costs.</p>
+        </div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 9 · 06:55 to 07:30</p>
+      <dl>
+        <dt>Purpose</dt><dd>Set up the one argument used in all six tasks, and name the gap before testing any choice.</dd>
+        <dt>Voiceover</dt><dd>Here is the argument we will test. Replacing a library’s conventional lights with Model L fixtures will reduce its annual electricity bill by exactly $4,000. All other annual operating costs stay unchanged, except that Model L may add maintenance costs. The conclusion is that the switch will reduce total annual operating costs. Let M be the annual maintenance increase. The net annual cost change is M minus $4,000. The conclusion holds exactly when M is below $4,000.</dd>
+        <dt>On screen</dt><dd>Eyebrow: Worked example · setup. Headline: The argument we will test. Premises block: both premise sentences. Gap block: Net annual cost change = M − $4,000; M is the annual maintenance increase. The conclusion holds exactly when M is below $4,000. Conclusion block: The switch will reduce total annual operating costs.</dd>
+        <dt>Edit and motion</dt><dd>Premises block slides in first, then the gap block with the equation drawing in, then the conclusion block. All three stay on screen to the end.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame paper" data-name="scene-10" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="eyebrow">Worked example · part 2</span></div>
+        <h1 class="h-sm">Same argument, three tasks.</h1>
+        <div class="cols">
+          <div class="box col">
+            <h2 class="cn">Evaluate</h2>
+            <p>Ask how much annual maintenance will increase. A $1,000 increase supports the conclusion; a $5,000 increase defeats it.</p>
+          </div>
+          <div class="box col weak">
+            <h2 class="cn">Weaken</h2>
+            <p>An added $5,000 annual maintenance cost more than cancels the saving.</p>
+            <p>Weakening does not always require disproof.</p>
+          </div>
+          <div class="box col strong">
+            <h2 class="cn">Strengthen</h2>
+            <p>If three libraries with comparable operating hours and the same fixtures incurred maintenance increases under $1,000, that supports a low estimate here.</p>
+            <p>It does not guarantee the estimate.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 10 · 07:30 to 08:10</p>
+      <dl>
+        <dt>Purpose</dt><dd>Show three tasks on the same gap. Each answer is checked against its own task.</dd>
+        <dt>Voiceover</dt><dd>Same argument, three tasks. Evaluate asks how much annual maintenance will increase. A $1,000 increase supports the conclusion. A $5,000 increase defeats it. Weaken asks for a fact that reduces the support. An added $5,000 in annual maintenance more than cancels the saving. Weakening does not always require disproof. Strengthen asks for a fact that improves the support. If three libraries with comparable operating hours and the same fixtures incurred maintenance increases under $1,000, that supports a low estimate here. It does not guarantee the estimate.</dd>
+        <dt>On screen</dt><dd>Eyebrow: Worked example · part 2. Headline: Same argument, three tasks. Column 1, Evaluate: Ask how much annual maintenance will increase. A $1,000 increase supports the conclusion; a $5,000 increase defeats it. Column 2, Weaken: An added $5,000 annual maintenance cost more than cancels the saving. Weakening does not always require disproof. Column 3, Strengthen: If three libraries with comparable operating hours and the same fixtures incurred maintenance increases under $1,000, that supports a low estimate here. It does not guarantee the estimate.</dd>
+        <dt>Edit and motion</dt><dd>Columns reveal left to right, one per task, each held for about 12 seconds. Column borders stay the same weight throughout.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame s11" data-name="scene-11" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring"><span class="eyebrow">Worked example · part 3</span></div>
+        <h1 class="h-sm">Same argument, three more tasks.</h1>
+        <div class="cols">
+          <div class="box col">
+            <h2 class="cn">Necessary Assumption</h2>
+            <p>The added annual maintenance cost must be below $4,000.</p>
+            <p>Negate that: $4,000 or more would mean no reduction.</p>
+          </div>
+          <div class="box col">
+            <h2 class="cn">Sufficient Assumption</h2>
+            <p>A $1,000 cap on added annual maintenance guarantees at least $3,000 savings.</p>
+            <p>It is sufficient but not necessary.</p>
+          </div>
+          <div class="box col">
+            <h2 class="cn">Principle Strengthen</h2>
+            <p>A general rule that libraries replacing conventional lights with Model L add no more than $1,000 in annual maintenance applies to this case and supplies a sufficient cap.</p>
+          </div>
+        </div>
+        <div class="avoid callout"><p>A $1,000 cap guarantees savings, but savings do not require that tight a cap.</p></div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 11 · 08:10 to 08:50</p>
+      <dl>
+        <dt>Purpose</dt><dd>Show the assumption and principle tasks on the same gap, and make the sufficient-versus-necessary point.</dd>
+        <dt>Voiceover</dt><dd>Same argument, three more tasks. Necessary Assumption asks what the argument requires. The added annual maintenance cost must be below $4,000. Negate that: $4,000 or more would mean no reduction. Sufficient Assumption asks for a statement that makes the conclusion follow. A $1,000 cap on added annual maintenance guarantees at least $3,000 savings. It is sufficient but not necessary: a $3,000 maintenance increase would still allow savings. Principle Strengthen asks for a general rule. Take this one: libraries replacing conventional lights with Model L add no more than $1,000 in annual maintenance. That rule applies to this case and supplies a sufficient cap. A $1,000 cap guarantees savings, but savings do not require that tight a cap.</dd>
+        <dt>On screen</dt><dd>Eyebrow: Worked example · part 3. Headline: Same argument, three more tasks. Column 1, Necessary Assumption: The added annual maintenance cost must be below $4,000. Negate that: $4,000 or more would mean no reduction. Column 2, Sufficient Assumption: A $1,000 cap on added annual maintenance guarantees at least $3,000 savings. It is sufficient but not necessary. Column 3, Principle Strengthen: A general rule that libraries replacing conventional lights with Model L add no more than $1,000 in annual maintenance applies to this case and supplies a sufficient cap. Callout (gold, enclosed): A $1,000 cap guarantees savings, but savings do not require that tight a cap.</dd>
+        <dt>Edit and motion</dt><dd>Columns reveal left to right. The gold callout lands after the third column and holds for 6 seconds while the voiceover gives the last line.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame paper" data-name="scene-12" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo.svg" alt="Germaine Tutoring"><span class="eyebrow">Reviewing a miss</span></div>
+        <h1>What standard did my chosen answer fail?</h1>
+        <div class="cols two">
+          <div class="box col weak">
+            <span class="lbl">Weak diagnosis</span>
+            <p>“Wrong answer” is not much of a diagnosis.</p>
+          </div>
+          <div class="box col strong">
+            <span class="lbl">Strong diagnosis</span>
+            <p>“I picked something that strengthened the argument when I needed something the argument required” tells you what to change.</p>
+          </div>
+        </div>
+        <p class="foot">Knowing the task helps you justify the right answer. It also tells you exactly why the tempting alternatives fail.</p>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 12 · 08:50 to 09:20</p>
+      <dl>
+        <dt>Purpose</dt><dd>Recap: turn a missed question into a precise diagnosis using the map.</dd>
+        <dt>Voiceover</dt><dd>Use the same map to ask a more precise question: What standard did my chosen answer fail? “Wrong answer” is not much of a diagnosis. “I picked something that strengthened the argument when I needed something the argument required” tells you what to change. Knowing the task helps you justify the right answer. It also tells you exactly why the tempting alternatives fail.</dd>
+        <dt>On screen</dt><dd>Headline: What standard did my chosen answer fail? Left box, Weak diagnosis: “Wrong answer” is not much of a diagnosis. Right box, Strong diagnosis: “I picked something that strengthened the argument when I needed something the argument required” tells you what to change. Footer: Knowing the task helps you justify the right answer. It also tells you exactly why the tempting alternatives fail.</dd>
+        <dt>Edit and motion</dt><dd>Headline, then the weak box, then the strong box. The footer fades in last.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="scene">
+    <div class="scene-frame">
+      <div class="gt-artboard frame" data-name="scene-13" data-w="1920" data-h="1080">
+        <div class="top"><img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring"></div>
+        <div class="end">
+          <h1>Read or download the LR Question Type Map</h1>
+          <div class="avoid linkbox"><p>germainetutoring.com/resources/<br>lr-question-type-map</p></div>
+          <p class="muted">Know the task before you judge the answer.</p>
+        </div>
+      </div>
+    </div>
+    <div class="scene-notes">
+      <p class="sn-head">Scene 13 · 09:20 to 09:40</p>
+      <dl>
+        <dt>Purpose</dt><dd>End card: point to the map, and to the consultation in the description and pinned comment.</dd>
+        <dt>Voiceover</dt><dd>Read or download the LR Question Type Map at germainetutoring.com/resources/lr-question-type-map. If you can identify the question type but keep choosing answers that miss its standard, bring a recent example and your reasoning to a free consultation at germainetutoring.com/#consultation.</dd>
+        <dt>On screen</dt><dd>Logo only at top left. Headline: Read or download the LR Question Type Map. Link box: germainetutoring.com/resources/lr-question-type-map. Muted line: Know the task before you judge the answer.</dd>
+        <dt>Edit and motion</dt><dd>Headline, then the link box, then the muted line. The right 40% of the frame (x 1152 to 1920) is left empty on purpose for YouTube end-screen elements. Those elements are placed in YouTube Studio, not drawn here.</dd>
+      </dl>
+    </div>
+  </div>
+
+</section>
+
+<section class="gt-set" data-set="Thumbnail (1280×720)" data-zip="haiku-youtube-thumbnail">
+  <div class="gt-artboard thumb" data-name="thumbnail" data-w="1280" data-h="720">
+    <img class="logo" src="../kit/logo-white.svg" alt="Germaine Tutoring">
+    <div class="thumb-body">
+      <h1>20 LR<br>Types.<br>6 Jobs.</h1>
+      <div class="grid"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="gt-copy" data-label="Video title"><pre>The LR Question Type Map: Know the task before you judge the answer</pre></section>
+
+<section class="gt-copy" data-label="Description"><pre>Different Logical Reasoning questions ask you to do different work on an argument. If you do not identify that work before evaluating the choices, you can pick an answer that is true, helpful, or logically interesting and still get the question wrong.
+
+I organize the 20 question types into six families. Knowing the task helps you justify the right answer. It also tells you exactly why the tempting alternatives fail.
+
+Chapters
+00:00 Why the task matters
+00:55 Identify the Parts
+01:55 Describe the Argument
+02:55 Critique the Argument
+03:55 Change the Argument
+04:55 Form Your Own Argument
+05:55 Argument-Adjacent
+06:55 Worked example: setup
+07:30 Worked example: Evaluate, Weaken, Strengthen
+08:10 Worked example: Necessary, Sufficient, Principle
+08:50 Reviewing a miss
+09:20 Get the map
+
+Read or download the LR Question Type Map: https://germainetutoring.com/resources/lr-question-type-map
+Free consultation: https://germainetutoring.com/#consultation</pre></section>
+
+<section class="gt-copy" data-label="Pinned comment"><pre>The scenario is invented for teaching. Each part of the worked example tests its proposed answer separately.
+
+Full LR map: https://germainetutoring.com/blog/lr-question-type-map
+
+If you can name the question type but keep accepting answers that miss its standard, bring an example and your reasoning to a free consultation: https://germainetutoring.com/#consultation</pre></section>
+
+<script src="../kit/vendor/html-to-image.js"></script>
+<script src="../kit/vendor/jszip.min.js"></script>
+<script src="../kit/gt-export.js"></script>
+</body>
+</html>

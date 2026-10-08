@@ -1,0 +1,3560 @@
+/* Live-site blog styles, copied verbatim from Aerophage1771/Business_Planner@5fa4afda:
+ * client/src/sunlit/public/design09/base.css (font-face blocks with remote URLs removed; fonts come from fonts-site.css),
+ * client/src/sunlit/public/public.css and client/src/sunlit/public/design09/blog.css.
+ * Wrap the page in <div class="sunlit" data-sb-doc="marketing"> for these rules to apply. */
+/*
+ * Design 09 (Blue Spruce Workshop Press), shared layer: fonts, tokens and the rules every public page shares.
+ * Source of the look: germaine-internal docs/mockups/blog-look-alternates/site/09-site.html (site pages) and
+ * own/09-g.html (blog). Colors stay the site's own palette. Page files beside this one hold page sections.
+ */
+
+/* Subsets preserve optical sizing. Other weights retain the original numeral positioning. */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ * Size-matched local fallbacks. Text paints in one of these until the web fonts arrive. Each regular and
+ * bold face is scaled to the web font's average width at that weight on the six marketing pages and given
+ * its ascent and descent, so lines keep their breaks when the web font swaps in. Trebuchet MS and Arial
+ * cover Mac, iOS and Windows, Roboto covers Android, and DejaVu covers Linux, including the machine that
+ * runs Lighthouse on Netlify.
+ */
+@font-face {
+  font-family: "Sunlit Fallback Open Sans Trebuchet";
+  src: local("Trebuchet MS"), local("TrebuchetMS");
+  font-weight: 100 549;
+  size-adjust: 102.9%;
+  ascent-override: 103.87%;
+  descent-override: 28.47%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Sunlit Fallback Open Sans Trebuchet";
+  src: local("Trebuchet MS Bold"), local("TrebuchetMS-Bold");
+  font-weight: 550 1000;
+  size-adjust: 105.8%;
+  ascent-override: 101.03%;
+  descent-override: 27.69%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Sunlit Fallback Open Sans Arial";
+  src: local("Arial"), local("ArialMT");
+  font-weight: 100 549;
+  size-adjust: 105.2%;
+  ascent-override: 101.6%;
+  descent-override: 27.85%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Sunlit Fallback Open Sans Arial";
+  src: local("Arial Bold"), local("Arial-BoldMT");
+  font-weight: 550 1000;
+  size-adjust: 101%;
+  ascent-override: 105.83%;
+  descent-override: 29.01%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Sunlit Fallback Open Sans Roboto";
+  src: local("Roboto"), local("Roboto-Regular");
+  font-weight: 100 1000;
+  size-adjust: 105.8%;
+  ascent-override: 101.03%;
+  descent-override: 27.69%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Sunlit Fallback Open Sans DejaVu";
+  src: local("DejaVu Sans"), local("DejaVuSans");
+  font-weight: 100 549;
+  size-adjust: 92.2%;
+  ascent-override: 115.93%;
+  descent-override: 31.78%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Sunlit Fallback Open Sans DejaVu";
+  src: local("DejaVu Sans Bold"), local("DejaVuSans-Bold");
+  font-weight: 550 1000;
+  size-adjust: 87.2%;
+  ascent-override: 122.57%;
+  descent-override: 33.6%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Sunlit Fallback Merriweather Georgia";
+  src: local("Georgia");
+  font-weight: 100 549;
+  size-adjust: 106%;
+  ascent-override: 92.83%;
+  descent-override: 25.75%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Sunlit Fallback Merriweather Georgia";
+  src: local("Georgia Bold"), local("Georgia-Bold");
+  font-weight: 550 1000;
+  size-adjust: 98%;
+  ascent-override: 100.41%;
+  descent-override: 27.86%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Sunlit Fallback Merriweather DejaVu";
+  src: local("DejaVu Serif"), local("DejaVuSerif");
+  font-weight: 100 549;
+  size-adjust: 92.1%;
+  ascent-override: 106.84%;
+  descent-override: 29.64%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: "Sunlit Fallback Merriweather DejaVu";
+  src: local("DejaVu Serif Bold"), local("DejaVuSerif-Bold");
+  font-weight: 550 1000;
+  size-adjust: 85.1%;
+  ascent-override: 115.63%;
+  descent-override: 32.08%;
+  line-gap-override: 0%;
+}
+
+.sunlit:where([data-sb-doc="marketing"]) {
+  --display: "Sunlit Marketing Merriweather", "Sunlit Fallback Merriweather Georgia", "Sunlit Fallback Merriweather DejaVu", Georgia, serif !important;
+  --serif: "Sunlit Marketing Merriweather", "Sunlit Fallback Merriweather Georgia", "Sunlit Fallback Merriweather DejaVu", Georgia, serif !important;
+  --sans: "Sunlit Marketing Open Sans", "Sunlit Fallback Open Sans Trebuchet", "Sunlit Fallback Open Sans Arial", "Sunlit Fallback Open Sans Roboto", "Sunlit Fallback Open Sans DejaVu", Arial, sans-serif !important;
+  /* Design 09 tokens, in the site's palette */
+  --d9-canvas: #344E73;
+  --d9-field: #3E5F8F;
+  --d9-accent: #DCB65A;
+  --d9-surface: #F3F6FA;
+  --d9-graph: #E7EDF5;
+  --d9-ink: #112034;
+  --d9-grid: #D1DAE6;
+  --d9-text-2: #3F4E64;
+  --d9-ochre: #A17D33;
+  --d9-petal: #7A5818;
+  --d9-rule: 2px solid var(--d9-canvas);
+  --d9-press: 5px 5px 0 var(--d9-canvas);
+  --d9-field-rule: 2px solid rgba(17, 32, 52, 0.5);
+  /* Printed textures, for any page layer to reuse: the dotted field, gold stitching and graph paper */
+  --d9-dots: radial-gradient(rgba(17, 32, 52, 0.11) 1px, transparent 1px), radial-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  --d9-dots-size: 7px 7px, 11px 11px;
+  --d9-stitch: repeating-linear-gradient(90deg, var(--d9-accent) 0 14px, transparent 14px 22px);
+  --d9-graph-lines: linear-gradient(var(--d9-grid) 1px, transparent 1px), linear-gradient(90deg, var(--d9-grid) 1px, transparent 1px);
+  --d9-graph-size: 22px 22px;
+  /* The menu bar: a 68px row (60px on a phone) over a 3px gold rule */
+  --header-height: 71px;
+  /* The page column: 1180px with 32px gutters (16px on a phone), so the menu and the pages share one edge */
+  --pad: 32px;
+}
+
+@media (max-width: 700px) {
+  .sunlit:where([data-sb-doc="marketing"]) {
+    --header-height: 63px;
+    --pad: 16px;
+  }
+}
+
+/*
+ * Glyph advances follow the outlines, not the hinted pixel grid: with hinting, Chromium on Linux widens
+ * the self-hosted Open Sans "T" by about 2px at 12 to 14px from weight 500 up ("MET HOD" in the menu).
+ */
+.sunlit:where([data-sb-doc="marketing"]) {
+  text-rendering: geometricPrecision;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) :is(h1, h2, h3, h4) {
+  font-weight: 400;
+  font-variation-settings: normal;
+}
+
+/* Merriweather sets its own optical size from the type size, as in the mockup. The generated stylesheet pins
+   "opsz" and "SOFT" values meant for its old display face on these blocks, so they are cleared here. */
+:where(.sunlit[data-sb-doc="marketing"]) :is(.pullquote, .testi-feature blockquote p, .philosophy, .philosophy-quote, .pen-note p, .stat-sentence, .quote-row blockquote p, .gts-month, .gts-stamp .gts-when, .gts-stamp .gts-date) {
+  font-variation-settings: normal;
+}
+
+/*
+ * Focus ring for keyboard use only. The generated stylesheet draws the gold ring between ink lines on
+ * every focused control. After a click or tap (html[data-gt-input="pointer"], set by
+ * inputModality.ts) it stays hidden until the visitor moves with the keyboard again.
+ */
+html[data-gt-input="pointer"] div:where(.sunlit[data-sb-doc="marketing"]) :is(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/*
+ * Public site additions to the candidate design: states the approved candidate did not draw
+ * (live sign-in, booking errors, article comments and newsletter signup). They use the design's
+ * own tokens (styles/candidate/marketing.css) and follow its controls and type.
+ */
+
+/* ---------- Site header ---------- */
+
+/*
+ * Fitting steps of the header row (SiteHeader.tsx) that keep the consultation button's full label.
+ * compact-toggle: the menu toggle drops its "More" label. wrap-call: the label sets on two lines.
+ */
+:where(.sunlit[data-sb-doc="marketing"]) #site-header .h-top.compact-toggle .h-menu-toggle {
+  min-width: 44px;
+  width: 44px;
+  padding: 0;
+  justify-content: center;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) #site-header .h-top.compact-toggle .h-menu-toggle .h-label {
+  display: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) #site-header .h-top.wrap-call:not(.compact-actions) .h-call {
+  padding-inline: 12px;
+  font-size: 13px;
+  line-height: 1.15;
+  text-align: center;
+  white-space: normal;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) #site-header .h-top.wrap-call .h-call .h-label {
+  width: min-content;
+}
+
+/* The blog library keeps the page where it is when the list changes (no scroll anchoring). */
+:where(.sunlit[data-sb-doc="marketing"]) .sunlit-body[data-page="blog"] {
+  overflow-anchor: none;
+}
+
+/* ---------- Blog card artwork ---------- */
+
+/*
+ * Per-post card drawings (blog/artwork) fill the panel edge to edge: the svg keeps the 320 by 128
+ * drawing's shape and slices to cover, square in narrow panels and shorter in the lead post. The
+ * panel colour comes from the drawing's tone; f- classes fill shapes, s- classes draw lines and
+ * t-display sets one large serif numeral or word.
+ */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] {
+  padding: 0;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] svg.art-full {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: auto;
+  max-height: none;
+  aspect-ratio: 320 / 128;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .b-split-intro .b-feature .b-art[data-art-topic][data-art-tone] svg.art-full {
+  max-height: 190px;
+}
+@container (max-width: 200px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] svg.art-full {
+    display: block;
+    aspect-ratio: 1;
+  }
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone="sky"] {
+  background: var(--gt-blue-wash) !important;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone="cream"] {
+  background: var(--gt-warning-wash) !important;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone="mint"] {
+  background: var(--gt-sage-wash) !important;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone="blush"] {
+  background: var(--gt-pen-wash) !important;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone="paper"] {
+  background: var(--gt-card) !important;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone="night"] {
+  background: var(--gt-denim) !important;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone="denim"] {
+  background: var(--gt-blue) !important;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone="ink"] {
+  background: var(--gt-ink) !important;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone="sun"] {
+  background: var(--gt-sun) !important;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone="sage"] {
+  background: var(--gt-sage) !important;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone="rose"] {
+  background: var(--gt-pen) !important;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-ink {
+  fill: var(--gt-ink);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-denim {
+  fill: var(--gt-denim);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-blue {
+  fill: var(--gt-blue);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-sky {
+  fill: color-mix(in srgb, var(--gt-blue) 30%, #fff);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-mist {
+  fill: var(--gt-line);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-paper {
+  fill: #fff;
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-sun {
+  fill: var(--gt-sun);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-ochre {
+  fill: var(--gt-orange);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-sand {
+  fill: color-mix(in srgb, var(--gt-sun) 40%, #fff);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-rose {
+  fill: var(--gt-pen);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-blush {
+  fill: color-mix(in srgb, var(--gt-pen) 28%, #fff);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-sage {
+  fill: var(--gt-sage);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-mint {
+  fill: color-mix(in srgb, var(--gt-sage) 35%, #fff);
+  stroke: none;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .f-shade {
+  fill: var(--gt-ink);
+  stroke: none;
+  opacity: 0.12;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .s-ink {
+  fill: none;
+  stroke: var(--gt-ink);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .s-denim {
+  fill: none;
+  stroke: var(--gt-denim);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .s-paper {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .s-sun {
+  fill: none;
+  stroke: var(--gt-sun);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .s-rose {
+  fill: none;
+  stroke: var(--gt-pen);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .s-sage {
+  fill: none;
+  stroke: var(--gt-sage);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .s-thin {
+  stroke-width: 1;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .s-thick {
+  stroke-width: 3;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .s-dash {
+  stroke-dasharray: 4 4;
+}
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-art[data-art-topic][data-art-tone] .t-display {
+  font-family: var(--display);
+  font-size: 44px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Booking card ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .gts-notice {
+  margin: 0 0 10px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .gts-form > form > .gts-fine {
+  margin: 0 0 14px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* ---------- Sign-in ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .login-status {
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: var(--radius-ctrl);
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--blue-wash);
+  color: var(--ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .login-status[data-tone="error"] {
+  background: var(--bad-wash);
+  color: var(--bad);
+  font-weight: 600;
+}
+
+/* ---------- Article reader ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-copy-field {
+  width: 100%;
+  font-size: 13px;
+  padding: 8px;
+  border: 1px solid #8fa3be;
+  border-radius: 6px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-reader-tools {
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  max-width: 100%;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .a-article[data-reading-size="small"] { font-size: 16px; }
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .a-article[data-reading-size="large"] { font-size: 21px; }
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-text-size {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-text-size legend {
+  margin-bottom: 5px;
+  color: var(--b-muted);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) :is(.a-size-options, .a-tool-actions) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-size-option {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid var(--b-line);
+  border-radius: 8px;
+  background: white;
+  color: var(--b-blue);
+  font: 600 12px/1 var(--sans);
+  cursor: pointer;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-size-option[aria-pressed="true"] {
+  border-color: var(--b-blue);
+  background: var(--b-blue);
+  color: white;
+  box-shadow: inset 0 -2px 0 color-mix(in srgb, black 22%, transparent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-size-sample-1 { font-size: 13px; }
+:where(.sunlit[data-sb-doc="marketing"]) .a-size-sample-2 { font-size: 16px; }
+:where(.sunlit[data-sb-doc="marketing"]) .a-size-sample-3 { font-size: 19px; }
+:where(.sunlit[data-sb-doc="marketing"]) .a-reader-tools .a-tool { min-height: 44px; }
+:where(.sunlit[data-sb-doc="marketing"]) .a-reader-tools :is(button, input):focus-visible { outline: 3px solid var(--b-blue); outline-offset: 2px; }
+:where(.sunlit[data-sb-doc="marketing"]) .a-reader-tools .a-status { flex-basis: 100%; min-height: 0; margin: 0; }
+:where(.sunlit[data-sb-doc="marketing"]) .a-reader-tools .a-status:empty { display: none; }
+:where(.sunlit[data-sb-doc="marketing"]) .a-copy-fallback { display: grid; flex-basis: 100%; gap: 6px; font-size: 12px; font-weight: 600; }
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-missing :is(p, a) {
+  margin-top: 20px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-form-error {
+  margin: 8px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--bad);
+}
+
+/* Newsletter signup */
+:where(.sunlit[data-sb-doc="marketing"]) .a-signup {
+  margin-top: 42px;
+  padding: 26px 28px;
+  border: 1px solid var(--b-line);
+  border-radius: var(--radius-card);
+  background: var(--b-goldwash);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-signup h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-signup p {
+  margin: 8px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--b-muted);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-signup form {
+  margin-top: 16px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-signup-row {
+  display: flex;
+  gap: 10px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) :is(.a-signup-row, .a-field) :is(input, textarea) {
+  width: 100%;
+  min-width: 0;
+  min-height: var(--tap);
+  padding: 11px 13px;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-ctrl);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 15.5px;
+  transition: border-color .12s, box-shadow .12s;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) :is(.a-signup-row, .a-field) :is(input, textarea):hover {
+  border-color: var(--brand);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) :is(.a-signup-row, .a-field) :is(input, textarea):focus {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--blue-wash);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) :is(.a-signup-row, .a-field) [aria-invalid="true"] {
+  border-color: var(--bad);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-signup-row .b-button {
+  flex: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-signup .a-signup-done {
+  color: var(--ok);
+  font-weight: 600;
+}
+
+/* Comments */
+:where(.sunlit[data-sb-doc="marketing"]) .a-comments {
+  border-top: 1px solid var(--b-line);
+  padding-top: 34px;
+  margin-top: 42px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-comments h2 {
+  font-size: 28px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-comment-list {
+  list-style: none;
+  margin: 15px 0 0;
+  padding: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-comment {
+  padding-block: 16px;
+  border-bottom: 1px solid var(--gt-strong);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-comment-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin: 0;
+  font-size: 14px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-comment-meta time,
+:where(.sunlit[data-sb-doc="marketing"]) .a-comments-empty,
+:where(.sunlit[data-sb-doc="marketing"]) .a-comment-note,
+:where(.sunlit[data-sb-doc="marketing"]) .a-optional {
+  font-size: 13px;
+  color: var(--b-muted);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-comment-body {
+  margin: 6px 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-comment-form {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-comment-form > * {
+  margin: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-comment-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-field textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-comment-form .b-button {
+  justify-self: start;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .a-comment-sent {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ok);
+}
+
+@media (max-width: 520px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .a-article[data-reading-size="small"] { font-size: 15px; }
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .a-article[data-reading-size="large"] { font-size: 20px; }
+  :where(.sunlit[data-sb-doc="marketing"]) .a-reader-tools { display: grid; width: 100%; }
+  :where(.sunlit[data-sb-doc="marketing"]) .a-size-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  :where(.sunlit[data-sb-doc="marketing"]) .a-reader-tools .a-tool-actions { display: grid; grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr); }
+  :where(.sunlit[data-sb-doc="marketing"]) .a-signup {
+    padding: 22px 18px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .a-signup-row {
+    flex-direction: column;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .a-signup-row .b-button {
+    width: 100%;
+  }
+}
+
+@media print {
+  html,
+  body,
+  :where(.sunlit[data-sb-doc="marketing"]),
+  :where(.sunlit[data-sb-doc="marketing"]) :is(.page, .article-experience, .a-layout, .a-article, .a-prose) {
+    background: #fff !important;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) :is(.skip-link, .a-signup, .a-comments, .a-tool-set) {
+    display: none;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .a-prose :is(
+    .cl-chart-row,
+    .cl-panel,
+    .cl-chain,
+    .cl-cards > li,
+    .cl-pair-side,
+    .cl-dots-row,
+    .template-format-card,
+    .template-variation-card,
+    .template-context
+  ) {
+    break-inside: avoid-page !important;
+    page-break-inside: avoid !important;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .a-prose :is(h2, h3) {
+    break-after: avoid-page !important;
+    page-break-after: avoid !important;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .a-prose .cl-print-page-start {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  /* The indicators chart is taller than a portrait sheet. Keep its two-part heading together,
+     then allow the chart itself to flow instead of moving the subheading onto a blank sheet. */
+  :where(.sunlit[data-sb-doc="marketing"]) .a-prose .cl-print-page-start + h3 {
+    break-after: auto !important;
+    page-break-after: auto !important;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .a-prose .cl-print-keep {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+}
+
+/* The same first article has a lead format on desktop and a library card on phones. */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-mobile-lead { display: none; }
+@media (max-width: 767px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-mobile-lead { display: flex; }
+}
+/* Design 09: LSAT Blog home, articles and resource pages. */
+
+/*
+ * The blog home (BlogPage.tsx) and the article reader (ArticlePage.tsx) in Blue Spruce Workshop Press.
+ * Look: germaine-internal docs/mockups/blog-look-alternates/own/09-g.html, panels "home" and "article".
+ * The blog keeps its own words, posts and card art; only the presentation follows the mockup.
+ *
+ * Vocabulary: printed field bands (the mast and the article head), white plates under a 2px canvas rule
+ * with a hard press shadow, gold label chips, square bullets and keys, dashed rules and dashed boxes.
+ * Every highlighted block is enclosed on all sides (a rule, a dashed box, a fill or a press under the
+ * whole box); nothing is flagged by a bar on one edge. Heading rules (the short gold bar under a
+ * section head) are heading accents, not highlight rails.
+ *
+ * The resource pages' own look lives in public/resources/resource-pages.css.
+ */
+
+/* ---------- Page ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience {
+  --cat: var(--d9-accent);
+  background: var(--d9-surface);
+  color: var(--d9-ink);
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-wrap, section.b-wrap) {
+  max-width: 1180px;
+  padding-inline: var(--pad, 32px);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(h1, h2, h3, h4) {
+  letter-spacing: 0.005em;
+  font-weight: 400;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--d9-ink);
+  outline-offset: 2px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-mast, .a-top) :is(a, button):focus-visible {
+  outline-color: var(--d9-accent);
+}
+
+/* Topic colours, carried by the key squares on the topic chips and the category labels. */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience [data-category="Logical Reasoning"] { --cat: var(--d9-accent); }
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience [data-category="Reading Comprehension"] { --cat: var(--d9-ochre); }
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience [data-category="Strategy"] { --cat: var(--d9-field); }
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience [data-category="Mindset"] { --cat: var(--d9-petal); }
+
+/* ---------- Buttons (the blog's own b-button) ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 2px solid var(--d9-canvas);
+  border-radius: 3px;
+  background: var(--d9-canvas);
+  color: #fff;
+  box-shadow: 3px 3px 0 var(--d9-accent);
+  font: 700 15px/1.2 var(--sans);
+  letter-spacing: 0.02em;
+  word-spacing: 0.1em;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-button:hover {
+  background: var(--d9-canvas);
+  border-color: var(--d9-canvas);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--d9-accent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--d9-accent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-button:disabled {
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-button svg {
+  width: 17px;
+  height: 17px;
+  flex: none;
+}
+
+/* On a field band: the first action is the gold press button, the second a ghost outline. */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-mast .b-button:not(.secondary) {
+  background: var(--d9-accent);
+  border-color: var(--d9-ink);
+  color: var(--d9-ink);
+  box-shadow: 3px 3px 0 var(--d9-ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-mast .b-button:not(.secondary):hover {
+  box-shadow: 4px 4px 0 var(--d9-ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-mast .b-button:not(.secondary):active {
+  box-shadow: 1px 1px 0 var(--d9-ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-mast .b-button.secondary {
+  background: transparent;
+  border-color: rgba(243, 246, 250, 0.72);
+  color: var(--d9-surface);
+  box-shadow: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-mast .b-button.secondary:hover {
+  background: rgba(17, 32, 52, 0.18);
+  border-color: #fff;
+  box-shadow: none;
+}
+
+/* ---------- Printed field bands: the blog mast and the article head ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-mast, .a-top) {
+  position: relative;
+  margin: 0;
+  border-bottom: 6px solid var(--d9-canvas);
+  background-color: var(--d9-field);
+  background-image: var(--d9-dots);
+  background-size: var(--d9-dots-size);
+  color: var(--d9-surface);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-mast, .a-top)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 3px;
+  background: var(--d9-stitch);
+  pointer-events: none;
+}
+
+/* ---------- Blog home: mast ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-mast {
+  padding: 66px 0 80px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-intro {
+  max-width: none;
+  min-width: 0;
+  text-align: center;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-intro h1 {
+  margin: 0 auto;
+  color: var(--d9-graph);
+  font: 400 clamp(46px, 5.9vw, 84px)/1 var(--display);
+  text-shadow: 4px 4px 0 rgba(17, 32, 52, 0.38);
+  text-wrap: balance;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-intro > p {
+  max-width: 32ch;
+  margin: 24px auto 0;
+  color: var(--d9-surface);
+  font-size: 20px;
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-actions {
+  justify-content: center;
+  gap: 14px;
+  margin-top: 32px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-actions .b-button {
+  flex: none;
+  max-width: none;
+}
+
+/* The blog name, as in the mockup: the "LSAT Blog" sticker, then "The Fix," with "by Germaine" under it at half size.
+   The sticker is a div so the subtitle's ".b-intro > p" rules leave it at the kicker's 12px. */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-intro .b-kicker {
+  margin: 0 0 26px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-intro .b-h1-by {
+  display: block;
+  margin-top: 0.2em;
+  font-size: 0.5em;
+  line-height: 1.15;
+}
+
+/* The lead post: a printed plate on the field, pressed in ink. */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-feature {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 620px;
+  margin-inline: auto;
+  overflow: visible;
+  border: 2px solid var(--d9-ink);
+  border-radius: 0;
+  background: #fff;
+  color: var(--d9-ink);
+  box-shadow: 8px 8px 0 var(--d9-ink);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-feature:hover {
+  background: #fff;
+  transform: translate(-2px, -2px);
+  box-shadow: 10px 10px 0 var(--d9-ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-feature .b-art {
+  min-height: 0;
+  border: 0;
+  border-bottom: 2px solid var(--d9-ink);
+}
+
+/* The lead post's tag: "Newest article" in an ink band across the top of the plate, a gold dot at its end. */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-lead-tag {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--d9-ink);
+  color: var(--d9-graph);
+  font: 700 12px/1 var(--sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-lead-dot {
+  color: var(--d9-accent);
+  font-size: 13px;
+}
+
+/* The lead drawing shows whole at its 5:2 shape (public.css caps it for the older layout). */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-feature .b-art[data-art-topic][data-art-tone] svg.art-full {
+  max-height: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-feature-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 26px 22px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-feature-copy h2 {
+  margin: 16px 0 10px;
+  color: var(--d9-canvas);
+  font: 400 28px/1.14 var(--display);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-feature-copy p {
+  margin: 0 0 16px;
+  color: var(--d9-text-2);
+  font-size: 15.5px;
+  line-height: 1.62;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-feature:focus-visible {
+  outline: 3px solid var(--d9-accent);
+  outline-offset: 4px;
+}
+
+/* ---------- Category label, meta line and read link (cards and the lead post) ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cat {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  gap: 8px;
+  min-width: 0;
+  margin-top: -15px;
+  padding: 6px 10px;
+  border: 2px solid var(--d9-canvas);
+  background: var(--d9-accent);
+  box-shadow: 2px 2px 0 var(--d9-canvas);
+  color: var(--d9-ink);
+  font: 700 12px/1.1 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cat::before {
+  content: "";
+  flex: none;
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid var(--d9-ink);
+  border-radius: 0;
+  background: var(--cat);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-card-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1.5px dashed var(--d9-grid);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 0;
+  padding: 0;
+  color: var(--d9-field);
+  font: 700 12px/1.3 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-meta > * + * {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-meta > * + *::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border: 1px solid var(--d9-canvas);
+  background: var(--d9-accent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-read {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 7px;
+  margin: 0;
+  color: var(--d9-canvas);
+  font: 700 14.5px/1.3 var(--sans);
+  word-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-read svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.15s ease;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-card, .b-feature):hover .b-read svg {
+  transform: translateX(4px);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-card:hover h3, .b-feature:hover h2) {
+  text-decoration: underline;
+  text-decoration-color: var(--d9-accent);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+
+/* ---------- Blog home: library controls ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-library {
+  padding-top: 60px;
+  padding-bottom: 96px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 24px;
+  margin: 0 0 34px;
+  padding: 0 0 34px;
+  border: 0;
+  border-bottom: 1.5px dashed var(--d9-grid);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 42px;
+  padding: 0 15px;
+  border: 2px solid var(--d9-canvas);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--d9-canvas);
+  font: 700 14.5px/1 var(--sans);
+  word-spacing: 0.1em;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-filter:hover {
+  border-color: var(--d9-canvas);
+  background: #fff;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-filter[aria-pressed="true"] {
+  border-color: var(--d9-canvas);
+  background: var(--d9-canvas);
+  color: #fff;
+  transform: none;
+  box-shadow: 3px 3px 0 var(--d9-accent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-key {
+  flex: none;
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid var(--d9-ink);
+  background: var(--cat);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-key-all {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-key-all i:nth-child(1) { background: var(--d9-accent); }
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-key-all i:nth-child(2) { background: var(--d9-ochre); }
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-key-all i:nth-child(3) { background: var(--d9-field); }
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-key-all i:nth-child(4) { background: var(--d9-petal); }
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-filter[aria-pressed="true"] .b-key {
+  border-color: #fff;
+}
+
+/* The Filters toggle only shows on a phone, where search and sort fold behind it. */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-finder-toggle {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 12px 0 14px;
+  border: 2px solid var(--d9-canvas);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--d9-canvas);
+  font: 700 14px/1 var(--sans);
+  word-spacing: 0.1em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-finder-toggle:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-finder-toggle[aria-expanded="true"] {
+  border-color: var(--d9-ink);
+  background: var(--d9-accent);
+  color: var(--d9-ink);
+  transform: none;
+  box-shadow: 3px 3px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-finder-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 5px;
+  border: 1.5px solid var(--d9-ink);
+  background: var(--d9-canvas);
+  box-shadow: 2px 2px 0 var(--d9-accent);
+  color: #fff;
+  font: 700 12px/1 var(--sans);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-finder-count:empty {
+  display: none;
+}
+
+/* The plus and minus sign on the Filters and Tools toggles. */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-finder-sign, .a-tools-sign) {
+  position: relative;
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-finder-sign, .a-tools-sign)::before,
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-finder-sign, .a-tools-sign)::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: currentColor;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-finder-sign, .a-tools-sign)::after {
+  transform: rotate(90deg);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience [aria-expanded="true"] > :is(.b-finder-sign, .a-tools-sign)::after {
+  display: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex: none;
+  margin-left: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 250px;
+  min-height: 46px;
+  padding: 0;
+  border: 2px solid var(--d9-canvas);
+  border-radius: 3px;
+  background: #fff;
+}
+
+/* The whole search box carries the focus ring, around the field and its clear button together; the
+   site-wide ring on the field itself (an important rule in the generated sheet) stands aside here. */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search:focus-within {
+  outline: 3px solid var(--d9-ink);
+  outline-offset: 2px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search svg {
+  position: absolute;
+  left: 12px;
+  width: 18px;
+  height: 18px;
+  stroke: var(--d9-canvas);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search input {
+  flex: 1;
+  width: auto;
+  min-width: 0;
+  height: 42px;
+  padding: 0 6px 0 38px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--d9-ink);
+  font: 400 15px/1.2 var(--sans);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search input::placeholder {
+  color: var(--d9-text-2);
+  opacity: 1;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search input::-webkit-search-cancel-button {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 34px;
+  min-width: 34px;
+  height: 34px;
+  min-height: 34px;
+  margin-right: 4px;
+  border: 1.5px solid var(--d9-grid);
+  border-radius: 2px;
+  background: var(--d9-surface);
+  color: var(--d9-canvas);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-clear[hidden] {
+  display: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-clear:hover {
+  border-color: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-sort {
+  max-width: none;
+  min-height: 46px;
+  padding: 0 40px 0 14px;
+  border: 2px solid var(--d9-canvas);
+  border-radius: 3px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23344E73' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+  color: var(--d9-canvas);
+  font: 700 14.5px/1 var(--sans);
+  cursor: pointer;
+}
+
+/* ---------- Blog home: results ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-results-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px 20px;
+  margin: 0 0 30px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-results-head h2 {
+  margin: 0;
+  color: var(--d9-canvas);
+  font: 400 clamp(28px, 3vw, 38px)/1.08 var(--display);
+}
+
+/* The section head's gold rule (a heading accent). */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-results-head h2, .a-related h2, .a-comments h2)::after {
+  content: "";
+  display: block;
+  width: 88px;
+  height: 4px;
+  margin-top: 14px;
+  background: var(--d9-accent);
+  box-shadow: 2px 2px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-count {
+  padding: 8px 12px;
+  border: 2px solid var(--d9-canvas);
+  background: #fff;
+  color: var(--d9-canvas);
+  font: 700 12px/1 var(--sans);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Cards in a row share its height; each card's date and "Read article" keep to its foot (.b-card-foot). */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 40px 34px;
+  overflow-anchor: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  border: var(--d9-rule);
+  border-radius: 0;
+  background: #fff;
+  color: var(--d9-ink);
+  box-shadow: var(--d9-press);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-card:hover {
+  border-color: var(--d9-canvas);
+  background: #fff;
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-card:focus-visible {
+  outline: 3px solid var(--d9-ink);
+  outline-offset: 4px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-card .b-art {
+  min-height: 0;
+  border-bottom: var(--d9-rule);
+}
+
+/* The SVG's existing aspect ratio reserves its box while offscreen drawing work waits. */
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid .b-art svg.art-full {
+  content-visibility: auto;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-card-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 22px 18px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-card h3 {
+  margin: 15px 0 10px;
+  color: var(--d9-canvas);
+  font: 400 20px/1.2 var(--display);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-card p {
+  margin: 0 0 18px;
+  color: var(--d9-text-2);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-card .b-read {
+  flex-basis: 100%;
+}
+
+/* A lone card on the last row spans the row as one wide plate, so no columns sit empty. */
+@media (min-width: 1101px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(3n + 1 of :not(.b-mobile-lead)):last-child {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(3n + 1 of :not(.b-mobile-lead)):last-child .b-art {
+    flex: 0 0 calc((100% - 68px) / 3);
+    border-bottom: 0;
+    border-right: var(--d9-rule);
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(3n + 1 of :not(.b-mobile-lead)):last-child .b-card-main {
+    padding: 22px 30px 20px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(3n + 1 of :not(.b-mobile-lead)):last-child .b-cat {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(2n + 1 of :not(.b-mobile-lead)):last-child {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(2n + 1 of :not(.b-mobile-lead)):last-child .b-art {
+    flex: 0 0 calc((100% - 34px) / 2);
+    border-bottom: 0;
+    border-right: var(--d9-rule);
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(2n + 1 of :not(.b-mobile-lead)):last-child .b-card-main {
+    padding: 22px 30px 20px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(2n + 1 of :not(.b-mobile-lead)):last-child .b-cat {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 701px) and (max-width: 767px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(2n + 1):last-child {
+    grid-column: 1 / -1;
+    flex-direction: row;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(2n + 1):last-child .b-art {
+    flex: 0 0 calc((100% - 34px) / 2);
+    border-bottom: 0;
+    border-right: var(--d9-rule);
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(2n + 1):last-child .b-card-main {
+    padding: 22px 30px 20px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid > .b-card:nth-child(2n + 1):last-child .b-cat {
+    margin-top: 0;
+  }
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-empty {
+  max-width: 720px;
+  margin-top: 4px;
+  padding: 34px 36px;
+  border: var(--d9-rule);
+  border-radius: 0;
+  background-color: var(--d9-graph);
+  background-image: var(--d9-graph-lines);
+  background-size: var(--d9-graph-size);
+  box-shadow: var(--d9-press);
+  text-align: left;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-empty h2 {
+  color: var(--d9-canvas);
+  font: 400 28px/1.1 var(--display);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-empty p {
+  margin: 10px 0 22px;
+  color: var(--d9-ink);
+  font-size: 17px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-empty button {
+  margin-top: 0;
+}
+
+/* ---------- Call to action at the foot of the blog and of every article ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta {
+  position: relative;
+  padding: 70px 0 74px;
+  border-top: 6px solid var(--d9-canvas);
+  background-color: var(--d9-accent);
+  background-image: var(--d9-dots);
+  background-size: var(--d9-dots-size);
+  color: var(--d9-ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -3px;
+  height: 3px;
+  background: var(--d9-stitch);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta > .b-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px 40px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta h2 {
+  max-width: 22ch;
+  color: var(--d9-ink);
+  font: 400 clamp(30px, 3.4vw, 44px)/1.06 var(--display);
+  text-wrap: balance;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta h2 em {
+  /* the same canvas underline as the site's final call-to-action band */
+  font-style: normal;
+  font-weight: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--d9-canvas);
+  text-decoration-thickness: max(3px, 0.085em);
+  text-underline-offset: 0.16em;
+  text-decoration-skip-ink: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta p {
+  margin-top: 14px;
+  color: var(--d9-ink);
+  font-size: 19px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta .b-button {
+  min-height: 54px;
+  margin: 0;
+  padding: 0 26px;
+  border-color: var(--d9-ink);
+  background: var(--d9-canvas);
+  color: #fff;
+  box-shadow: 3px 3px 0 var(--d9-ink);
+  font-size: 16px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta .b-button:hover {
+  box-shadow: 4px 4px 0 var(--d9-ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta .b-button:active {
+  box-shadow: 1px 1px 0 var(--d9-ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta :focus-visible {
+  outline-color: var(--d9-ink);
+}
+
+/* ---------- Article: head ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-top {
+  padding: 40px 0 78px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-crumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 18px;
+  margin-bottom: 28px;
+  color: var(--d9-surface);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-crumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 2px solid rgba(243, 246, 250, 0.6);
+  border-radius: 3px;
+  color: var(--d9-surface);
+  font: 700 14px/1 var(--sans);
+  word-spacing: 0.1em;
+  text-decoration: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-crumb a:hover {
+  border-color: #fff;
+  background: rgba(17, 32, 52, 0.2);
+}
+
+/* The article's topic, as a gold kicker label. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-crumb span {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--d9-accent);
+  box-shadow: 3px 3px 0 var(--d9-canvas);
+  color: var(--d9-ink);
+  font: 700 12px/1.2 var(--sans);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transform: rotate(-0.6deg);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-head {
+  max-width: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-head h1 {
+  max-width: 19ch;
+  color: var(--d9-graph);
+  font: 400 clamp(34px, 4.5vw, 60px)/1.05 var(--display);
+  text-shadow: 2px 2px 0 rgba(17, 32, 52, 0.34);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-head .a-deck {
+  max-width: 60ch;
+  margin-top: 22px;
+  color: var(--d9-surface);
+  font-size: 20px;
+  line-height: 1.6;
+}
+
+/* The byline plate overlaps the foot of the field band. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-byline-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-byline {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 24px;
+  margin-top: -40px;
+  padding: 16px 20px;
+  border: var(--d9-rule);
+  background: #fff;
+  box-shadow: var(--d9-press);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-author-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  margin: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-portrait {
+  display: block;
+  flex: none;
+  width: 56px;
+  height: 56px;
+  padding: 3px;
+  border: 2px solid var(--d9-canvas);
+  background: #fff;
+  box-shadow: 3px 3px 0 var(--d9-accent);
+  transform: rotate(-2deg);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-portrait .a-avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  object-fit: cover;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-by {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-by .b-byline {
+  color: var(--d9-ink);
+  font: 700 16.5px/1.3 var(--sans);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-author-row .b-meta {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-tool-set {
+  display: flex;
+  align-items: center;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-utility {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-tool, .a-tools-toggle) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 46px;
+  min-height: 42px;
+  padding: 0 15px;
+  border: 2px solid var(--d9-canvas);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--d9-canvas);
+  font: 700 14px/1 var(--sans);
+  word-spacing: 0.08em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-tool, .a-tools-toggle):hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-tool:active {
+  transform: translate(1px, 1px);
+  box-shadow: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-tool-size {
+  font-size: 16px;
+  letter-spacing: 0.02em;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-tools-toggle {
+  display: none;
+  gap: 8px;
+  padding: 0 12px 0 15px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-tools-toggle[aria-expanded="true"] {
+  border-color: var(--d9-ink);
+  background: var(--d9-accent);
+  color: var(--d9-ink);
+  transform: none;
+  box-shadow: 3px 3px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-status {
+  flex-basis: 100%;
+  min-height: 0;
+  margin: 0;
+  padding-top: 10px;
+  border-top: 1.5px dashed var(--d9-grid);
+  color: var(--d9-text-2);
+  font-size: 14px;
+  font-style: italic;
+}
+
+/* An empty status line leaves the plate's flow, so the plate stays even around the portrait. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-status:empty {
+  position: absolute;
+  padding: 0;
+  border: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-status .a-copy-field {
+  min-height: 44px;
+  margin-top: 6px;
+  padding: 8px 12px;
+  border: 2px solid var(--d9-canvas);
+  border-radius: 2px;
+  color: var(--d9-ink);
+  font: 400 16px/1.4 var(--sans);
+  font-style: normal;
+}
+
+/* ---------- Article: layout and contents ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 700px) 300px;
+  justify-content: space-between;
+  align-items: start;
+  gap: 48px;
+  padding-top: 52px;
+  padding-bottom: 90px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc {
+  position: sticky;
+  top: calc(var(--header-height, 71px) + 24px);
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  min-width: 0;
+  overflow: visible;
+  border: var(--d9-rule);
+  border-radius: 0;
+  background: #fff;
+  box-shadow: var(--d9-press);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 50px;
+  padding: 10px 16px;
+  background: var(--d9-canvas);
+  color: var(--d9-graph);
+  font: 400 18px/1.1 var(--display);
+  list-style: none;
+  cursor: pointer;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc summary::-webkit-details-marker {
+  display: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-toc, .a-toc[open]) summary::after {
+  content: none;
+  display: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc summary:focus-visible {
+  outline: 3px solid var(--d9-accent);
+  outline-offset: -5px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc-sign {
+  position: relative;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid rgba(243, 246, 250, 0.7);
+  border-radius: 2px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc-sign::before,
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc-sign::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--d9-accent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc-sign::after {
+  transform: rotate(90deg);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc[open] .a-toc-sign::after {
+  display: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc nav {
+  max-height: none;
+  padding: 10px 0 12px;
+  overflow: visible;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a {
+  position: relative;
+  display: block;
+  min-height: 0;
+  padding: 7px 16px 7px 36px;
+  border-radius: 0;
+  color: var(--d9-ink);
+  font: 500 14.5px/1.35 var(--sans);
+  text-decoration: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a::before {
+  content: "";
+  position: absolute;
+  left: 16px;
+  top: 0.92em;
+  width: 9px;
+  height: 9px;
+  border: 1.5px solid var(--d9-canvas);
+  background: var(--d9-accent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a.sub {
+  padding-left: 52px;
+  color: var(--d9-text-2);
+  font-size: 13.5px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a.sub::before {
+  left: 36px;
+  top: 1.02em;
+  width: 8px;
+  height: 2px;
+  border: 0;
+  background: var(--d9-field);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a:hover {
+  background: var(--d9-graph);
+  color: var(--d9-canvas);
+  text-decoration: none;
+}
+
+/* The section being read: an ink plate, like a pressed chip. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a[aria-current="true"],
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a[aria-current="true"]:hover {
+  background: var(--d9-canvas);
+  color: var(--d9-graph);
+  text-decoration: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a[aria-current="true"]::before {
+  border-color: var(--d9-graph);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a.sub[aria-current="true"]::before {
+  background: var(--d9-accent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a:focus-visible {
+  outline-offset: -3px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a[aria-current="true"]:focus-visible {
+  outline-color: var(--d9-accent);
+}
+
+@media (min-width: 1025px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc nav {
+    max-height: calc(100vh - var(--header-height, 71px) - 110px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+/* Below 1025px the contents sit closed above the article, in one column. */
+@media (max-width: 1024.98px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-layout {
+    display: block;
+    padding-top: 28px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc {
+    position: static;
+    width: auto;
+    margin-bottom: 34px;
+  }
+}
+
+/* ---------- Article: the post's drawing and its prose ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-article {
+  grid-column: 1;
+  grid-row: 1;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  color: var(--d9-ink);
+  font-size: var(--article-text-size, 18px);
+  line-height: 1.6;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-lead-art {
+  margin: 0 0 38px;
+  border: var(--d9-rule);
+  box-shadow: var(--d9-press);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-lead-art .b-art {
+  min-height: 0;
+  border: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose {
+  max-width: 64ch;
+  overflow-wrap: break-word;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose p {
+  margin: 0 0 1.05em;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose h2 {
+  margin: 2.1em 0 0.8em;
+  color: var(--d9-canvas);
+  font: 400 1.62em/1.12 var(--display);
+  scroll-margin-top: calc(var(--header-height, 71px) + 20px);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose > h2:first-child {
+  margin-top: 0.4em;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose h2::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 4px;
+  margin-top: 0.42em;
+  background: var(--d9-accent);
+  box-shadow: 2px 2px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose h3 {
+  margin: 1.7em 0 0.5em;
+  color: var(--d9-canvas);
+  font: 400 1.25em/1.2 var(--display);
+  scroll-margin-top: calc(var(--header-height, 71px) + 20px);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose h3::before {
+  content: "\00A7\00A0";
+  content: "\00A7\00A0" / "";
+  color: var(--d9-petal);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose h4 {
+  margin: 1.3em 0 0.4em;
+  color: var(--d9-canvas);
+  font: 700 1.02em/1.35 var(--sans);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(h2, h3):focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Bold text is a marker highlight across the letters in body ink, so it never reads as a link: links alone are canvas blue and underlined. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose strong {
+  color: var(--d9-ink);
+  font-weight: 700;
+  background-image: linear-gradient(transparent 18%, rgba(220, 182, 90, 0.32) 18%, rgba(220, 182, 90, 0.32) 90%, transparent 90%);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(h2, h3, h4, th, a) strong {
+  color: inherit;
+  background: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose a {
+  color: var(--d9-canvas);
+  text-decoration: underline;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose a:hover {
+  text-decoration-color: var(--d9-accent);
+  text-decoration-thickness: 3px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose code {
+  padding: 0.08em 0.35em;
+  border: 1px solid var(--d9-grid);
+  background: var(--d9-graph);
+  font-size: 0.9em;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(img, video) {
+  max-width: 100%;
+  height: auto;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose hr {
+  height: 0;
+  margin: 2.2em 0;
+  border: 0;
+  border-top: 1.5px dashed var(--d9-grid);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose blockquote {
+  margin: 1.2em 0 1.5em;
+  padding: 14px 18px;
+  border: 2px dashed var(--d9-field);
+  border-radius: 0;
+  background: #fff;
+  font-size: 0.94em;
+  line-height: 1.6;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+/* Bulleted lists: square gold keys. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(ul:not([class]), ul.template-clues) {
+  margin: 0 0 1.2em;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(ul:not([class]), ul.template-clues) > li {
+  position: relative;
+  margin: 0 0 0.7em;
+  padding-left: 1.7em;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(ul:not([class]), ul.template-clues) > li::before {
+  content: "";
+  position: absolute;
+  left: 0.25em;
+  top: 0.62em;
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid var(--d9-canvas);
+  background: var(--d9-accent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose li > :is(ul, ol) {
+  margin-top: 0.6em;
+}
+
+/* Numbered lists: a graph-paper plate with numbered chips, one column with flowing items. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose ol:not([class]) {
+  margin: 1.3em 5px 1.8em 0;
+  padding: 18px 20px 8px;
+  border: var(--d9-rule);
+  background-color: var(--d9-graph);
+  background-image: var(--d9-graph-lines);
+  background-size: var(--d9-graph-size);
+  box-shadow: var(--d9-press);
+  list-style: none;
+  counter-reset: d9-point;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose ol:not([class]) > li {
+  position: relative;
+  min-height: 28px;
+  margin: 0 0 12px;
+  padding-left: 46px;
+  line-height: 1.55;
+  counter-increment: d9-point;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose ol:not([class]) > li::before {
+  content: counter(d9-point, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 26px;
+  border: 1.5px solid var(--d9-canvas);
+  background: #fff;
+  color: var(--d9-ink);
+  font: 700 12px/1 var(--sans);
+}
+
+/* A numbered list inside another block goes back to plain numbers. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(li, td, th, blockquote, dd) ol:not([class]) {
+  margin: 0.4em 0 0.9em;
+  padding: 0 0 0 1.4em;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  list-style: decimal;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(li, td, th, blockquote, dd) ol:not([class]) > li {
+  display: list-item;
+  min-height: 0;
+  margin-bottom: 0.4em;
+  padding-left: 0.2em;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(li, td, th, blockquote, dd) ol:not([class]) > li::before {
+  content: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(li, td, th, blockquote, dd) ol:not([class]) > li::marker {
+  color: var(--d9-canvas);
+  font-weight: 700;
+}
+
+/* Reference tables: a white chart plate that scrolls inside its own box. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table {
+  max-width: 100%;
+  margin: 1.4em 5px 1.9em 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  border: var(--d9-rule);
+  border-radius: 0;
+  background: #fff;
+  box-shadow: var(--d9-press);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table:focus {
+  outline: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table:focus-visible {
+  outline: 3px solid var(--d9-ink);
+  outline-offset: 3px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: collapse;
+  border-style: hidden;
+  font-size: 0.84em;
+  line-height: 1.5;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.wide table {
+  min-width: 800px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose tr,
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose tr:nth-child(even) {
+  background: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose th {
+  padding: 12px 14px;
+  border: 1.5px solid var(--d9-canvas);
+  background: var(--d9-canvas);
+  color: var(--d9-surface);
+  font: 700 12px/1.35 var(--sans);
+  letter-spacing: 0.12em;
+  text-align: left;
+  text-transform: uppercase;
+  vertical-align: bottom;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose td {
+  padding: 11px 14px;
+  border: 1.5px solid var(--d9-grid);
+  background: #fff;
+  text-align: left;
+  vertical-align: top;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose tbody tr:nth-child(even) td {
+  background: var(--d9-surface);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose td:first-child {
+  color: var(--d9-canvas);
+  font-weight: 700;
+}
+
+/* A row heading in the body reads as the row's title on graph paper, not as a column head. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose tbody th {
+  border: 1.5px solid var(--d9-grid);
+  background: var(--d9-graph);
+  color: var(--d9-canvas);
+  font: 700 1em/1.45 var(--sans);
+  letter-spacing: 0;
+  text-transform: none;
+  vertical-align: top;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose td > :last-child {
+  margin-bottom: 0;
+}
+
+/* A wide chart holds its first column in place while the rest scrolls. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table:not(.stack) tr > :first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  box-shadow: 1.5px 0 0 var(--d9-grid);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table:not(.stack) thead tr > :first-child {
+  box-shadow: 1.5px 0 0 var(--d9-canvas);
+}
+
+/* ---------- Article: after the prose ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-after {
+  display: block;
+  margin: 56px 0 0;
+  padding: 0;
+  border: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-after .b-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 2px solid var(--d9-canvas);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--d9-canvas);
+  box-shadow: 3px 3px 0 var(--d9-canvas);
+  font: 700 15px/1.2 var(--sans);
+  letter-spacing: 0.02em;
+  word-spacing: 0.1em;
+  text-decoration: none;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-after .b-link:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-after .b-link:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-related, .a-signup, .a-comments) {
+  margin-top: 60px;
+  padding-top: 0;
+  border-top: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-related, .a-comments) h2 {
+  margin: 0 0 22px;
+  color: var(--d9-canvas);
+  font: 400 28px/1.12 var(--display);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-related, .a-comments) h2::after {
+  width: 64px;
+  margin-top: 12px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-related-links {
+  display: block;
+  margin: 0;
+  border-top: 1.5px dashed var(--d9-grid);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-related-links a {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 48px;
+  padding: 13px 4px;
+  border-bottom: 1.5px dashed var(--d9-grid);
+  color: var(--d9-canvas);
+  font: 700 17px/1.4 var(--sans);
+  text-decoration: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-related-links a::before {
+  content: "";
+  flex: none;
+  width: 11px;
+  height: 11px;
+  margin-top: 0.42em;
+  border: 1.5px solid var(--d9-canvas);
+  background: var(--d9-accent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-related-links a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--d9-accent);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 4px;
+}
+
+/* Newsletter: a graph-paper plate. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-signup {
+  padding: 30px 32px 32px;
+  border: var(--d9-rule);
+  border-radius: 0;
+  background-color: var(--d9-graph);
+  background-image: var(--d9-graph-lines);
+  background-size: var(--d9-graph-size);
+  box-shadow: var(--d9-press);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-signup h2 {
+  margin: 0;
+  color: var(--d9-canvas);
+  font: 400 26px/1.15 var(--display);
+  text-wrap: balance;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-signup p {
+  max-width: 56ch;
+  margin: 12px 0 20px;
+  color: var(--d9-ink);
+  font-size: 17px;
+  line-height: 1.6;
+  text-wrap: balance;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-signup form {
+  margin: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-signup-row {
+  display: flex;
+  gap: 10px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-signup-row, .a-field) :is(input, textarea) {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 2px solid var(--d9-canvas);
+  border-radius: 2px;
+  background: #fff;
+  color: var(--d9-ink);
+  font: 400 16px/1.4 var(--sans);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-signup-row, .a-field) :is(input, textarea):hover {
+  border-color: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-signup-row, .a-field) :is(input, textarea):focus {
+  border-color: var(--d9-canvas);
+  outline: 3px solid var(--d9-ink);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-signup-row, .a-field) :is(input, textarea)::placeholder {
+  color: var(--d9-text-2);
+  opacity: 1;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-signup-row, .a-field) [aria-invalid="true"] {
+  border-color: var(--d9-petal);
+  box-shadow: 3px 3px 0 var(--d9-ochre);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-signup-row .b-button {
+  flex: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-signup .a-signup-done {
+  margin: 16px 0 0;
+  padding: 14px 16px;
+  border: 2px dashed var(--d9-canvas);
+  background: #fff;
+  color: var(--d9-canvas);
+  font-weight: 700;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-form-error {
+  margin: 8px 0 0;
+  color: var(--d9-petal);
+  font-size: 14.5px;
+  font-weight: 700;
+}
+
+/* Comments */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comments-empty {
+  margin: 0;
+  padding: 16px 18px;
+  border: 2px dashed var(--d9-field);
+  background: #fff;
+  color: var(--d9-text-2);
+  font-size: 16px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment-list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment {
+  margin: 0;
+  padding: 16px 18px;
+  border: 1.5px solid var(--d9-grid);
+  background: #fff;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin: 0;
+  color: var(--d9-ink);
+  font-size: 15px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment-meta time {
+  color: var(--d9-field);
+  font: 700 12px/1.3 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment-body {
+  margin: 6px 0 0;
+  color: var(--d9-ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment-form {
+  display: grid;
+  gap: 16px;
+  margin-top: 22px;
+  padding: 24px 24px 26px;
+  border: var(--d9-rule);
+  background: #fff;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment-note {
+  color: var(--d9-text-2);
+  font-size: 15px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-field label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--d9-ink);
+  font-size: 14.5px;
+  font-weight: 700;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-optional {
+  color: var(--d9-text-2);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-field textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment-sent {
+  padding: 12px 14px;
+  border: 2px dashed var(--d9-canvas);
+  color: var(--d9-canvas);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment-form .b-button {
+  justify-self: start;
+}
+
+/* A missing article and the loading line sit on the field band, their text on the page column. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-missing, section.a-missing) {
+  max-width: none;
+  margin: 0;
+  padding-inline: max(var(--pad, 32px), calc((100% - 1116px) / 2));
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-missing h1 {
+  color: var(--d9-graph);
+  font: 400 clamp(34px, 4.5vw, 60px)/1.05 var(--display);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-missing .b-button {
+  border-color: var(--d9-ink);
+  background: var(--d9-accent);
+  color: var(--d9-ink);
+  box-shadow: 3px 3px 0 var(--d9-ink);
+}
+
+/* ---------- Posts' own blocks, enclosed on every side in the theme's plates ---------- */
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-callout {
+  border: 2px dashed var(--d9-field);
+  border-radius: 0;
+  background: #fff;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-callout.is-rule {
+  border: var(--d9-rule);
+  box-shadow: var(--d9-press);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-resource-card {
+  margin: 1.6em 5px 2em 0;
+  padding: 18px 20px;
+  border: var(--d9-rule);
+  border-radius: 0;
+  background: #fff;
+  box-shadow: var(--d9-press);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-resource-kicker {
+  display: table;
+  margin: 0 0 10px;
+  padding: 5px 12px 6px;
+  background: var(--d9-accent);
+  box-shadow: 3px 3px 0 var(--d9-canvas);
+  color: var(--d9-ink);
+  font: 700 12px/1.4 var(--sans);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: rotate(-0.6deg);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-resource-title {
+  margin: 0;
+  color: var(--d9-canvas);
+  font: 400 1.12em/1.3 var(--display);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-resource-note {
+  margin: 0.4em 0 0;
+}
+
+/* The RC main-idea formats post: format cards as pressed plates, reveals as dashed folds. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-format-card,
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-variation-card {
+  margin: 1.4em 5px 2em 0;
+  padding: 18px 20px;
+  border: var(--d9-rule);
+  border-radius: 0;
+  background: #fff;
+  box-shadow: var(--d9-press);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-format-card + .template-format-card {
+  margin-top: 2.2em;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-format-card + .template-format-card::before {
+  content: none;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-context {
+  border: 1.5px solid var(--d9-grid);
+  border-radius: 0;
+  background: var(--d9-graph);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-qid {
+  border: 1.5px solid var(--d9-canvas);
+  border-radius: 0;
+  background: var(--d9-graph);
+  color: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-topic {
+  color: var(--d9-text-2);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-reveal {
+  border: 1.5px dashed var(--d9-canvas);
+  border-radius: 0;
+  background: #fff;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-reveal summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-reveal summary::before {
+  color: var(--d9-petal);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-reveal[open] summary {
+  border-bottom: 1.5px dashed var(--d9-grid);
+  background: var(--d9-graph);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-variation-card > p > strong {
+  color: var(--d9-canvas);
+  font-size: 12px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .template-slot {
+  border-bottom: 1px solid rgba(161, 125, 51, 0.4);
+  border-radius: 0;
+  background: linear-gradient(to top, rgba(220, 182, 90, 0.3) 0%, rgba(220, 182, 90, 0.3) 38%, transparent 38%);
+  color: var(--d9-canvas);
+}
+
+/* The conditional logic guide: its notation and drawings in the site palette, its blocks as plates. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-sym {
+  border: 1px solid var(--d9-grid);
+  border-radius: 0;
+  background: var(--d9-surface);
+  color: var(--d9-ink);
+  font-family: var(--sans);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-arr {
+  color: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-arr-label {
+  color: var(--d9-petal);
+  font-family: var(--sans);
+  font-size: max(12px, 0.66em);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-arr-q .cl-arr-line {
+  border-top-color: var(--d9-ochre);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-neg {
+  color: var(--d9-petal);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(.cl-card-term, .cl-chart-term, .cl-step-do, .cl-dots-term) {
+  color: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(.cl-chart-note, .cl-chart-eg-text, .cl-panel-note, .cl-dots-note, .cl-dots-caption, .cl-pair-label) {
+  color: var(--d9-text-2);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(.cl-chart, .cl-panel, .cl-chain) {
+  margin-right: 5px;
+  border: var(--d9-rule);
+  border-radius: 0;
+  background: #fff;
+  box-shadow: var(--d9-press);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-chart-group + .cl-chart-group {
+  border-top: var(--d9-rule);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-chart-group :is(.cl-chart-title) {
+  background: var(--d9-canvas);
+  color: var(--d9-graph);
+  font-size: 12px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-chart-group.is-necessary .cl-chart-title {
+  background: var(--d9-field);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-chart-group :is(.cl-chart-note) {
+  border-bottom: 1.5px dashed var(--d9-grid);
+  background: var(--d9-graph);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-chart-row + .cl-chart-row,
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(.cl-panel-note, .cl-panel-rows) {
+  border-top: 1.5px dashed var(--d9-grid);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-panel-note + .cl-panel-rows {
+  border-top: 0;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-cards > li {
+  margin-right: 3px;
+  border: var(--d9-rule);
+  border-radius: 0;
+  background: #fff;
+  box-shadow: 3px 3px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-pair-side {
+  border: var(--d9-rule);
+  border-radius: 0;
+  background: #fff;
+  box-shadow: 3px 3px 0 var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-pair-side.is-flip {
+  border-color: var(--d9-canvas);
+  background-color: var(--d9-graph);
+  background-image: var(--d9-graph-lines);
+  background-size: var(--d9-graph-size);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-steps > li::marker {
+  color: var(--d9-petal);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-chain-row:is(.is-follows, .is-does-not-follow) {
+  border-top: 1.5px dashed var(--d9-grid);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-chain-label {
+  border-radius: 0;
+  background: var(--d9-graph);
+  color: var(--d9-text-2);
+  font-size: 12px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-chain-row.is-follows .cl-chain-label {
+  box-shadow: inset 0 0 0 1.5px var(--gt-sage);
+  background: #fff;
+  color: var(--gt-sage);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-chain-row.is-does-not-follow .cl-chain-label {
+  box-shadow: inset 0 0 0 1.5px var(--gt-bad);
+  background: #fff;
+  color: var(--gt-bad);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-chain-row.is-follows .cl-sym {
+  border-color: var(--gt-sage);
+  background: var(--gt-sage-wash);
+  color: var(--d9-ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-chain-row.is-does-not-follow .cl-sym {
+  border-color: var(--gt-bad);
+  background: var(--gt-bad-wash);
+  color: var(--d9-ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-dots-row {
+  border: 1.5px solid var(--d9-canvas);
+  border-radius: 0;
+  background: #fff;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(.cl-art-ring, .cl-art-box) {
+  fill: #fff;
+  stroke: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(.cl-art-ring.is-outer, .cl-art-box.is-inner) {
+  fill: var(--d9-surface);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-art-ring.is-marked {
+  fill: var(--d9-graph);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-art-ring.is-second {
+  fill: rgba(220, 182, 90, 0.45);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-art-ring.is-tint {
+  fill: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-art-outline {
+  stroke: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-art-shape {
+  fill: var(--d9-graph);
+  stroke: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-hatch-line {
+  stroke: var(--d9-accent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-pict.is-a > * {
+  fill: var(--d9-accent);
+  stroke: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(.cl-pict.is-b > *, .cl-pict-ground) {
+  fill: var(--d9-field);
+  stroke: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-pict-stripe {
+  stroke: var(--d9-accent);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-pict.is-both > * {
+  stroke: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-art-label {
+  fill: var(--d9-ink);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-art-label.is-warn {
+  fill: var(--d9-petal);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-art-label.is-you {
+  fill: var(--d9-field);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-dot {
+  fill: #fff;
+  stroke: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .cl-dot.is-filled {
+  fill: var(--d9-accent);
+  stroke: var(--d9-petal);
+}
+
+/* The RC question type map post (its fuller published form): family and question cards as pressed
+   plates, labels at least 12px, and no bar on one edge of the introduction. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(.article-intro, .family-overview-card, .question-card) {
+  margin-right: 5px;
+  border: var(--d9-rule);
+  border-radius: 0;
+  background: #fff;
+  box-shadow: var(--d9-press);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose :is(.article-eyebrow, .section-kicker, .table-label, .field-label) {
+  color: var(--d9-petal);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .field-label {
+  color: var(--d9-text-2);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .trap-box .field-label {
+  color: var(--gt-bad);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .overview-icon-wrap {
+  border-radius: 0;
+  background: var(--d9-graph);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .overview-types {
+  color: var(--d9-petal);
+  font-size: 12px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .overview-question {
+  color: var(--d9-text-2);
+  font-size: 15px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .overview-side {
+  grid-column: 1 / -1;
+  padding: 0.75rem 0 0;
+  border-left: 0;
+  border-top: 1.5px dashed var(--d9-grid);
+  color: var(--d9-text-2);
+  font-size: 14px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .section-heading {
+  border-bottom: 1.5px dashed var(--d9-grid);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .family-share {
+  border: 1.5px solid var(--d9-canvas);
+  border-radius: 0;
+  background: var(--d9-graph);
+  color: var(--d9-canvas);
+  font-size: 12px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .section-intro {
+  color: var(--d9-text-2);
+  font-size: 16px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .question-card-head {
+  border-bottom: 1.5px dashed var(--d9-grid);
+  background: var(--d9-graph);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .question-number {
+  color: var(--d9-petal);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .card-context {
+  border: 0;
+  background: var(--d9-surface);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .question-card-body :is(p, li) {
+  color: var(--d9-ink);
+  font-size: 15px;
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .trap-box {
+  border-top: 1.5px dashed var(--d9-grid);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .trap-box strong {
+  color: var(--d9-canvas);
+}
+
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .stuck-box {
+  border: 2px dashed var(--d9-field);
+  background: #fff;
+}
+
+/* An older wrapper around a chart; the chart's own plate carries the look. */
+:where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .table-scroll {
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+}
+
+/* ---------- Narrower screens ---------- */
+
+@media (max-width: 1100px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 960px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 500px);
+    gap: 64px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-feature {
+    max-width: none;
+  }
+}
+
+/* Touch widths: controls at least 44px tall, form fields at 16px so a phone does not zoom. */
+@media (max-width: 1024px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-filter, .b-finder-toggle, .b-sort, .a-tool, .a-tools-toggle, .a-toc summary, .a-crumb a, .b-link) {
+    min-height: 44px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-clear {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+    margin-right: 0;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(input, select, textarea),
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-search input, .b-sort) {
+    font-size: max(16px, 1em);
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search {
+    min-height: 48px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search input {
+    height: 44px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-sort {
+    min-height: 48px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a::before {
+    top: 50%;
+    margin-top: -5px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-toc a.sub::before {
+    margin-top: -1px;
+  }
+}
+
+/* On a phone: the chips ride one scrolling row and search and sort fold behind the Filters toggle;
+   the article tools fold behind the Tools toggle inside the byline plate. */
+@media (max-width: 767px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-split-intro .b-feature {
+    display: none;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0 10px;
+  }
+
+  /* The chip row scrolls sideways; its right edge fades so a cut-off chip reads as "more this way". The end
+     padding lets the last chip clear the fade once scrolled. */
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-filters {
+    grid-column: 1;
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin: -6px 0 -9px -6px;
+    padding: 6px 56px 9px 6px;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 56px), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 56px), transparent);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 6px;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-filters > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-filter {
+    padding: 0 12px;
+    font-size: 14px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-finder-toggle {
+    display: inline-flex;
+    grid-column: 2;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search-wrap {
+    display: none;
+    grid-column: 1 / -1;
+    width: auto;
+    margin: 18px 0 0;
+    padding: 14px;
+    gap: 12px;
+    border: var(--d9-rule);
+    background-color: var(--d9-graph);
+    background-image: var(--d9-graph-lines);
+    background-size: var(--d9-graph-size);
+    box-shadow: var(--d9-press);
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-controls[data-finder-open] .b-search-wrap {
+    display: flex;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-search {
+    flex: 1 1 220px;
+    width: auto;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-sort {
+    flex: 1 1 160px;
+    width: 100%;
+    max-width: none;
+    min-height: 48px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-byline {
+    gap: 10px 12px;
+    padding: 12px 14px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-author-row {
+    gap: 12px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-portrait {
+    width: 48px;
+    height: 48px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-tool-set {
+    display: contents;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-tools-toggle {
+    display: inline-flex;
+    height: 46px;
+    margin-left: auto;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-utility {
+    display: none;
+    flex-basis: 100%;
+    gap: 8px;
+    padding: 10px;
+    border: 2px dashed var(--d9-canvas);
+    background: var(--d9-graph);
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-tool-set[data-open] .a-utility {
+    display: flex;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-utility .a-tool {
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 700px) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-mast {
+    padding: 42px 0 56px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-intro h1 {
+    font-size: 48px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-intro > p {
+    font-size: 18px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-actions .b-button {
+    width: 100%;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-library {
+    padding-top: 40px;
+    padding-bottom: 72px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-controls {
+    margin-bottom: 28px;
+    padding-bottom: 26px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-card-main {
+    padding: 0 18px 16px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-empty {
+    padding: 26px 22px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta {
+    padding: 52px 0 56px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience .b-cta .b-button {
+    width: 100%;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-top {
+    padding: 28px 0 70px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-head h1 {
+    font-size: 34px;
+    line-height: 1.14;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-head .a-deck {
+    font-size: 18px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose ol:not([class]) {
+    padding: 16px 16px 6px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-related, .a-comments) h2 {
+    font-size: 25px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-signup {
+    padding: 24px 20px 26px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-signup-row {
+    flex-direction: column;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-signup-row .b-button, .a-after .b-link, .a-comment-form .b-button) {
+    width: 100%;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment-form {
+    padding: 20px 16px 22px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-comment-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* A narrow chart stacks into one enclosed record per row, each cell under its column label. */
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack {
+    padding: 0 4px 4px 0;
+    overflow: visible;
+    border: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack :is(table, tbody, tr, td, tbody th) {
+    display: block;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack table {
+    min-width: 0;
+    border-style: none;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack tr {
+    border: 2px solid var(--d9-ink);
+    background: #fff;
+    box-shadow: 4px 4px 0 var(--d9-ink);
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack tr + tr {
+    margin-top: 20px;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack tbody :is(td, th),
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack tbody tr:nth-child(even) :is(td, th) {
+    padding: 10px 16px 12px;
+    border: 0;
+    background: #fff;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack tbody :is(td, th) + :is(td, th) {
+    border-top: 1.5px dashed var(--d9-grid);
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack tbody :is(td, th)[data-label]::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 3px;
+    color: var(--d9-petal);
+    font: 700 12px/1.35 var(--sans);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack tbody tr > :first-child,
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack tbody tr:nth-child(even) > :first-child {
+    background: var(--d9-ink);
+    color: var(--d9-graph);
+    font: 400 1.18em/1.3 var(--display);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack tbody tr > :first-child::before {
+    color: var(--d9-accent);
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-prose .a-table.stack tbody tr > :first-child :is(strong, b, em, a) {
+    color: inherit;
+    background: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :where(.sunlit[data-sb-doc="marketing"]) .blog-experience :is(.b-card, .b-feature, .b-filter, .b-finder-toggle, .b-button, .a-tool, .a-tools-toggle, .b-link, .b-read svg) {
+    transition: none;
+  }
+}
+
+@media print {
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience :is(.a-toc, .a-after, .a-related, .a-tool-set, .a-status, .a-crumb a, .a-lead-art, .b-cta) {
+    display: none !important;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-top {
+    border: 0;
+    background: #fff;
+    color: var(--d9-ink);
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-top::after {
+    display: none;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-head :is(h1, .a-deck) {
+    color: var(--d9-ink);
+    text-shadow: none;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-byline {
+    margin-top: 0;
+    box-shadow: none;
+  }
+
+  :where(.sunlit[data-sb-doc="marketing"]) .article-experience .a-layout {
+    display: block;
+  }
+}
+
+/* From client/src/sunlit/styles/candidate/marketing.css: the page body type every marketing page inherits. */
+:where(.sunlit[data-sb-doc="marketing"]) *,:where(.sunlit[data-sb-doc="marketing"]) *::before,:where(.sunlit[data-sb-doc="marketing"]) *::after{box-sizing:border-box}
+:where(.sunlit[data-sb-doc="marketing"]) div:where(.sunlit-body){margin:0;background:#F3F6FA;color:#14243B;font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:clip}
