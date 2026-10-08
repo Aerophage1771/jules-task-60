@@ -1,0 +1,3 @@
+## Goal: an Instagram carousel
+
+A complete Instagram carousel (4:5, 1080×1350 per slide, up to 20 slides) plus the caption, first comment and per-slide alt text. Instagram's register is one rule per slide: a concrete tension or mistake to open, one teachable idea per slide, and a save, practice or reply action to close. The original eight slides are in `source/renders/day-3__lr-map__slide-0*.png`; make a new carousel that teaches more per swipe without crowding, and consider whether the "one argument, six tasks" worked example belongs in it. Files: `src/opus-instagram.html`, `copy/opus-instagram.md`.

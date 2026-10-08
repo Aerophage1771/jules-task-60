@@ -1,0 +1,3 @@
+## Goal: a graphic Reddit post (4:3 landscape)
+
+A Reddit image post for r/LSAT: at least one 4:3 landscape graphic (for example 1600×1200 or 2000×1500) and the post itself (title, body in Reddit markdown, image alt text). The graphic must work at Reddit's feed size on a phone, so it carries one idea at a glance and rewards a zoom. Reddit readers punish promotion: teach completely in the post, keep the business connection to one honest disclosure line with the link, and make the body useful even without the image. Files: `src/opus-reddit.html`, `copy/opus-reddit.md` (title, two alternate titles, body, alt text, and a one-paragraph note on why this framing suits r/LSAT).
